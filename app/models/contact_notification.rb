@@ -1,0 +1,2 @@
+class ContactNotification < ApplicationRecord
+end

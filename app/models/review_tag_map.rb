@@ -1,0 +1,2 @@
+class ReviewTagMap < ApplicationRecord
+end

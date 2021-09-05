@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  visitor_id: 1
+  visited: 1
+  message_id: 1
+  is_checked: false
+
+two:
+  visitor_id: 1
+  visited: 1
+  message_id: 1
+  is_checked: false

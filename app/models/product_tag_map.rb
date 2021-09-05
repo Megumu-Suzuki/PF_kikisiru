@@ -1,0 +1,2 @@
+class ProductTagMap < ApplicationRecord
+end
