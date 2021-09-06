@@ -1,0 +1,15 @@
+<% @products.each do |product| %>
+  <tbody>
+    <td>
+      <% if product.images.attached? %>
+        <%= image_tag product.images.variant(resize:'100x100') %>
+      <% else %>
+        <%= image_tag 'no_image.jpg' %>
+      <% end %>
+    </td>
+      
+    <td>
+      <%= link to product.name, product_path %>
+    </td>
+  </tbody>
+<% end %>

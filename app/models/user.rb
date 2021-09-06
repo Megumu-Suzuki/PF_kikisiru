@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  #プロフィール画像
+  has_one_attached :profile_image
 
   def full_name
     "#{last_name} #{first_name}"

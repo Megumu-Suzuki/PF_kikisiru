@@ -1,0 +1,16 @@
+<% @rooms.each do |room| %>
+  <tbody>
+    <td>
+      <%= room.entry.user.name %>
+      <% if room.entry.user.image.attached? %>
+        <%= image_tag room.entry.user.image.variant(resize:'100x100') %>
+      <% else %>
+        <%= image_tag 'no_image.jpg' %>
+      <% end %>
+    </td>
+
+    <td>
+      <%= link to room.entry.user.name, room_path(room.id) %>
+    </td>
+  </tbody>
+<% end %>
