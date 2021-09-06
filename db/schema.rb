@@ -139,21 +139,22 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "genre_id"
-    t.string "title"
+    t.string "title", limit: 30, null: false
     t.text "description"
-    t.string "type"
+    t.string "model", null: false
     t.integer "price"
     t.string "manufacture"
     t.integer "width"
     t.integer "depth"
     t.integer "height"
-    t.integer "weight"
-    t.string "fuel"
-    t.integer "power_consumplion"
-    t.integer "gas_consumplion"
-    t.boolean "allow_edit"
+    t.float "weight"
+    t.string "phase"
+    t.float "power_consumption"
+    t.float "city_gas"
+    t.float "propane_gas"
+    t.boolean "allow_edit", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

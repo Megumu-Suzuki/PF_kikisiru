@@ -1,0 +1,88 @@
+<%= form_with model: @product, url: products_path, local:true do |f| %>
+
+  <!--<div class="field">-->
+    <%#= f.label :"機器画像" %><br />
+    <%#= f.fields_for :product_images do |product_image| %>
+      <%#= f.file_field :product_image, multiple: true %>
+
+      <%#= f.label :"画像説明" %><br />
+      <%#= f.text_field :product_image_description %>
+    <%# end %>
+  <!--</div>-->
+
+
+  <div class="field">
+    <%= f.label :"*機器名" %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"メーカー" %><br />
+    <%= f.select :manufacture, Product.manufactures.keys.to_a, {}, { class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*型式" %><br />
+    <%= f.text_field :model %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"定価" %><br />
+    <%= f.text_field :price %>円
+  </div>
+
+  <div class="field">
+    <%= f.label :"間口" %><br />
+    <%= f.text_field :width %>mm
+  </div>
+
+  <div class="field">
+    <%= f.label :"奥行" %><br />
+    <%= f.text_field :depth %>mm
+  </div>
+
+  <div class="field">
+    <%= f.label :"高さ" %><br />
+    <%= f.text_field :height %>mm
+  </div>
+
+  <div class="field">
+    <%= f.label :"重量" %><br />
+    <%= f.text_field :weight %>kg
+  </div>
+
+  <div class="field">
+    <%= f.label :"電源" %><br />
+    <%= f.select :phase, Product.phases.keys.to_a, {}, { class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"消費電力" %><br />
+    <%= f.text_field :power_consumption %>kW
+  </div>
+
+  <div class="field">
+    <%= f.label :"ガス消費量(都市ガス)" %><br />
+    <%= f.text_field :city_gas %>kW
+  </div>
+
+  <div class="field">
+    <%= f.label :"ガス消費量(LPガス)" %><br />
+    <%= f.text_field :propane_gas %>kW
+  </div>
+
+  <div class="field">
+    <%= f.radio_button :allow_edit, :true, checked: true %>
+      <strong>編集可能</strong></br>
+    <%= f.radio_button :allow_edit, :false %>
+      <strong>編集不可</strong>
+  </div>
+
+  <div class="field">
+    <%= f.label :"説明" %><br />
+    <%= f.text_area :description, placeholder: "その他機器の説明や特徴をお書きください" %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+
+<% end %>
