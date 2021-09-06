@@ -1,21 +1,22 @@
 class CreateProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :products do |t|
-      t.integer :user_id
+      t.integer :user_id, null: false
       t.integer :genre_id
-      t.string :title
+      t.string :title, null: false, limit: 30
       t.text :description
-      t.string :type
+      t.string :model, null: false, unique: true
       t.integer :price
       t.string :manufacture
       t.integer :width
       t.integer :depth
       t.integer :height
-      t.integer :weight
-      t.string :fuel
-      t.integer :power_consumplion
-      t.integer :gas_consumplion
-      t.boolean :allow_edit
+      t.float :weight
+      t.string :phase
+      t.float :power_consumption
+      t.float :city_gas
+      t.float :propane_gas
+      t.boolean :allow_edit, null: false, default: true
 
       t.timestamps
     end
