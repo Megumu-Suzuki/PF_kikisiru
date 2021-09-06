@@ -1,0 +1,6 @@
+<%= @user.full_name %>
+<%= link_to "投稿一覧", product_user_path(params[:id]) %>
+<%= link_to "レビュー一覧", review_user_path(params[:id]) %>
+<%= link_to "いいね一覧", favorite_user_path(params[:id]) %>
+<%= link_to "チャット一覧", room_user_path(params[:id]) %>
+<%= link_to "ユーザー情報編集", edit_user_path(params[:id]) %>

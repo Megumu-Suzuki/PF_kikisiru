@@ -1,0 +1,42 @@
+<%= form_with model: @user, url: user_path(@user.id), local: true do |f| %>
+
+<%= image_tag @user.image %>
+<div class="field">
+    <%= f.label :"*苗字" %><br />
+    <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*名前" %><br />
+    <%= f.text_field :first_name, placeholder: "太郎" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*苗字(カナ)" %><br />
+    <%= f.text_field :last_name_kana, placeholder: "キキ" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*名前(カナ)" %><br />
+    <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"ニックネーム" %><br />
+    <%= f.text_field :nickname, placeholder: "この名前で表示されます" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"電話番号(ハイフンなし)" %><br />
+    <%= f.text_field :phone_number, placeholder: "01234567890" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*メールアドレス" %><br />
+    <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新" %>
+  </div>
+<% end %>

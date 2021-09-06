@@ -204,8 +204,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
     t.string "last_name_kana", limit: 15, null: false
     t.string "first_name_kana", limit: 15, null: false
     t.string "nickname", limit: 15
-    t.string "profile_image"
-    t.string "phone_number", null: false
+    t.string "phone_number"
     t.boolean "is_deleted", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

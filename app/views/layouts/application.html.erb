@@ -4,12 +4,50 @@
     <title>Kikisiru</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <%= image_tag 'logo_transparent.png', style: "height: 50px;" %>
+        </a>
+        <div class="container-fluid justify-content-end">
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <a class="nav-link text-dark">
+                  <% if current_user.nickname.present? %>
+                    <%= current_user.nickname %>さん
+                  <% else %>
+                    匿名<%= current_user.id %>さん
+                  <% end %>
+                </a>
+
+              </li>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <%= link_to "通知", notifications_path, class:"nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録/ログイン", new_user_session_path, class: "nav-link text-dark" %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
+    <footer class="text-center">
+      ©︎kikisiru.com
+    </footer>
   </body>
 </html>
