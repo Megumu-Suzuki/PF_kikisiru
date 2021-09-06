@@ -18,6 +18,7 @@
         <div class="container-fluid justify-content-end">
           <ul class="navbar-nav">
             <% if user_signed_in? %>
+              <!--ログイン時のヘッダー-->
               <li class="nav-item">
                 <a class="nav-link text-dark">
                   <% if current_user.nickname.present? %>
@@ -26,21 +27,34 @@
                     匿名<%= current_user.id %>さん
                   <% end %>
                 </a>
-
               </li>
+
               <li class="nav-item">
                 <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
               </li>
+
+              <li class="nav-item">
+                <%= link_to "通知", notifications_path, class:"nav-link text-dark" %>
+              </li>
+
+              <li class="nav-item">
+                <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+              </li>
+
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
+              </li>
+            <% else %>
+
+              <!--ログイン前のヘッダー-->
+              <li class="nav-item">
+                <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+              </li>
+
+              <li class="nav-item">
+                <%= link_to "新規登録/ログイン", new_user_session_path, class: "nav-link text-dark" %>
+              </li>
             <% end %>
-            <li class="nav-item">
-              <%= link_to "通知", notifications_path, class:"nav-link text-dark" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "新規登録/ログイン", new_user_session_path, class: "nav-link text-dark" %>
-            </li>
           </ul>
         </div>
       </nav>

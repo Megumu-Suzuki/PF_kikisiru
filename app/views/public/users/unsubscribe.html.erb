@@ -1,0 +1,11 @@
+<div class="text-center">
+        <h1 style="font-family: 'Kosugi Maru', sans-serif; font-size: 3em;">
+          本当に退会しますか？
+        </h1>
+        <h3>
+          退会すると、会員登録情報やこれまでの投稿履歴が閲覧できなくなります。</br>
+          退会する場合は、「退会する」をクリックしてください。
+        </h3>
+          <%= link_to "退会しない", edit_user_path, class: "btn btn-primary btn-lg mr-1" %>
+          <%= link_to "退会する", withdraw_user_path(current_user), method: :patch, class: "btn btn-danger btn-lg mr-1" %>
+      </div>

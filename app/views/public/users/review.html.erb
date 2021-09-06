@@ -1,0 +1,23 @@
+<% @reviews.each do |review| %>
+  <tbody>
+    <td>
+      <% if review.product.images.attached? %>
+        <%= image_tag product.images.variant(resize:'100x100') %>
+      <% else %>
+        <%= image_tag 'no_image.jpg' %>
+      <% end %>
+    </td>
+
+    <td>
+      <%= link to review.product.name, product_path %>
+    </td>
+
+    <td>
+      <%= review.comment %>
+    </td>
+
+    <td>
+      <%= review.evaluation %>
+    </td>
+  </tbody>
+<% end %>

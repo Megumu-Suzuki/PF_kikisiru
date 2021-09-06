@@ -1,7 +1,22 @@
 <%= form_with model: @user, url: user_path(@user.id), local: true do |f| %>
 
-<%= image_tag @user.image %>
-<div class="field">
+  <% if @user.profile_image.attached? %>
+      <div class="field">
+        <%= f.label :profile_image do %>
+          <%= image_tag @user.profile_image.variant(resize:'100x100') %>
+          <%= f.file_field :profile_image, style: 'display:none' %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= f.label :profile_image do %>
+          <%= image_tag 'no_image.jpg' %>
+          <%= f.file_field :profile_image, style: 'display:none' %>
+        <% end %>
+      </div>
+    <% end %>
+
+  <div class="field">
     <%= f.label :"*苗字" %><br />
     <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
   </div>
@@ -37,6 +52,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "更新" %>
+    <%= f.submit "更新", class: "btn btn-outline-success" %>
   </div>
 <% end %>
+<%= link_to "退会", unsubscribe_user_path(@user.id), class: "btn btn-outline-danger" %>

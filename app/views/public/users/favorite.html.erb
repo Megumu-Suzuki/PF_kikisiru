@@ -1,0 +1,15 @@
+<% @favorites.each do |favorite| %>
+  <tbody>
+    <td>
+      <% if favorite.product.images.attached? %>
+        <%= image_tag product.images.variant(resize:'100x100') %>
+      <% else %>
+        <%= image_tag 'no_image.jpg' %>
+      <% end %>
+    </td>
+    
+    <td>
+      <%= link to favorite.product.name, product_path %>
+    </td>
+  </tbody>
+<% end %>

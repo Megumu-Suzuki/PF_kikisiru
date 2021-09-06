@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find_by(params[:id])
+    @products = Product.where(user_id: params[:id])
   end
 
   def edit
@@ -27,9 +28,9 @@ class Public::UsersController < ApplicationController
     reset_session
     redirect_to root_path, notice: "退会しました"
   end
-  
+
   def product
-    @products = Product.where(usre_id: params[:id])
+    @products = Product.where(user_id: params[:id])
   end
 
   def favorite
@@ -42,10 +43,11 @@ class Public::UsersController < ApplicationController
 
   def room
     @rooms = Room.where(user_id: current_user)
+    @entries = @rooms.entries
   end
 
   private
     def user_params
-      params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email)
+      params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image)
     end
 end
