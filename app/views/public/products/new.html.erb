@@ -1,4 +1,4 @@
-<%= form_with model: @product, url: products_path, local:true do |f| %>
+<%= form_with model: @product, url: confirm_products_path, local:true do |f| %>
 
   <!--<div class="field">-->
     <%#= f.label :"機器画像" %><br />
@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :"メーカー" %><br />
-    <%= f.select :manufacture, Product.manufactures.keys.to_a, {}, { class: 'form-control'} %>
+    <%= f.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'} %>
   </div>
 
   <div class="field">
@@ -53,7 +53,7 @@
 
   <div class="field">
     <%= f.label :"電源" %><br />
-    <%= f.select :phase, Product.phases.keys.to_a, {}, { class: 'form-control'} %>
+    <%= f.select :phase, Product.phases.keys, {include_blank: '選択してください'} %>
   </div>
 
   <div class="field">
@@ -72,17 +72,19 @@
   </div>
 
   <div class="field">
-    <%= f.radio_button :allow_edit, :true, checked: true %>
-      <strong>編集可能</strong></br>
-    <%= f.radio_button :allow_edit, :false %>
-      <strong>編集不可</strong>
-  </div>
-
-  <div class="field">
     <%= f.label :"説明" %><br />
     <%= f.text_area :description, placeholder: "その他機器の説明や特徴をお書きください" %>
   </div>
 
-  <%= f.submit "投稿する" %>
+  <div class="field">
+    <%= f.label :"編集権限" %><br />
+    <%= f.radio_button :allow_edit, :true, checked: true %>
+      <strong>誰でも編集可能</strong></br>
+    <%= f.radio_button :allow_edit, :false %>
+      <strong>投稿者本人のみ</strong>
+  </div>
+
+  <%= f.submit "確認画面へ進む", class: "btn btn-primary"%>
+  
 
 <% end %>
