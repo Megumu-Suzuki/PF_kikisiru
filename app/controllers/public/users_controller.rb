@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
 
   def show
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
     @products = Product.where(user_id: params[:id])
   end
 
@@ -39,6 +39,7 @@ class Public::UsersController < ApplicationController
   end
 
   def review
+    @user = User.find_by(id: params[:id])
     @reviews = Review.where(user_id: params[:id])
   end
 
@@ -48,7 +49,9 @@ class Public::UsersController < ApplicationController
   end
 
   private
-    def user_params
-      params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image)
-    end
+
+  def user_params
+    params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image)
+  end
+  
 end

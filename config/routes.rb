@@ -28,14 +28,16 @@ Rails.application.routes.draw do
       collection do
         post 'confirm'
       end
-    end
-
-    #レビューの記述
-    resources :reviews do
-      collection do
-        post 'confirm'
+      #レビューの記述
+      resources :reviews do
+        collection do
+          post 'confirm'
       end
     end
+
+    end
+
+
 
     #チャットルームの記述
     resources :rooms, only: [:create,:show] do
