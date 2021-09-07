@@ -34,6 +34,7 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
+    @user = User.find_by(id: params[:id])
     @favorites = Favorite.where(user_id: params[:id])
   end
 

@@ -5,6 +5,9 @@
       <td><%= @product.title %></td>
     </tr>
   </tbody>
+  <div class="favorite-<%= @product.id %>">
+   <%= render 'public/favorites/favorite-btn', product: @product %>
+  </div>
 
   <tbody>
     <tr>

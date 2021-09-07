@@ -7,9 +7,14 @@
         <%= image_tag 'no_image.jpg' %>
       <% end %>
     </td>
-    
+
     <td>
-      <%= link_to favorite.product.name, product_path %>
+      <%= link_to favorite.product.title, product_path %>
     </td>
+
+    <td class="favorite-<%= favorite.product.id %>">
+      <%= render 'public/favorites/favorite-btn', product: favorite.product %>
+    </td>
+
   </tbody>
 <% end %>

@@ -6,7 +6,10 @@ class User < ApplicationRecord
   #プロフィール画像
   has_one_attached :profile_image
   has_many :products, dependent: :destroy
-  
+  #いいね機能
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_products, through: :favorites, source: :book
+
   def full_name
     "#{last_name} #{first_name}"
   end
