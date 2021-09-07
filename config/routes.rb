@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
     #商品の記述
     resources :products, except: [:destroy] do
+      member do
+        get 'image'
+        patch 'addition'
+      end
       #いいね機能の記述
       resource :favorites, only: [:create, :destroy]
       collection do

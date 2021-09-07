@@ -1,14 +1,14 @@
 <%= form_with model: @product, url: product_path, local:true do |f| %>
 
-  <!--<div class="field">-->
-    <%#= f.label :"機器画像" %><br />
-    <%#= f.fields_for :product_images do |product_image| %>
-      <%#= f.file_field :product_image, multiple: true %>
+  <div class="field">
+    <%= f.label :"機器画像" %><br />
+    <%= f.fields_for :product_images do |pi| %>
+      <%= pi.file_field :images %>
 
-      <%#= f.label :"画像説明" %><br />
-      <%#= f.text_field :product_image_description %>
-    <%# end %>
-  <!--</div>-->
+      <%= pi.label :"画像説明" %><br />
+      <%= pi.text_field :description %>
+    <% end %>
+  </div>
 
 
   <div class="field">

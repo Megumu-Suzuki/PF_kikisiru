@@ -30,6 +30,7 @@ class Public::UsersController < ApplicationController
   end
 
   def product
+    @user = User.find(params[:id])
     @products = Product.where(user_id: params[:id])
   end
 
@@ -53,5 +54,5 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image)
   end
-  
+
 end

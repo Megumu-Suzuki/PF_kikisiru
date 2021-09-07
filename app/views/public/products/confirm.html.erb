@@ -1,5 +1,4 @@
 <h1>投稿内容をご確認ください</h1>
-
 <table>
   <tbody>
     <tr>
@@ -109,5 +108,5 @@
   <%= f.hidden_field :description, value: @product.description %>
   <%= f.hidden_field :allow_edit, value: @product.allow_edit %>
   <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-primary" %>
-  <%= f.submit "投稿する", class: "btn btn-primary" %>
+  <%= f.submit "内容を確定し画像の投稿へ", class: "btn btn-primary" %>
 <% end %>

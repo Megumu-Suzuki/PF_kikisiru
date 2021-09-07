@@ -7,12 +7,12 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.text :description
       t.string :model, null: false, unique: true
       t.integer :price
-      t.string :manufacture
+      t.integer :manufacture
       t.integer :width
       t.integer :depth
       t.integer :height
       t.float :weight
-      t.string :phase
+      t.integer :phase
       t.float :power_consumption
       t.float :city_gas
       t.float :propane_gas

@@ -59,7 +59,17 @@
         </div>
       </nav>
     </header>
-    <%= link_to "機器投稿ページ", new_product_path %>
+    <% if flash[:alert] %>
+      <div class="alert">
+        <%= flash[:alert] %>
+      </div>
+    <% elsif flash[:notice] %>
+      <div class="notice">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+  　<% end %>
+    <%= link_to "機器投稿ページ", new_product_path %><br>
     <%= yield %>
     <footer class="text-center">
       ©︎kikisiru.com
