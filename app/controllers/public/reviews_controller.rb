@@ -7,7 +7,7 @@ class Public::ReviewsController < ApplicationController
   
   def confirm
     @review = Review.new(review_params)
-  endgit 
+  end
 
   def create
     @product = Product.find(params[:product_id])

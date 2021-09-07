@@ -1,16 +1,6 @@
+<%= render 'header', user: @user %>
 <% @favorites.each do |favorite| %>
-  <tbody>
-    <td>
-      <% if favorite.product.images.attached? %>
-        <%= image_tag product.images.variant(resize:'100x100') %>
-      <% else %>
-        <%= image_tag 'no_image.jpg' %>
-      <% end %>
-    </td>
-
-    <td>
-      <%= link_to favorite.product.title, product_path %>
-    </td>
+  <%= render 'index', product: favorite.product %>
 
     <td class="favorite-<%= favorite.product.id %>">
       <%= render 'public/favorites/favorite-btn', product: favorite.product %>

@@ -1,15 +1,16 @@
 class Product < ApplicationRecord
 
   belongs_to :user
+  #商品画像
   has_many :product_images, dependent: :destroy
+  accepts_nested_attributes_for :product_images, allow_destroy: true
   #いいね機能
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
   #レビュー機能
   has_many :reviews, dependent: :destroy
 
-  has_many_attached :images
-  accepts_nested_attributes_for :product_images, allow_destroy: true
+  
 
   #すでにお気に入りされているかどうかを判定
   def favorited_by?(user)

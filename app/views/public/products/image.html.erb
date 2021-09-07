@@ -1,0 +1,14 @@
+<%= form_with model: @product, url: addition_product_path, local:true do |f| %>
+
+  <div class="field">
+    <%= f.label :"機器画像" %><br />
+    <%= f.fields_for :product_images do |pi| %>
+      <%= pi.file_field :images %>
+
+      <%= pi.label :"画像説明" %><br />
+      <%= pi.text_field :description %>
+    <% end %>
+  </div>
+
+  <%= f.submit "画像を確定する", class: "btn btn-primary" %>
+<% end %>
