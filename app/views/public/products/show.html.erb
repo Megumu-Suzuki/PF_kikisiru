@@ -1,0 +1,86 @@
+<table>
+  <tbody>
+    <tr>
+      <th><strong>商品名</strong></th>
+      <td><%= @product.title %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>メーカー</strong></th>
+      <td><%= @product.manufacture %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>型式</strong></th>
+      <td><%= @product.model %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>定価</strong></th>
+      <td><%= @product.price %>円</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>定価</strong></th>
+      <td><%= @product.width %>×<% @product.depth %>×<%= @product.height %>mm</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>重量</strong></th>
+      <td><%= @product.weight %>kg</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>電源</strong></th>
+      <td><%= @product.phase %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>消費電力</strong></th>
+      <td><%= @product.power_consumption %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>ガス消費量(都市ガス)</strong></th>
+      <td><%= @product.city_gas %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>ガス消費量(PLガス)</strong></th>
+      <td><%= @product.propane_gas %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>商品説明</strong></th>
+      <td><%= @product.description %></td>
+    </tr>
+  </tbody>
+</table>
+<% if @product.allow_edit == true %>
+  <%= link_to "編集ページ", edit_product_path %>
+<% end %>
+
+<%# @reviews.each do |review| %>
+<%#= review.comment %>
+<%#= review.evaluation %>
+<%# end %>
