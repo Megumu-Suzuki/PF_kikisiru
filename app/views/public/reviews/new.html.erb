@@ -1,0 +1,23 @@
+<h1>レビューを投稿</h1>
+<%= form_with(model:[@product, @review], local: true) do |f| %>
+  <div>
+    <%= f.label :"内容" %>
+    <%= f.text_area :comment, size: "100x5" %>
+  </div>
+
+  <div id="evaluate_stars">
+    <label>評価</label>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[evaluation]',
+    half: true
+  });
+</script>

@@ -1,0 +1,26 @@
+<h1>レビュ一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>レビュー内容</th>
+      <th>評価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product.reviews.each do |review| %>
+      <tr>
+        <td><%= review.comment %></td>
+        <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $('.review-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
