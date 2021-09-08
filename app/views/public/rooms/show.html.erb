@@ -1,0 +1,42 @@
+<div class="left-button">
+  <%= link_to "チャット一覧に戻る", room_user_path(current_user), class:"edit-link" %>
+</div>
+<h4 class="rooms-title">トークメンバー</h4>
+<% @entries.each do |e| %>
+  <div class="user-name">
+  <strong>
+    <%#= attachment_image_tag e.user, :profile_image, size: "40x40", format: 'jpeg', class:"attachment user profile_image fallback", fallback: "no_image.jpg" %>
+      <a class="rooms-user-link" href="/users/<%= e.user.id %>">
+        <% if e.user.nickname.present? %>
+          <%= e.user.nickname %>さん
+        <% else %>
+          匿名<%= e.user.id %>さん
+        <% end %>
+      </a>
+  </strong>
+  </div>
+<% end %>
+<hr>
+<div class="chats">
+  <div class="chat">
+    <% if @direct_messages.present? %>
+      <% @direct_messages.each do |m| %>
+        <div class="chat-box">
+          <div class="chat-face">
+    				<%#= attachment_image_tag m.user, :profile_image, size: "40x40", format: 'jpeg', class:"attachment user profile_image fallback", fallback: "no_image.jpg" %>
+          </div>
+          <div class="chat-hukidashi"> <strong><%= m.message %></strong> <br>
+            <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="posts">
+    <%= form_with model: @direct_message, local:true do |f| %>
+      <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+          <%= f.submit "投稿",class: 'form-submit'%>
+    <% end %>
+  </div>
+</div>

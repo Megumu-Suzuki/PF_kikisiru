@@ -1,16 +1,5 @@
 <%= form_with model: @product, url: confirm_products_path, local:true do |f| %>
 
-  <!--<div class="field">-->
-    <%#= f.label :"機器画像" %><br />
-    <%#= f.fields_for :product_images do |product_image| %>
-      <%#= f.file_field :product_image %>
-
-      <%#= f.label :"画像説明" %><br />
-      <%#= f.text_field :product_image_description %>
-    <%# end %>
-  <!--</div>-->
-
-
   <div class="field">
     <%= f.label :"*機器名" %><br />
     <%= f.text_field :title %>

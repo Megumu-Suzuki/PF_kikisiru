@@ -1,0 +1,10 @@
+nickname さんとチャットを始めますか
+<%= form_with model: @room, url: rooms_path, local:true do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :product_id, value: @product.id %>
+  <%= f.hidden_field :title, value: @review.title %>
+  <%= f.hidden_field :comment, value: @review.comment %>
+  <%= f.hidden_field :evaluation, value: @review.evaluation %>
+  <%= f.submit "戻る", name: :return, class: "btn btn-primary" %>
+  <%= f.submit "チャットを始める", class: "btn btn-primary" %>
+<% end %>

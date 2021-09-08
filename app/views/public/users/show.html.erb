@@ -1,5 +1,26 @@
 <%= render 'header', user: @user %>
 <% @products.each do |product| %>
-<%= render 'index', product: product %>
+  <%= render 'index', product: product %>
+<% end %>
+
+<div class="dm box">
+  <% unless @user.id == current_user.id %>
+  	<% if @haveRoom ==  true %>
+  		<p>
+  			<%= link_to room_path(@roomId) do %>
+  			  <p>チャットへ</p>
+  			<% end %>
+  		</p>
+  	<% else %>
+  		<%= form_with model: @room, url: rooms_path, local:true do |f| %>
+  			<%= fields_for @entry do |e| %>
+  				<%= e.hidden_field :user_id, value: @user.id %>
+  			<% end %>
+  			<%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
+  				<p>チャットを始める</p>
+  			<% end %>
+  		<% end %>
+  	<% end %>
   <% end %>
+</div>
 
