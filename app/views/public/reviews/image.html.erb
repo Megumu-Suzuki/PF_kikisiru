@@ -1,0 +1,14 @@
+<!--レビュー画像登録ページ-->
+<%= form_with model: @review, url: addition_product_review_path, local:true do |s| %>
+  <div class="reviews">
+    <%= s.fields_for :review_images do |t| %>
+      <%= render "review_image_fields", f: t %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association "画像を追加する", s, :review_images, class: 'btn' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= s.submit "画像を確定する", class: "btn btn-primary" %>
+  </div>
+<% end %>

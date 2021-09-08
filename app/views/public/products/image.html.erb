@@ -1,14 +1,14 @@
-<%= form_with model: @product, url: addition_product_path, local:true do |f| %>
-
-  <div class="field">
-    <%= f.label :"機器画像" %><br />
-    <%= f.fields_for :product_images do |pi| %>
-      <%= pi.file_field :images %>
-
-      <%= pi.label :"画像説明" %><br />
-      <%= pi.text_field :description %>
+<!--商品画像登録ページ-->
+<%= form_with model: @product, url: addition_product_path, local:true do |s| %>
+  <div class="products">
+    <%= s.fields_for :product_images do |t| %>
+      <%= render "product_image_fields", f: t %>
     <% end %>
+    <div class="links">
+      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+    </div>
   </div>
-
-  <%= f.submit "画像を確定する", class: "btn btn-primary" %>
+  <div class="actions">
+    <%= s.submit "画像を確定する", class: "btn btn-primary" %>
+  </div>
 <% end %>

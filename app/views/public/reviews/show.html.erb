@@ -1,3 +1,4 @@
+<!-----------------------商品情報----------------------------------------------------------------------->
 <% if @product.product_images %>
   <% @product.product_images.each do |product_image| %>
     <% product_image.images.each do |image| %>
@@ -7,8 +8,47 @@
   <% end %>
 <% else %>
   <%= image_tag 'no_image.jpg' %>
+<% end %><br>
+<%= link_to @product.title, product_path(@product.id) %><br>
+
+<!---------------------レビューした会員の情報------------------------------------------------------------->
+<% if @user.profile_image.attached? %>
+  <%= image_tag @user.profile_image.variant(resize:'50x50') %>
+<% else %>
+  <%= image_tag 'no_image.jpg' %>
 <% end %>
 
+<% if @user.nickname.present? %>
+  <%= @user.nickname %>
+<% else %>
+  匿名<%= @user.id %>さんのレビュー
+<% end %><br>
+
+<!---------------------レビュー情報------------------------------------------------------------->
+<div class="review-evaluation" data-score="<%= @review.evaluation %>"></div><div><%= @review.evaluation %></div>
+<% if @user.id == current_user.id %>
+  <%= link_to "レビュー編集ページ", edit_product_review_path(@product.id, @review.id) %>
+<% end %><br>
+<%# @average = 0 %>
+<%# @review.evaluations.each do |evaluation| %>
+  <%# @average += (evaluation.score / @user.evaluation.count) %>
+<%# end %>
+<%#= @average %>
+
+<%= @review.title %>
+<%= @review.comment %>
+<% if @review.review_images %>
+  <% @review.review_images.each do |review_image| %>
+    <% review_image.images.each do |image| %>
+      <%= image_tag image.variant(resize:'100x100') %>
+    <% end %>
+    <%= review_image.description %>
+  <% end %>
+<% end %>
+
+<div class="favorite-<%= @product.id %>">
+  <%= render 'public/favorites/favorite-btn', product: @product %>
+</div>
 <table>
   <tbody>
     <tr>
@@ -16,9 +56,6 @@
       <td><%= @product.title %></td>
     </tr>
   </tbody>
-  <div class="favorite-<%= @product.id %>">
-   <%= render 'public/favorites/favorite-btn', product: @product %>
-  </div>
 
   <tbody>
     <tr>
@@ -91,17 +128,14 @@
   </tbody>
 </table>
 <% if @product.allow_edit == true %>
-  <%= link_to "編集ページ", edit_product_path %>
+  <%= link_to "商品編集ページ", edit_product_path %>
 <% end %>
 <h1>レビュ一覧</h1>
 <table>
   <thead>
     <tr>
-      <th>タイトル</th>
       <th>レビュー内容</th>
       <th>評価</th>
-      <th>画像</th>
-      <th>画像説明</th>
     </tr>
   </thead>
   <tbody>
@@ -110,20 +144,6 @@
         <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
         <td><%= review.comment %></td>
         <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
-        <% if review.review_images %>
-          <% review.review_images.each do |review_image| %>
-            <td>
-              <% review_image.images.each do |image| %>
-                <%= image_tag image.variant(resize:'100x100') %>
-              <% end %>
-            </td>
-          <td>
-            <%= review_image.description %>
-          </td>
-          <% end %>
-        <% else %>
-          <%= image_tag 'no_image.jpg' %>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -137,5 +157,3 @@
     path: '/assets/'
   });
 </script>
-
- <%= link_to "レビュー投稿", new_product_review_path(@product.id) %>

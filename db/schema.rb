@@ -176,8 +176,9 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id"
     t.integer "product_id"
-    t.text "comment"
-    t.float "evaluation"
+    t.string "title", null: false
+    t.text "comment", null: false
+    t.float "evaluation", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
