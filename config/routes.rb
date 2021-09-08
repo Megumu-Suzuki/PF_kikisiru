@@ -27,19 +27,23 @@ Rails.application.routes.draw do
         get 'image'
         patch 'addition'
       end
-      #いいね機能の記述
-      resource :favorites, only: [:create, :destroy]
       collection do
         post 'confirm'
       end
+      #いいね機能の記述
+      resource :favorites, only: [:create, :destroy]
       #レビューの記述
       resources :reviews do
+        member do
+          get 'image'
+          patch 'addition'
+        end
         collection do
           post 'confirm'
+        end
       end
     end
 
-    end
 
 
 

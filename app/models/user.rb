@@ -9,9 +9,10 @@ class User < ApplicationRecord
   has_many :products, dependent: :destroy
   #レビュー機能
   has_many :reviews, dependent: :destroy
+  has_many :review_products, through: :reviews, source: :product
   #いいね機能
   has_many :favorites, dependent: :destroy
-  has_many :favorite_products, through: :favorites, source: :book
+  has_many :favorite_products, through: :favorites, source: :product
 
   def full_name
     self.last_name + " " + self.first_name

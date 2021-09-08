@@ -2,7 +2,6 @@ class Public::ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @product.product_images.new
   end
 
   def confirm
@@ -21,12 +20,14 @@ class Public::ProductsController < ApplicationController
       @product = Product.new(product_params)
     end
   end
-
+  
+  #商品画像登録ページ
   def image
     @product = Product.find(params[:id])
-    @product.product_images.new
+    @product_images = @product.product_images.build
   end
-
+  
+  #商品画像登録
   def addition
     @product = Product.find(params[:id])
     if @product.update(product_params)
@@ -41,6 +42,8 @@ class Public::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @reviews = Review.where(product_id: @product.id)
+
   end
 
   def edit

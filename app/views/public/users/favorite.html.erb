@@ -1,10 +1,12 @@
 <%= render 'header', user: @user %>
-<% @favorites.each do |favorite| %>
-  <%= render 'index', product: favorite.product %>
-
-    <td class="favorite-<%= favorite.product.id %>">
-      <%= render 'public/favorites/favorite-btn', product: favorite.product %>
-    </td>
-
-  </tbody>
+<h2>いいねした機器</h2>
+<% if @favorites.exists? %>
+  <% @user.favorite_products.each do |product| %>
+    <%= render 'index', product: product %>
+    <div class="favorite-<%= product.id %>">
+      <%= render 'public/favorites/favorite-btn', product: product %>
+    </div>
+  <% end %>
+<% else %>
+	<p>いいねしている機器はありません</p>
 <% end %>

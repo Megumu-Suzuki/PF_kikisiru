@@ -92,7 +92,7 @@
 </table>
 
 <%= form_with model: @product, url: products_path, local:true do |f| %>
-  <%= f.hidden_field :user_id, value:current_user.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :title, value: @product.title %>
   <%= f.hidden_field :manufacture, value: @product.manufacture %>
   <%= f.hidden_field :model, value: @product.model %>
