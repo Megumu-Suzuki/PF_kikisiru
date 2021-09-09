@@ -24,15 +24,17 @@ class Public::ReviewsController < ApplicationController
       @review = Review.new(review_params)
     end
   end
-  #レビュー画像登録ページ
+  #レビュータグ、画像登録ページ
   def image
     @review = Review.find(params[:id])
-    @review.review_images.new
+    @review_images = @review.review_images.build
   end
-  #レビュー画像登録
+  #レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
+    tag_list = params[:review][:name].split("、")
     if @review.update(review_params)
+      @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "画像を登録しました"
     else
       flash.now[:alert] = "画像の登録に失敗しました"

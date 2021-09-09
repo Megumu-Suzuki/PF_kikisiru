@@ -20,7 +20,7 @@ class Public::UsersController < ApplicationController
 				@entry = Entry.new
       end
     end
-  @products = Product.where(user_id: params[:id])
+    @products = Product.where(user_id: params[:id])
   end
 
   def edit
@@ -33,7 +33,7 @@ class Public::UsersController < ApplicationController
       redirect_to edit_user_path(current_user), notice: '会員情報を変更しました'
     else
       flash.now[:alert] = "会員情報を変更できませんでした"
-      render :edit
+      redirect_to request.referer
     end
   end
 

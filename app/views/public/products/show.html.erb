@@ -90,6 +90,17 @@
     </tr>
   </tbody>
 </table>
+
+<% @product.tags.each do |tag| %>
+  <%= tag.name %>(<%= tag.products.count %>)<br>
+<% end %>
+<% @reviews.each do |review| %>
+  <% review.tags.each do |tag| %>
+    <%= tag.name %><br>
+  <% end %>
+<% end %>
+
+
 <% if @product.allow_edit == true %>
   <%= link_to "編集ページ", edit_product_path %>
 <% end %>

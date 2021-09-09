@@ -1,5 +1,11 @@
 <!--商品画像登録ページ-->
 <%= form_with model: @product, url: addition_product_path, local:true do |s| %>
+
+  <div class ="tags-field">
+    <%= s.label "タグ" %>
+    <%= s.text_field :name %>
+  </div>
+
   <div class="products">
     <%= s.fields_for :product_images do |t| %>
       <%= render "product_image_fields", f: t %>
@@ -9,6 +15,6 @@
     </div>
   </div>
   <div class="actions">
-    <%= s.submit "画像を確定する", class: "btn btn-primary" %>
+    <%= s.submit "投稿する", class: "btn btn-primary" %>
   </div>
 <% end %>
