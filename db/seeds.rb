@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 User.create!(email: 'test@gmail.com', password: '111111', last_name: '鈴木', first_name: '萌', last_name_kana: 'スズキ', first_name_kana: 'メグム', is_deleted: 'true')
+User.create!(email: 'test1@gmail.com', password: '222222', last_name: 'テスト', first_name: '太郎', last_name_kana: 'テスト', first_name_kana: 'タロウ', is_deleted: 'true')
