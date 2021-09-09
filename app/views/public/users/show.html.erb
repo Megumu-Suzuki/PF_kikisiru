@@ -5,12 +5,10 @@
 
 <div class="dm box">
   <% unless @user.id == current_user.id %>
-  	<% if @haveRoom ==  true %>
-  		<p>
-  			<%= link_to room_path(@roomId) do %>
-  			  <p>チャットへ</p>
-  			<% end %>
-  		</p>
+  	<% if @have_room ==  true %>
+			<%= link_to room_path(@room_id) do %>
+			  <p>チャットへ</p>
+			<% end %>
   	<% else %>
   		<%= form_with model: @room, url: rooms_path, local:true do |f| %>
   			<%= fields_for @entry do |e| %>

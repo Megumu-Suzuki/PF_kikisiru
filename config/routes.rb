@@ -48,11 +48,7 @@ Rails.application.routes.draw do
 
 
     #チャットルームの記述
-    resources :rooms, only: [:create,:show] do
-      collection do
-        post 'confirm'
-      end
-    end
+    resources :rooms, only: [:create,:show]
 
     #チャットの記述
     resources :direct_messages, only: [:create]

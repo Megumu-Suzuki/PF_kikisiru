@@ -19,13 +19,16 @@
 <% end %>
 
 <% if @user.nickname.present? %>
-  <%= @user.nickname %>
+  <%= link_to @user.nickname, user_path(@user.id) %>
 <% else %>
-  匿名<%= @user.id %>さんのレビュー
+  <%= link_to user_path(@user.id) do %>
+    匿名<%= @user.id %>さんのレビュー
+  <% end %>
 <% end %><br>
 
 <!---------------------レビュー情報------------------------------------------------------------->
-<div class="review-evaluation" data-score="<%= @review.evaluation %>"></div><div><%= @review.evaluation %></div>
+<div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
+<div><%= @review.evaluation %></div>
 <% if @user.id == current_user.id %>
   <%= link_to "レビュー編集ページ", edit_product_review_path(@product.id, @review.id) %>
 <% end %><br>
@@ -144,11 +147,13 @@
         <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
         <td><%= review.comment %></td>
         <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
+        <td><%= review.evaluation %></div></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <script>
+$('.review-evaluation').empty();
   $('.review-evaluation').raty({
     readOnly: true,
     score: function() {

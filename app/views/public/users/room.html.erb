@@ -1,16 +1,24 @@
-<% @rooms.each do |room| %>
-  <tbody>
-    <td>
-      <%= room.entry.user.name %>
-      <% if room.entry.user.image.attached? %>
-        <%= image_tag room.entry.user.image.variant(resize:'100x100') %>
-      <% else %>
-        <%= image_tag 'no_image.jpg' %>
-      <% end %>
-    </td>
+<% if @entries.exists? %>
+  <% @another_entries.each do |entry| %>
 
-    <td>
-      <%= link to room.entry.user.name, room_path(room.id) %>
-    </td>
-  </tbody>
+    <% if entry.user.nickname.present? %>
+      <%= link_to user_path(entry.user.id) do %>
+        <%= entry.user.nickname %>さん
+      <% end %>
+    <% else %>
+      <%= link_to user_path(entry.user.id) do %>
+        匿名<%= entry.user.id %>さん
+      <% end %>
+    <% end %><br>
+
+    <% if entry.user.profile_image.attached? %>
+      <%= image_tag entry.user.profile_image.variant(resize:'100x100') %>
+    <% else %>
+      <%= image_tag 'no_image.jpg' %>
+    <% end %>
+    <%= link_to "チャットへ", room_path(entry.room.id) %>
+  <% end %><br>
+<% else %>
+  <p>チャットはありません</p>
 <% end %>
+

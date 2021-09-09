@@ -13,6 +13,9 @@ class User < ApplicationRecord
   #いいね機能
   has_many :favorites, dependent: :destroy
   has_many :favorite_products, through: :favorites, source: :product
+  #チャット機能
+  has_many :direct_messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   def full_name
     self.last_name + " " + self.first_name
