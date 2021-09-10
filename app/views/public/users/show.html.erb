@@ -5,20 +5,20 @@
 
 <div class="dm box">
   <% unless @user.id == current_user.id %>
-  	<% if @have_room ==  true %>
-			<%= link_to room_path(@room_id) do %>
-			  <p>チャットへ</p>
-			<% end %>
-  	<% else %>
-  		<%= form_with model: @room, url: rooms_path, local:true do |f| %>
-  			<%= fields_for @entry do |e| %>
-  				<%= e.hidden_field :user_id, value: @user.id %>
-  			<% end %>
-  			<%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
-  				<p>チャットを始める</p>
-  			<% end %>
-  		<% end %>
-  	<% end %>
+    <% if @have_room ==  true %>
+      <%= link_to room_path(@room_id) do %>
+        <p>チャットへ</p>
+      <% end %>
+    <% else %>
+      <%= form_with model: @room, url: rooms_path, local:true do |f| %>
+        <%= fields_for @entry do |e| %>
+          <%= e.hidden_field :user_id, value: @user.id %>
+        <% end %>
+        <%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
+          <p>チャットを始める</p>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
 

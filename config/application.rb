@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+#config.logger = Logger.new(STDOUT)
+
 module Kikisiru
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

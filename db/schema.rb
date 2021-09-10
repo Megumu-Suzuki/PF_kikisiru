@@ -63,7 +63,10 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
     t.integer "user_id"
     t.integer "admin_user_id"
     t.integer "contact_id"
-    t.text "message"
+    t.string "name"
+    t.string "email"
+    t.string "subject"
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,10 +82,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
 
   create_table "contacts", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
-    t.string "subject"
-    t.text "body"
-    t.boolean "is_completed"
+    t.boolean "is_completed", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
