@@ -1,0 +1,66 @@
+<% if @user_contact.present? %>
+  <% @contact_messages.each do |contact| %>
+  <table>
+    <tbody>
+      <tr>
+        <th><strong>名前</strong></th>
+        <td><%= contact.name %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>メールアドレス</strong></th>
+        <td><%= contact.email %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>件名</strong></th>
+        <td><%= contact.subject %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>本文</strong></th>
+        <td><%= contact.body %></td>
+      </tr>
+    </tbody>
+  </table>
+ <% end %>
+<% else %>
+  <%= form_with model: @contact, url: confirm_contacts_path, local:true do |f| %>
+    <%= fields_for @contact_message do |e| %>
+      <div class="field">
+        <%= e.label :"名前" %><br>
+        <%= e.text_field :name, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= e.label :"メールアドレス" %><br>
+        <%= e.email_field :email, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= e.label :"件名" %><br>
+        <%= e.text_field :subject %>
+      </div>
+
+      <div class="field">
+        <%= e.label :"本文" %><br>
+        <%= e.text_area :body %>
+      </div>
+      <% if current_user.present? %>
+        <%= e.hidden_field :user_id, value: current_user.id %>
+      <% end %>
+    <% end %>
+    <% if current_user.present? %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    <% end %>
+    <%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
+      <p>内容を確認する</p>
+    <% end %>
+  <% end %>
+<% end %>

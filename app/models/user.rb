@@ -16,6 +16,10 @@ class User < ApplicationRecord
   #チャット機能
   has_many :direct_messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+  #問い合わせ機能
+  has_many :contacts, dependent: :destroy
+  has_many :contact_messages, dependent: :destroy
+
 
   def full_name
     self.last_name + " " + self.first_name

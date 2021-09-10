@@ -1,0 +1,47 @@
+<h1>投稿内容をご確認ください</h1>
+<table>
+  <tbody>
+    <tr>
+      <th><strong>名前</strong></th>
+      <td><%= @contact_message.name %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>メールアドレス</strong></th>
+      <td><%= @contact_message.email %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>件名</strong></th>
+      <td><%= @contact_message.subject %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>本文</strong></th>
+      <td><%= @contact_message.body %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with model: @contact, url: contacts_path, local:true do |f| %>
+  <% if current_user.present? %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  <% end %>
+    <%= fields_for @contact_message do |e| %>
+      <%= e.hidden_field :name, value: @contact_message.name %>
+      <%= e.hidden_field :email, value: @contact_message.email %>
+      <%= e.hidden_field :subject, value: @contact_message.subject %>
+      <%= e.hidden_field :body, value: @contact_message.body %>
+      <% if current_user.present? %>
+        <%= e.hidden_field :user_id, value: current_user.id %>
+      <% end %>
+    <% end %>
+  <%= f.submit "問い合わせ内容を修正する", name: :back, class: "btn btn-primary" %>
+  <%= f.submit "内容を確定し送信する", class: "btn btn-primary" %>
+<% end %>

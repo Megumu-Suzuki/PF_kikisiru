@@ -10,7 +10,6 @@ class Public::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    # tag_list = params[:product][:tag_name].split(nil)
     render :new and return if params[:back]
     @product.user_id = current_user.id
     if @product.save

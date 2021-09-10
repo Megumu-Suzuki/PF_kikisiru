@@ -4,7 +4,10 @@ class CreateContactMessages < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.integer :admin_user_id
       t.integer :contact_id
-      t.text :message
+      t.string :name
+      t.string :email
+      t.string :subject
+      t.text :body
 
       t.timestamps
     end
