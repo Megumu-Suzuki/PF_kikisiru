@@ -4,7 +4,7 @@
   <%= f.hidden_field 'search[model]', value: "product" %>
   <%= f.submit "商品検索", class: "btn btn-outline-success" %>
 <% end %>
-<h3>カテゴリー検索</h3>
+<h3>ジャンル検索</h3>
 <% @genres.each do |tag| %>
   <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': ganre, genre_id: genre.id) %> (<%= genre.products.count %>)
 <% end %>
@@ -12,4 +12,14 @@
 <% @tags.each do |tag| %>
   <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %> (<%= tag.products.count %>)
 <% end %>
-<h3>なんらかのランキング？</h3>
+<h3>検索結果</h3>
+<% if @model == 'product' %>
+  <h4>商品名『<%= @value %>』で商品を検索</h4>
+<% elsif @model == 'genre' %>
+  <h4>ジャンル『<%= @genre.name %>』で商品を検索</h4>
+<% elsif @model == 'tag' %>
+  <h4>タグ『<%= @tag.name %>』で商品を検索</h4>
+<% end %>
+<% @datas.each do |product| %>
+    <%= link_to product.title, product_path(product.id) %><br>
+<% end %>

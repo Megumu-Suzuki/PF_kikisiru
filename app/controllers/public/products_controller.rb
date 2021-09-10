@@ -10,6 +10,7 @@ class Public::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    # tag_list = params[:product][:tag_name].split(nil)
     render :new and return if params[:back]
     @product.user_id = current_user.id
     if @product.save
@@ -20,17 +21,19 @@ class Public::ProductsController < ApplicationController
       @product = Product.new(product_params)
     end
   end
-  
-  #商品画像登録ページ
+
+  #商品タグ、画像登録ページ
   def image
     @product = Product.find(params[:id])
     @product_images = @product.product_images.build
   end
-  
-  #商品画像登録
+
+  #タグ、商品画像登録
   def addition
     @product = Product.find(params[:id])
+    tag_list = params[:product][:name].split(",")
     if @product.update(product_params)
+      @product.save_tag(tag_list)
       redirect_to product_path(@product.id), notice: "画像を登録しました"
     else
       flash.now[:alert] = "画像の登録に失敗しました"
@@ -43,7 +46,6 @@ class Public::ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = Review.where(product_id: @product.id)
-
   end
 
   def edit
