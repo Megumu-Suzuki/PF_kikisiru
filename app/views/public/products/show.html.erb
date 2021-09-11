@@ -8,7 +8,7 @@
 <% else %>
   <%= image_tag 'no_image.jpg' %>
 <% end %>
-
+<div class="review-average" data-score=<%= @average_review %>></div><%= @average_review %>
 <table>
   <tbody>
     <tr>
@@ -91,13 +91,8 @@
   </tbody>
 </table>
 
-<% @product.tags.each do |tag| %>
+<% @tags.each do |tag| %>
   <%= tag.name %>(<%= tag.products.count %>)<br>
-<% end %>
-<% @reviews.each do |review| %>
-  <% review.tags.each do |tag| %>
-    <%= tag.name %><br>
-  <% end %>
 <% end %>
 
 
@@ -111,6 +106,7 @@
       <th>タイトル</th>
       <th>レビュー内容</th>
       <th>評価</th>
+      <th></th>
       <th>画像</th>
       <th>画像説明</th>
     </tr>
@@ -121,6 +117,7 @@
         <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
         <td><%= review.comment %></td>
         <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
+        <td><%= review.evaluation %></td>
         <% if review.review_images %>
           <% review.review_images.each do |review_image| %>
             <td>
@@ -133,7 +130,7 @@
           </td>
           <% end %>
         <% else %>
-          <%= image_tag 'no_image.jpg' %>
+          <%= image_tag 'no_image.jpg', size: '100x100'%>
         <% end %>
       </tr>
     <% end %>
@@ -142,6 +139,16 @@
 <script>
   $('.review-evaluation').empty();
     $('.review-evaluation').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
       readOnly: true,
       score: function() {
         return $(this).attr('data-score');

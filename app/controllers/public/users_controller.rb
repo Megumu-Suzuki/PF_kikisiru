@@ -53,20 +53,17 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
-    @user = User.find_by(id: params[:id])
-    @favorites = Favorite.where(user_id: params[:id])
+    @user = current_user
+    @favorites = current_user.favorites
   end
 
   def review
-    @user = User.find_by(id: params[:id])
-    @reviews = Review.where(user_id: params[:id])
+    @user = current_user
+    @reviews = current_user.reviews
   end
 
   def room
-    @entries = Entry.where(user_id: current_user.id)
-    @entries.each do |entry|
-      @another_entries = Entry.where(room_id: entry.room.id).where.not(user_id: current_user)
-    end
+    @rooms = current_user.rooms
   end
 
   private

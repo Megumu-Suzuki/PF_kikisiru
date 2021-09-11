@@ -32,7 +32,8 @@ class Public::ReviewsController < ApplicationController
   #レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
-    tag_list = params[:review][:name].split("、")
+    @product = @review.product.id
+    tag_list = params[:review][:name].split(",")
     if @review.update(review_params)
       @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "画像を登録しました"
