@@ -1,23 +1,25 @@
-<% if @entries.exists? %>
-  <% @another_entries.each do |entry| %>
-
-    <% if entry.user.nickname.present? %>
-      <%= link_to user_path(entry.user.id) do %>
-        <%= entry.user.nickname %>さん
+<% if @rooms.exists? %>
+  <% @rooms.each do |room| %>
+    <% room.users.each do |user| %>
+      <% unless user.id == current_user.id %>
+        <% if user.nickname.present? %>
+          <%= link_to user_path(user.id) do %>
+            <%= user.nickname %>さん
+          <% end %>
+        <% else %>
+          <%= link_to user_path(user.id) do %>
+            匿名<%= user.id %>さん
+          <% end %>
+        <% end %><br>
+        <% if user.profile_image.attached? %>
+          <%= image_tag user.profile_image.variant(resize:'100x100') %>
+        <% else %>
+          <%= image_tag 'no_image.jpg' %>
+        <% end %>
       <% end %>
-    <% else %>
-      <%= link_to user_path(entry.user.id) do %>
-        匿名<%= entry.user.id %>さん
-      <% end %>
-    <% end %><br>
-
-    <% if entry.user.profile_image.attached? %>
-      <%= image_tag entry.user.profile_image.variant(resize:'100x100') %>
-    <% else %>
-      <%= image_tag 'no_image.jpg' %>
     <% end %>
-    <%= link_to "チャットへ", room_path(entry.room.id) %>
-  <% end %><br>
+    <%= link_to "チャットへ", room_path(room.id) %><br>
+  <% end %>
 <% else %>
   <p>チャットはありません</p>
 <% end %>

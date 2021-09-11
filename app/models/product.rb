@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
   #タグ機能
   has_many :product_tag_maps, dependent: :destroy
-  has_many :tags, through: :product_tag_maps
+  has_many :tags, through: :product_tag_maps, source: :product
 
 
 
@@ -29,18 +29,22 @@ class Product < ApplicationRecord
     new_tags = sent_tags - current_tags
     # 古いタグの削除
     old_tags.each do |old_tag|
-      self.tags.delete
-      Tag.find_by(name: old_tag)
+      self.tags.delete(Tag.find_by(name: old_tag))
     end
     # 新しいタグの保存
     new_tags.each do |new_tag|
-      product_tag_map = Tag.find_or_create_by(name: new_tag)
+      tag = Tag.find_or_create_by(name: new_tag)
+      maps = ProductTagMap.find_or_create_by(product_id: self.id, tag_id: tag.id)
+      self.product_tag_maps.push(maps)
       # pushメソッド = 追加で保存する
       # a="1"  a.push("2")  a= "1", "2"
-      self.tags.push(product_tag_map)
+      #self.tags.push(product_tag_map)
     end
   end
 
+  def review_average
+    self.reviews.map(&:evaluation).sum / self.reviews.size
+  end
 
   enum manufacture: { "A社": 0, "B社": 1, "C社": 2, "D社": 3, "E社": 4, "その他": 5}
   enum phase: { "1φ100V": 0, "1φ200V": 1, "3φ200V": 2}

@@ -4,6 +4,7 @@ class CreateReviewTagMaps < ActiveRecord::Migration[5.2]
       t.integer :review_id
       t.integer :tag_id
 
+
       t.timestamps
     end
   end

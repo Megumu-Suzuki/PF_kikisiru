@@ -12,4 +12,21 @@
 <% @tags.each do |tag| %>
   <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %> (<%= tag.products.count %>)
 <% end %>
-<h3>なんらかのランキング？</h3>
+<h3>機器の評価ランキング</h3>
+<table>
+  <thead>
+    <tr>
+      <th>機器名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>
+        <% @product_ranking.each do |product| %>
+          <%= link_to product.title, product_path(product) %>
+          <%#= product.review_average.round(1) %><br>
+        <% end %>
+      </th>
+    </tr>
+  </tbody>
+</table>

@@ -26,7 +26,7 @@
             </td>
           <% end %>
         <% else %>
-          <%= image_tag 'no_image.jpg' %>
+          <%= image_tag 'no_image.jpg', size: '100x100' %>
         <% end %>
       <td>
         <%= link_to product.title, product_path(product.id) %><br>
