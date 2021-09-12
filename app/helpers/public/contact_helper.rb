@@ -1,2 +1,0 @@
-module Public::ContactHelper
-end

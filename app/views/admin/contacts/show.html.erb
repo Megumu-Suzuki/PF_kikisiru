@@ -1,0 +1,42 @@
+<table>
+  <tbody>
+    <tr>
+      <th><strong>名前</strong></th>
+      <td><%= @contact_message.name %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>メールアドレス</strong></th>
+      <td><%= @contact_message.email %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>件名</strong></th>
+      <td><%= @contact_message.subject %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>本文</strong></th>
+      <td><%= @contact_message.body %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="posts">
+    <%= form_with model: ContactMessage.new, local:true do |f| %>
+      <div class="field">
+        <%= f.label :"件名" %><br>
+        <%= f.text_field :subject %>
+      </div>
+      <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+        <%= f.hidden_field :contact_id, value: @contact_message.contact.id %>
+        <%= f.hidden_field :admin_user_id, value: current_admin.id %>
+          <%= f.submit "投稿",class: 'form-submit'%>
+    <% end %>
+</div>

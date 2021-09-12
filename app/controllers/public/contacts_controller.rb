@@ -37,7 +37,6 @@ class Public::ContactsController < ApplicationController
       @contact = Contact.create(contact_params)
     end
     @contact_message = ContactMessage.create(contact_message_params)
-    # logger.debug @contact_message.errors.inspect
     redirect_to thanx_contacts_path
     #else
     #  flash.now[:alert] = "送信に失敗しました"

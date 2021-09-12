@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations',
+    sessions: 'admins/sessions'
+  }
+
+  namespace :admin do
+    resources :contacts, only: [:show] do
+        scope do
+          patch 'completed'
+        end
+      end
+  end
+
+  get '/admin' => 'admin/homes#top'
+
   #ユーザー新規登録、ログイン
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -72,7 +87,6 @@ Rails.application.routes.draw do
 
   end
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
 end
