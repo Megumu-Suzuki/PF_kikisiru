@@ -1,15 +1,32 @@
-<%= form_with model: @product, url: product_path, local:true do |f| %>
+<%= form_with model: Product.new, url: product_path, method: :patch, local:true do |s| %>
 
-  <div class="field">
-    <%= f.label :"機器画像" %><br />
-    <%= f.fields_for :product_images do |pi| %>
-      <%= pi.file_field :images %>
-
-      <%= pi.label :"画像説明" %><br />
-      <%= pi.text_field :description %>
+  <div class="products">
+    <%= s.fields_for :product_images do |t| %>
+      <%= render "product_image_fields", f: t %>
     <% end %>
+    <div class="links">
+      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+    </div>
   </div>
 
+  <div id="image_preview">
+    <% if @product.product_images.present? %>
+      <p>現在登録されている画像（削除するものはチェックしてください）</p>
+      <% @product.product_images.each do |product_image| %>
+        <%= s.check_box :image_ids, {mutiple: true}, @product.id, false %>
+        <% product_image.images.each do |image| %>
+          <%#= s.check_box :image_ids, {mutiple: true}, image.id, false %>
+          <%= image_tag image.variant(resize:'100x100') %>
+        <% end %>
+      <%= product_image.description %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= s.submit "画像情報を更新する" %>
+<% end %>
+
+
+  <%= form_with model: @product, url: product_path, local:true do |f| %>
 
   <div class="field">
     <%= f.label :"*機器名" %><br />
@@ -85,6 +102,6 @@
     <%= f.text_area :description, placeholder: "その他機器の説明や特徴をお書きください" %>
   </div>
 
-  <%= f.submit "更新する" %>
+  <%= f.submit "機器情報を更新する" %>
 
 <% end %>

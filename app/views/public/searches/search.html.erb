@@ -10,7 +10,7 @@
 <% end %>
 <h3>タグ検索</h3>
 <% @tags.each do |tag| %>
-  <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %> (<%= tag.products.count %>)
+  <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %>
 <% end %>
 <h3>検索結果</h3>
 <% if @model == 'product' %>
