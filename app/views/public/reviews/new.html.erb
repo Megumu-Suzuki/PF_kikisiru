@@ -1,5 +1,5 @@
 <h1>レビューを投稿</h1>
-<%= form_with(model:[@product, @review],url: confirm_product_reviews_path, local: true) do |f| %>
+<%= form_with(model:[@product, @review], url: confirm_product_reviews_path, local: true) do |f| %>
   <div>
     <%= f.label :"タイトル" %>
     <%= f.text_field :title %>

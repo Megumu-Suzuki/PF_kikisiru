@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       # レビューの記述
       resources :reviews, only: [:show, :destroy]
     end
+    # ジャンルの記載
+    resources :genres, only: [:index, :create, :edit, :update]
     # 問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
   end

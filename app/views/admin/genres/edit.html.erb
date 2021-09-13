@@ -1,0 +1,4 @@
+<%= form_with model: @genre, url: admin_genre_path, local: true do |f| %>
+  <%= f.text_field :name, placeholder: "ジャンル名" %>
+  <%= f.submit "変更を保存", class: "btn btn-outline-success" %>
+<% end %>
