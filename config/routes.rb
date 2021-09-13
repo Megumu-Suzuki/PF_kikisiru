@@ -11,6 +11,7 @@ Rails.application.routes.draw do
           patch 'completed'
         end
       end
+    resources :users, only: [:index, :show, :edit, :update]
 
     resources :contact_messages, only: [:create]
   end
