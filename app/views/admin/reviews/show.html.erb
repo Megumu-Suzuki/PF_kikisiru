@@ -1,0 +1,74 @@
+
+<%= link_to @product.title, admin_product_path(@product.id) %><br>
+
+<% if @user.profile_image.attached? %>
+  <%= image_tag @user.profile_image.variant(resize:'50x50') %>
+<% else %>
+  <%= image_tag 'no_image.png', size: '100x100' %>
+<% end %>
+
+<% if @user.nickname.present? %>
+  <%= link_to @user.nickname, admin_user_path(@user.id) %>
+<% else %>
+  <%= link_to admin_user_path(@user.id) do %>
+    匿名<%= @user.id %>さんのレビュー
+  <% end %>
+<% end %><br>
+
+<div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
+<div><%= @review.evaluation %></div>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><%= @review.title %></th>
+      <th><%= @review.comment %></th>
+    </tr>
+  </tbody>
+</table>
+<h5>レビュー画像</h5>
+<% if @review.review_images %>
+  <% @review.review_images.each do |review_image| %>
+    <% review_image.images.each do |image| %>
+      <%= image_tag image.variant(resize:'100x100') %>
+    <% end %>
+    <%= review_image.description %>
+  <% end %>
+<% end %><br>
+<%= link_to "レビューを削除する", admin_product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-danger" %>
+
+
+<h1>レビュ一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>レビュー内容</th>
+      <th>評価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
+        <td><%= review.comment %></td>
+        <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
+        <td><%= review.evaluation %></div></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>

@@ -65,20 +65,43 @@ class Public::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if params[:product][:image_ids]
-      params[:product][:image_ids].each do |image_id|
-        image = product.images.find(image_id)
-        image.purge
+    if params.has_key?(:product)
+      if params.has_key?(:image_ids)
+        params[:product][:image_ids].each do |image_id|
+          image = product.images.find(image_id)
+          image.purge
+        end
+      else
+        if @product.update(product_params)
+          redirect_to product_path(@product.id), notice: "変更を保存しました"
+        else
+          flash.now[:alert] = "変更の保存に失敗しました"
+          render :edit
+        end
       end
     else
-      if @product.update(product_params)
-        redirect_to product_path(@product.id), notice: "変更を保存しました"
-      else
-        flash.now[:alert] = "変更の保存に失敗しました"
-        render :edit
-      end
+      redirect_to product_path(@product.id), notice: "変更を保存しました"
     end
   end
+
+
+
+  #       flash.now[:alert] = "変更の保存に失敗しました"
+  #       render :edit
+  #     end
+  #     else
+  #       if @product.update(product_params)
+  #         redirect_to product_path(@product.id), notice: "変更を保存しました"
+  #       else
+  #         flash.now[:alert] = "変更の保存に失敗しました"
+  #         render :edit
+  #       end
+  #     end
+  #   else
+  #     flash.now[:alert] = "変更の保存に失敗しました"
+  #     render :edit
+  #   end
+  # end
 
   private
 

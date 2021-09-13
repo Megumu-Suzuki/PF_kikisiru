@@ -8,7 +8,8 @@ class Public::ContactsController < ApplicationController
     else
       @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "true")
       if @user_contact.present?
-        @contact_messages = @user_contact.contact_messages
+        @contact_messages = ContactMessage.where(user_id: current_user.id)
+        @admin_messages = ContactMessage.where(user_id: nil, contact_id: @user_contact.id)
         @contact_message = ContactMessage.new
       else
         @contact = Contact.new
@@ -37,7 +38,6 @@ class Public::ContactsController < ApplicationController
       @contact = Contact.create(contact_params)
     end
     @contact_message = ContactMessage.create(contact_message_params)
-    # logger.debug @contact_message.errors.inspect
     redirect_to thanx_contacts_path
     #else
     #  flash.now[:alert] = "送信に失敗しました"

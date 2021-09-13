@@ -1,0 +1,158 @@
+<% if @product.product_images %>
+  <% @product.product_images.each do |product_image| %>
+    <% product_image.images.each do |image| %>
+      <%= image_tag image.variant(resize:'100x100') %>
+    <% end %>
+    <%= product_image.description %>
+  <% end %>
+<% else %>
+  <%= image_tag 'no_image.jpg' %>
+<% end %>
+<div class="review-average" data-score=<%= @average_review %>></div><%= @average_review %>
+<table>
+  <tbody>
+    <tr>
+      <th><strong>商品名</strong></th>
+      <td><%= @product.title %></td>
+    </tr>
+  </tbody>
+  <div class="favorite-<%= @product.id %>">
+   <i class="fa fa-heart"="true"></i> <%= @product.favorites.count %>
+  </div>
+
+  <tbody>
+    <tr>
+      <th><strong>メーカー</strong></th>
+      <td><%= @product.manufacture %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>型式</strong></th>
+      <td><%= @product.model %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>定価</strong></th>
+      <td><%= @product.price %>円</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>寸法</strong></th>
+      <td><%= @product.width %>×<% @product.depth %>×<%= @product.height %>mm</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>重量</strong></th>
+      <td><%= @product.weight %>kg</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>電源</strong></th>
+      <td><%= @product.phase %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>消費電力</strong></th>
+      <td><%= @product.power_consumption %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>ガス消費量(都市ガス)</strong></th>
+      <td><%= @product.city_gas %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>ガス消費量(PLガス)</strong></th>
+      <td><%= @product.propane_gas %>kW</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>商品説明</strong></th>
+      <td><%= @product.description %></td>
+    </tr>
+  </tbody>
+</table>
+
+<% @tags_all.each do |tag| %>
+  <%= tag.name %><br>
+<% end %>
+
+
+
+<%= link_to "編集ページ", edit_admin_product_path(@product.id) %>
+
+<h1>レビュ一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>レビュー内容</th>
+      <th>評価</th>
+      <th></th>
+      <th>画像</th>
+      <th>画像説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= link_to review.title, admin_product_review_path(@product.id, review.id) %></td>
+        <td><%= review.comment %></td>
+        <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
+        <td><%= review.evaluation %></td>
+        <% if review.review_images %>
+          <% review.review_images.each do |review_image| %>
+            <td>
+              <% review_image.images.each do |image| %>
+                <%= image_tag image.variant(resize:'100x100') %>
+              <% end %>
+            </td>
+          <td>
+            <%= review_image.description %>
+          </td>
+          <% end %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', size: '100x100'%>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>

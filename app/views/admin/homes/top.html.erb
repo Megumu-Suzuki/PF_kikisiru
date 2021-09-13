@@ -1,0 +1,36 @@
+<% @contact_messages.each do |contact| %>
+  <table>
+    <tbody>
+      <tr>
+        <th><strong>お問い合わせ</strong></th>
+        <td><%= contact.contact.id %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>名前</strong></th>
+        <td><%=link_to contact.name, admin_contact_path(contact.id) %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>件名</strong></th>
+        <td><%= contact.subject %></td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <th><strong>状態</strong></th>
+        <td>
+          <% if contact.contact.is_completed == true %>
+            <p>未対応</p>
+          <% else %>
+            <p>対応済み</p>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+<% end %>
+
