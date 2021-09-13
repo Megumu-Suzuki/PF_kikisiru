@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-
-  belongs_to :user
+  
+  belongs_to :user, optional: true
   #商品画像
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, allow_destroy: true
@@ -35,10 +35,9 @@ class Product < ApplicationRecord
     new_tags.each do |new_tag|
       tag = Tag.find_or_create_by(name: new_tag)
       maps = ProductTagMap.find_or_create_by(product_id: self.id, tag_id: tag.id)
-      self.product_tag_maps.push(maps)
       # pushメソッド = 追加で保存する
       # a="1"  a.push("2")  a= "1", "2"
-      #self.tags.push(product_tag_map)
+      self.product_tag_maps.push(maps)
     end
   end
 

@@ -4,15 +4,19 @@ Rails.application.routes.draw do
     registrations: 'admins/registrations',
     sessions: 'admins/sessions'
   }
-
+  # 管理者側
   namespace :admin do
+    # 問い合わせの記述
     resources :contacts, only: [:show] do
         member do
           patch 'completed'
         end
       end
+    # 会員の記述
     resources :users, only: [:index, :show, :edit, :update]
-
+    # 商品の記述
+    resources :products
+    # 問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
   end
 

@@ -1,0 +1,97 @@
+<%= form_with model: @product, url: admin_products_path, local:true do |s| %>
+
+  <div class="field">
+    <%= s.label :"*機器名" %><br>
+    <%= s.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= s.label :"メーカー" %><br>
+    <%= s.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'} %>
+  </div>
+
+  <div class="field">
+    <%= s.label :"*型式" %><br>
+    <%= s.text_field :model %>
+  </div>
+
+  <div class="field">
+    <%= s.label :"定価" %><br>
+    <%= s.text_field :price %>円
+  </div>
+
+  <div class="field">
+    <%= s.label :"間口" %><br>
+    <%= s.text_field :width %>mm
+  </div>
+
+  <div class="field">
+    <%= s.label :"奥行" %><br>
+    <%= s.text_field :depth %>mm
+  </div>
+
+  <div class="field">
+    <%= s.label :"高さ" %><br>
+    <%= s.text_field :height %>mm
+  </div>
+
+  <div class="field">
+    <%= s.label :"重量" %><br>
+    <%= s.text_field :weight %>kg
+  </div>
+
+  <div class="field">
+    <%= s.label :"電源" %><br>
+    <%= s.select :phase, Product.phases.keys, {include_blank: '選択してください'} %>
+  </div>
+
+  <div class="field">
+    <%= s.label :"消費電力" %><br>
+    <%= s.text_field :power_consumption %>kW
+  </div>
+
+  <div class="field">
+    <%= s.label :"ガス消費量(都市ガス)" %><br>
+    <%= s.text_field :city_gas %>kW
+  </div>
+
+  <div class="field">
+    <%= s.label :"ガス消費量(LPガス)" %><br>
+    <%= s.text_field :propane_gas %>kW
+  </div>
+
+  <div class="field">
+    <%= s.label :"説明" %><br>
+    <%= s.text_area :description, placeholder: "その他機器の説明や特徴をお書きください" %>
+  </div>
+  <p>現在登録されているタグ</p>
+  <% @tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+
+  <div class ="tags-field">
+    <%= s.label "タグ" %>
+    <%= s.text_field :name %>
+  </div>
+
+  <div class="products">
+    <%= s.fields_for :product_images do |t| %>
+      <%= render "product_image_fields", f: t %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= s.label :"編集権限" %><br>
+    <%= s.radio_button :allow_edit, :true, checked: true %>
+      <strong>誰でも編集可能</strong></br>
+    <%= s.radio_button :allow_edit, :false %>
+      <strong>投稿者本人のみ</strong>
+  </div>
+
+  <%= s.submit "機器を登録する", class: "btn btn-sm btn-primary" %>
+
+
+<% end %>

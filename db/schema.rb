@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "genre_id"
     t.string "title", limit: 30, null: false
     t.text "description"
