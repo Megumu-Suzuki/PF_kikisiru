@@ -114,7 +114,7 @@
   <tbody>
     <% @reviews.each do |review| %>
       <tr>
-        <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
+        <td><%= link_to review.title, admin_product_review_path(@product.id, review.id) %></td>
         <td><%= review.comment %></td>
         <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
         <td><%= review.evaluation %></td>
