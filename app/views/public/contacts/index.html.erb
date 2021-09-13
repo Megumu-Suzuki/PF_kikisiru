@@ -1,35 +1,65 @@
 <% if @user_contact.present? %>
-  <% @contact_messages.each do |contact| %>
-  <table>
-    <tbody>
-      <tr>
-        <th><strong>名前</strong></th>
-        <td><%= contact.name %></td>
-      </tr>
-    </tbody>
+  <div class="cotanct">
+    <% @contact_messages.each do |contact| %>
+      <table>
+        <tbody>
+          <tr>
+            <th><strong>名前</strong></th>
+            <td><%= contact.name %></td>
+          </tr>
+        </tbody>
 
-    <tbody>
-      <tr>
-        <th><strong>メールアドレス</strong></th>
-        <td><%= contact.email %></td>
-      </tr>
-    </tbody>
+        <tbody>
+          <tr>
+            <th><strong>メールアドレス</strong></th>
+            <td><%= contact.email %></td>
+          </tr>
+        </tbody>
 
-    <tbody>
-      <tr>
-        <th><strong>件名</strong></th>
-        <td><%= contact.subject %></td>
-      </tr>
-    </tbody>
+        <tbody>
+          <tr>
+            <th><strong>件名</strong></th>
+            <td><%= contact.subject %></td>
+          </tr>
+        </tbody>
 
-    <tbody>
-      <tr>
-        <th><strong>本文</strong></th>
-        <td><%= contact.body %></td>
-      </tr>
-    </tbody>
-  </table>
- <% end %>
+        <tbody>
+          <tr>
+            <th><strong>本文</strong></th>
+            <td><%= contact.body %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="pull-left">
+    <% @admin_messages.each do |admin| %>
+      <table>
+        <tbody>
+          <tr>
+            <th><strong>名前</strong></th>
+            <td><%= admin.name %></td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th><strong>件名</strong></th>
+            <td><%= admin.subject %></td>
+          </tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th><strong>本文</strong></th>
+            <td><%= admin.body %></td>
+          </tr>
+        </tbody>
+
+        いただきましたお問い合わせに関してこちらが対応完了と判断しましたら再度お問い合わせ可能になります。
+      </table>
+    <% end %>
+  </div>
 <% else %>
   <%= form_with model: @contact, url: confirm_contacts_path, local:true do |f| %>
     <%= fields_for @contact_message do |e| %>

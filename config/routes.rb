@@ -7,11 +7,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :contacts, only: [:show] do
-        scope do
+        member do
           patch 'completed'
         end
       end
+
+    resources :contact_messages, only: [:create]
   end
+
+
 
   get '/admin' => 'admin/homes#top'
 

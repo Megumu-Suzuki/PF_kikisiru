@@ -20,5 +20,17 @@
         <td><%= contact.subject %></td>
       </tr>
     </tbody>
+    <tbody>
+      <tr>
+        <th><strong>状態</strong></th>
+        <td>
+          <% if contact.contact.is_completed == true %>
+            <p>未対応</p>
+          <% else %>
+            <p>対応済み</p>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
 <% end %>
 

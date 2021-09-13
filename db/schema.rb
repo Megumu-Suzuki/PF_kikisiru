@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
 
   create_table "contact_messages", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "admin_user_id"
+    t.integer "admin_id"
     t.integer "contact_id"
     t.string "name"
     t.string "email"
