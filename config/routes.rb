@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     # 会員の記述
     resources :users, only: [:index, :show, :edit, :update]
     # 商品の記述
-    resources :products
+    resources :products do
+      # レビューの記述
+      resources :reviews, only: [:show, :destroy]
+    end
     # 問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
   end
