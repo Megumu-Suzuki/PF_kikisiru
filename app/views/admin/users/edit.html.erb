@@ -1,4 +1,4 @@
-<%= form_with model: @user, url: user_path(@user.id), local: true do |f| %>
+<%= form_with model: @user, url: admin_user_path(@user.id), local: true do |f| %>
 
   <% if @user.profile_image.attached? %>
       <div class="field">
@@ -17,28 +17,28 @@
     <% end %>
 
   <div class="field">
-    <%= f.label :"*苗字" %><br />
+    <%= f.label :"*姓" %><br />
     <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
   </div>
 
   <div class="field">
-    <%= f.label :"*名前" %><br />
+    <%= f.label :"*名" %><br />
     <%= f.text_field :first_name, placeholder: "太郎" %>
   </div>
 
   <div class="field">
-    <%= f.label :"*苗字(カナ)" %><br />
+    <%= f.label :"*セイ" %><br />
     <%= f.text_field :last_name_kana, placeholder: "キキ" %>
   </div>
 
   <div class="field">
-    <%= f.label :"*名前(カナ)" %><br />
+    <%= f.label :"*メイ" %><br />
     <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
   </div>
 
   <div class="field">
     <%= f.label :"ニックネーム" %><br />
-    <%= f.text_field :nickname, placeholder: "この名前で表示されます" %>
+    <%= f.text_field :nickname %>
   </div>
 
   <div class="field">
@@ -51,8 +51,15 @@
     <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email" %>
   </div>
 
+  <div>
+    <%= f.radio_button :is_deleted, :true %>
+    <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>
+    <%= f.radio_button :is_deleted, :false %>
+    <%= f.label :is_deleted, "退会", {value: :true, checked: true, style: "display: inline-block;"} %>
+  </div>
+
   <div class="actions">
     <%= f.submit "更新", class: "btn btn-outline-success" %>
   </div>
+  <th><%= link_to "詳細に戻る", admin_user_path(@user.id) %></th>
 <% end %>
-<%= link_to "退会", unsubscribe_user_path(@user.id), class: "btn btn-outline-danger" %>

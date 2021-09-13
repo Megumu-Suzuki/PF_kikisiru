@@ -1,0 +1,86 @@
+<% if @user.profile_image.attached? %>
+  <%= image_tag @user.profile_image.variant(resize:'100x100') %>
+<% else %>
+  <%= image_tag 'no_image.png', size: '100x100' %>
+<% end %><br>
+
+<table>
+  <tbody>
+    <tr>
+      <th><strong>姓</strong></th>
+      <td><%= @user.last_name %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>名</strong></th>
+      <td><%= @user.first_name %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>セイ</strong></th>
+      <td><%= @user.last_name_kana %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>メイ</strong></th>
+      <td><%= @user.first_name_kana %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>ニックネーム</strong></th>
+      <td>
+        <% if @user.nickname.blank? %>
+          <p class="text-muted">未登録</p>
+        <% else %>
+          <%= @user.nickname %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>電話番号</strong></th>
+      <td>
+        <% if @user.phone_number.blank? %>
+          <p class="text-muted">未登録</p>
+        <% else %>
+          <%= @user.phone_number %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>メールアドレス</strong></th>
+      <td><%= @user.email %></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th><strong>会員状態</strong></th>
+      <td>
+        <% if @user.is_deleted == true %>
+          <p class="text-success">有効</p>
+        <% else %>
+          <p class="text-muted">退会</p>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <%= link_to "編集", edit_admin_user_path, class: "btn btn-outline-success btn-lg mr-1" %>
+  <%= link_to "一覧に戻る", admin_users_path, class: "btn btn-outline-success btn-lg mr-1" %>
+
+
