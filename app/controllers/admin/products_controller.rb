@@ -44,22 +44,16 @@ class Admin::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if params.has_key?(:product)
-      if params.has_key?(:image_ids)
-        params[:product][:image_ids].each do |image_id|
-          image = product.images.find(image_id)
-          image.purge
-        end
-      else
-        if @product.update(product_params)
-          redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
-        else
-          flash.now[:alert] = "変更の保存に失敗しました"
-          render :edit
-        end
-      end
+    if params[:product][:delete].present?
+      @product.image.purge
+      redirect_back(fallback_location: root_path)
     else
-      redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
+      if @product.update(product_params)
+        redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
+      else
+        flash.now[:alert] = "変更の保存に失敗しました"
+        render :edit
+      end
     end
   end
 
@@ -72,7 +66,7 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, product_images_attributes: [:images, :description])
+    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, :image, product_images_attributes: [:images, :description])
   end
 
 end

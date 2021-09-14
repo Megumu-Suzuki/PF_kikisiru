@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :genre
   #商品画像
+  has_one_attached :image
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, allow_destroy: true
   #いいね機能
@@ -22,10 +23,8 @@ class Product < ApplicationRecord
   end
 
   def save_tag(sent_tags)
-    unless self.tags.nil?
-      # pluckメソッド = テーブルから指定のカラムのデータを持ってくる
-      current_tags = self.tags.pluck(:name)
-    end
+    # pluckメソッド = テーブルから指定のカラムのデータを持ってくる
+    current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - sent_tags
     new_tags = sent_tags - current_tags
     # 古いタグの削除
@@ -53,6 +52,8 @@ class Product < ApplicationRecord
   def full_name
     self.title + "(" + self.model + ")"
   end
+
+
 
   enum manufacture: { "A社": 0, "B社": 1, "C社": 2, "D社": 3, "E社": 4, "その他": 5}
   enum phase: { "1φ100V": 0, "1φ200V": 1, "3φ200V": 2}

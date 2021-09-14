@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   namespace :admin do
     # 問い合わせの記述
     resources :contacts, only: [:show] do
-        member do
-          patch 'completed'
-        end
+      member do
+        patch 'completed'
       end
+    end
     # 会員の記述
     resources :users, only: [:index, :show, :edit, :update]
     # 商品の記述
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       # レビューの記述
       resources :reviews, only: [:show, :destroy]
     end
+    # 商品画像の記述
+    resources :product_images, only: [:update, :destroy]
     # ジャンルの記載
     resources :genres, only: [:index, :create, :edit, :update]
     # 問い合わせメッセージの記述
@@ -72,6 +74,8 @@ Rails.application.routes.draw do
         end
       end
     end
+    # 商品画像の記述
+    resources :product_images, only: [:update, :destroy]
 
 
 

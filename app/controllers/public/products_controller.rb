@@ -47,9 +47,13 @@ class Public::ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = Review.where(product_id: @product.id)
+    # 商品についているタグ情報
     @product_tags = Tag.joins(:product_tag_maps).where(product_tag_maps: {product_id: @product.id})
+    # レビューについておるタグ情報
     @review_tags = Tag.joins(:review_tag_maps).where(review_tag_maps: {review_id: @reviews.pluck(:id)})
-    @tags = @product_tags | @review_tags
+    # 商品とレビューのタグ情報を合わせる
+    @tags = @product_tags + @review_tags
+    # 被っているタグを削除
     @tags_all = @tags.uniq
     if @product.reviews.blank?
       @average_review = 0
@@ -59,57 +63,30 @@ class Public::ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
-    @genres = Genre.all
-    unless ProductImage.exists?(product_id: @product.id)
-      @product.product_images.new
+    @target = params["target"]
+    if @target == "image"
+      @product = Product.find(params[:id])
+      #@product_images = ProductImage.where(product_id: @product.id)
+    else
+      @product = Product.find(params[:id])
+      @genres = Genre.all
     end
   end
 
   def update
     @product = Product.find(params[:id])
-    if params.has_key?(:product)
-      if params.has_key?(:image_ids)
-        params[:product][:image_ids].each do |image_id|
-          image = product.images.find(image_id)
-          image.purge
-        end
-      else
-        if @product.update(product_params)
-          redirect_to product_path(@product.id), notice: "変更を保存しました"
-        else
-          flash.now[:alert] = "変更の保存に失敗しました"
-          render :edit
-        end
-      end
-    else
+    if @product.update(product_params)
       redirect_to product_path(@product.id), notice: "変更を保存しました"
+    else
+      flash.now[:alert] = "変更の保存に失敗しました"
+      render :edit
     end
   end
-
-
-
-  #       flash.now[:alert] = "変更の保存に失敗しました"
-  #       render :edit
-  #     end
-  #     else
-  #       if @product.update(product_params)
-  #         redirect_to product_path(@product.id), notice: "変更を保存しました"
-  #       else
-  #         flash.now[:alert] = "変更の保存に失敗しました"
-  #         render :edit
-  #       end
-  #     end
-  #   else
-  #     flash.now[:alert] = "変更の保存に失敗しました"
-  #     render :edit
-  #   end
-  # end
 
   private
 
   def product_params
-    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, product_images_attributes: [:images, :description])
+    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, :image, product_images_attributes: [:images, :description])
   end
 
 end
