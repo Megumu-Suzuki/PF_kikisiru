@@ -29,24 +29,27 @@
     </tbody>
   </table>
 </div>
-
+<% if @admin_messages.present? %>
 <div class="admin">
+  <% @admin_messages.each do |message| %>
   <table>
     <tbody>
       <tr>
         <th><strong>件名</strong></th>
-        <td><%= @admin_messages.subject %></td>
+        <td><%= message.subject %></td>
       </tr>
     </tbody>
 
     <tbody>
       <tr>
         <th><strong>本文</strong></th>
-        <td><%= @admin_messages.body %></td>
+        <td><%= message.body %></td>
       </tr>
     </tbody>
   </table>
+  <% end %>
 </div>
+<% end %>
 <% if @contact.is_completed == true %>
   <%= link_to "対応完了", completed_admin_contact_path(@contact.id), method: :patch, class: "btn btn-primary" %>
 <% else %>

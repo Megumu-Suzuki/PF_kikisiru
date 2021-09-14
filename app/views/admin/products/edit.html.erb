@@ -1,32 +1,47 @@
-<%= form_with model: Product.new, url: admin_product_path(@product), method: :patch, local:true do |s| %>
-
-  <div class="products">
-    <%= s.fields_for :product_images do |t| %>
-      <%= render "product_image_fields", f: t %>
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
-    </div>
-  </div>
-
-  <div id="image_preview">
-    <% if @product.product_images.present? %>
-      <p>現在登録されている画像（削除するものはチェックしてください）</p>
-      <% @product.product_images.each do |product_image| %>
-        <%= s.check_box :image_ids, {mutiple: true}, @product.id, false %>
-        <% product_image.images.each do |image| %>
-          <%#= s.check_box :image_ids, {mutiple: true}, image.id, false %>
-          <%= image_tag image.variant(resize:'100x100') %>
-        <% end %>
-      <%= product_image.description %>
+<div id="image_preview">
+      <% unless @product.product_images.empty? %>
+        <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
+          <% @product.product_images.each do |product_image| %>
+            <% product_image.images.each do |image| %>
+              <%= image_tag image.variant(resize:'100x100') %>
+            <% end %>
+            <%= form_with model: product_image, url: admin_product_image_path(product_image), method: :patch, local:true do |f| %>
+              <%= f.label :"画像説明" %>
+              <%= f.text_field :description %>
+              <%= f.submit "更新", class: "btn btn-primary" %>
+            <% end %>
+            <%= link_to  "削除", admin_product_image_path(product_image), method: :delete %><br>
+          <% end %>
       <% end %>
-    <% end %>
-  </div>
-  <%= s.submit "画像情報を更新する" %>
-<% end %>
+    </div>
 
+    <%= form_with model: Product.new, url: admin_product_path, method: :patch, local:true do |s| %>
+
+    <div class="products">
+      <%= s.fields_for :product_images do |t| %>
+        <%= render "product_image_fields", f: t %>
+      <% end %>
+      <p>↓ボタンをクリックするとフォームを増やすことができます</p>
+      <div class="links">
+        <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+      </div>
+    </div>
+    <%= s.hidden_field :product_id, value: @product.id %>
+    <%= s.submit "画像情報を更新する" %>
+  <% end %>
 
   <%= form_with model: @product, url: admin_product_path(@product), method: :patch, local:true do |f| %>
+
+  <% if @product.image.attached? %>
+    <%= image_tag @product.image.variant(resize:'100x100') %>
+    <%= f.hidden_field :delete, value: "image" %>
+    <%= f.submit "削除" %>
+  <% else %>
+    <div class="field">
+      <%= f.label :"*トップ画像" %><br>
+      <%= f.file_field :image %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= f.label :"*機器名" %><br />
@@ -42,7 +57,7 @@
     <%= f.label :"*型式" %><br />
     <%= f.text_field :model %>
   </div>
-  
+
   <div class="field">
     <%= f.label :"*ジャンル" %><br>
     <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択してください--", class: "form-control" %>

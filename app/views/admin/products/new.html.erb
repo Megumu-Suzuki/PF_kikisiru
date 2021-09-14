@@ -1,5 +1,11 @@
 <%= form_with model: @product, url: admin_products_path, local:true do |s| %>
 
+  
+   <div class="field">
+    <%= s.label :"*画像" %><br>
+    <%= s.file_field :image %>
+  </div>
+
   <div class="field">
     <%= s.label :"*機器名" %><br>
     <%= s.text_field :title %>

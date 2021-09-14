@@ -1,15 +1,12 @@
-<% if @product.product_images %>
-  <% @product.product_images.each do |product_image| %>
-    <% product_image.images.each do |image| %>
-      <%= image_tag image.variant(resize:'100x100') %>
-    <% end %>
-    <%= product_image.description %>
-  <% end %>
-<% else %>
-  <%= image_tag 'no_image.jpg' %>
-<% end %>
 <div class="review-average" data-score=<%= @average_review %>></div><%= @average_review %>
 <table>
+  <tbody>
+    <tr>
+      <th><strong>トップ画像</strong></th>
+      <td><%= image_tag @product.image.variant(resize:'100x100') %></td>
+    </tr>
+  </tbody>
+
   <tbody>
     <tr>
       <th><strong>商品名</strong></th>
@@ -19,6 +16,20 @@
   <div class="favorite-<%= @product.id %>">
    <%= render 'public/favorites/favorite-btn', product: @product %>
   </div>
+
+  <tbody>
+    <tr>
+      <th>評価点</th>
+      <td class="review-average" data-score=<%= @average_review %>></td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <th></th>
+      <td><%= @average_review %></td>
+    </tr>
+  </tbody>
 
   <tbody>
     <tr>
@@ -50,8 +61,12 @@
 
   <tbody>
     <tr>
-      <th><strong>寸法</strong></th>
-      <td><%= @product.width %>×<% @product.depth %>×<%= @product.height %>mm</td>
+      <th><strong>寸法</strong>(間口×奥行×高さ)</th>
+      <td>
+        <%= @product.width %>
+        × <%= @product.depth %>
+        × <%= @product.height %>mm
+      </td>
     </tr>
   </tbody>
 
@@ -98,13 +113,27 @@
   </tbody>
 </table>
 
+<% if @product.product_images %>
+  <% @product.product_images.each do |product_image| %>
+    <% product_image.images.each do |image| %>
+      <%= image_tag image.variant(resize:'100x100') %>
+    <% end %>
+    <%= product_image.description %>
+  <% end %>
+<% else %>
+  <%= image_tag 'no_image.jpg' %>
+<% end %>
+<% if @product.allow_edit == true %>
+  <%= link_to "機器画像を編集する", edit_product_path(target: "image") %>
+<% end %>
+
 <% @tags_all.each do |tag| %>
   <%= tag.name %><br>
 <% end %>
 
 
 <% if @product.allow_edit == true %>
-  <%= link_to "編集ページ", edit_product_path %>
+  <%= link_to "機器情報を編集する", edit_product_path %>
 <% end %>
 <h1>レビュ一覧</h1>
 <table>

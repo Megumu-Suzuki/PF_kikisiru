@@ -27,6 +27,7 @@
           <%= genre.name %>のランキング<br>
           <% genre.products.each do |product| %>
             <%= link_to product.full_name, product_path(product) %>
+            <%= image_tag product.image.variant(resize:'100x100') %>
             <div class="review-average" data-score=<%= product.review_average %>></div><%= product.review_average.round(1) %><br>
           <% end %>
         <% end %>
