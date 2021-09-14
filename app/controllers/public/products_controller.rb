@@ -2,6 +2,7 @@ class Public::ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @genres = Genre.all
   end
 
   def confirm
@@ -10,6 +11,7 @@ class Public::ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @genres = Genre.all
     render :new and return if params[:back]
     @product.user_id = current_user.id
     if @product.save
@@ -58,6 +60,7 @@ class Public::ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @genres = Genre.all
     unless ProductImage.exists?(product_id: @product.id)
       @product.product_images.new
     end

@@ -3,6 +3,7 @@ class Admin::ProductsController < ApplicationController
   def new
     @product = Product.new
     @tags = Tag.all
+    @genres = Genre.all
   end
 
   def create
@@ -38,6 +39,7 @@ class Admin::ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @genres = Genre.all
   end
 
   def update
