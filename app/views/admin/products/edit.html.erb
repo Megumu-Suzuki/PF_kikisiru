@@ -42,6 +42,11 @@
     <%= f.label :"*型式" %><br />
     <%= f.text_field :model %>
   </div>
+  
+  <div class="field">
+    <%= f.label :"*ジャンル" %><br>
+    <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択してください--", class: "form-control" %>
+  </div>
 
   <div class="field">
     <%= f.label :"定価" %><br />

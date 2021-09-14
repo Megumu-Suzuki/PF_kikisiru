@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  
+
   belongs_to :user, optional: true
   belongs_to :genre
   #商品画像
@@ -43,7 +43,15 @@ class Product < ApplicationRecord
   end
 
   def review_average
-    self.reviews.map(&:evaluation).sum / self.reviews.size
+    if self.reviews.present?
+      self.reviews.map(&:evaluation).sum / self.reviews.size
+    else
+      0
+    end
+  end
+
+  def full_name
+    self.title + "(" + self.model + ")"
   end
 
   enum manufacture: { "A社": 0, "B社": 1, "C社": 2, "D社": 3, "E社": 4, "その他": 5}

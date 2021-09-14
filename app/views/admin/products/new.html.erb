@@ -16,6 +16,11 @@
   </div>
 
   <div class="field">
+    <%= s.label :"*ジャンル" %><br>
+    <%= s.collection_select :genre_id, @genres, :id, :name, prompt: "--選択してください--", class: "form-control" %>
+  </div>
+
+  <div class="field">
     <%= s.label :"定価" %><br>
     <%= s.text_field :price %>円
   </div>

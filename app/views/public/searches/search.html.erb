@@ -5,8 +5,8 @@
   <%= f.submit "商品検索", class: "btn btn-outline-success" %>
 <% end %>
 <h3>ジャンル検索</h3>
-<% @genres.each do |tag| %>
-  <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': ganre, genre_id: genre.id) %> (<%= genre.products.count %>)
+<% @genres.each do |genre| %>
+  <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) %>
 <% end %>
 <h3>タグ検索</h3>
 <% @tags.each do |tag| %>

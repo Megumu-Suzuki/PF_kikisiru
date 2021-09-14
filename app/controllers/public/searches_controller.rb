@@ -15,7 +15,7 @@ class Public::SearchesController < ApplicationController
   end
 
   def genre(value)
-    @tag = Tag.find(params[:genre_id])
+    @genre = Genre.find(params[:genre_id])
     @datas = @genre.products.all
   end
 
