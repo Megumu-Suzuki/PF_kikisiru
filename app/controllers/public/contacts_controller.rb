@@ -6,7 +6,7 @@ class Public::ContactsController < ApplicationController
       @contact_message = ContactMessage.new
       @user_contact = nil
     else
-      @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "true")
+      @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "false")
       if @user_contact.present?
         @contact_messages = ContactMessage.where(user_id: current_user.id)
         @admin_messages = ContactMessage.where(user_id: nil, contact_id: @user_contact.id)
@@ -29,7 +29,7 @@ class Public::ContactsController < ApplicationController
     if current_user.nil?
       @user_contact = nil
     else
-      @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "true")
+      @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "false")
     end
     render :index and return if params[:back]
     if current_user.nil?
