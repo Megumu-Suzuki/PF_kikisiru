@@ -64,6 +64,8 @@ class Public::ReviewsController < ApplicationController
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
     else
       flash.now[:alert] = "変更の保存に失敗しました"
+      @product = Product.find(params[:product_id])
+      @review = Review.find(params[:id])
       render :edit
     end
   end

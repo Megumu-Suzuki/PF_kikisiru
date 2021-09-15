@@ -1,9 +1,8 @@
-<div class="review-average" data-score=<%= @average_review %>></div><%= @average_review %>
 <table>
   <tbody>
     <tr>
       <th><strong>トップ画像</strong></th>
-      <td><%= image_tag @product.image.variant(resize:'100x100') %></td>
+      <td><%= image_tag @product.top_image.variant(resize:'100x100') %></td>
     </tr>
   </tbody>
 
@@ -13,9 +12,11 @@
       <td><%= @product.title %></td>
     </tr>
   </tbody>
-  <div class="favorite-<%= @product.id %>">
-   <%= render 'public/favorites/favorite-btn', product: @product %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="favorite-<%= @product.id %>">
+     <%= render 'public/favorites/favorite-btn', product: @product %>
+    </div>
+  <% end %>
 
   <tbody>
     <tr>
@@ -112,6 +113,11 @@
     </tr>
   </tbody>
 </table>
+<% if user_signed_in? %>
+  <% if @product.allow_edit == true %>
+    <%= link_to "機器情報を編集する", edit_product_path %>
+  <% end %><br>
+<% end %>
 
 <% if @product.product_images %>
   <% @product.product_images.each do |product_image| %>
@@ -122,19 +128,17 @@
   <% end %>
 <% else %>
   <%= image_tag 'no_image.jpg' %>
-<% end %>
-<% if @product.allow_edit == true %>
-  <%= link_to "機器画像を編集する", edit_product_path(target: "image") %>
+<% end %><br>
+<% if user_signed_in? %>
+  <% if @product.allow_edit == true %>
+    <%= link_to "機器画像を編集する", edit_product_path(target: "image") %>
+  <% end %><br>
 <% end %>
 
 <% @tags_all.each do |tag| %>
   <%= tag.name %><br>
 <% end %>
 
-
-<% if @product.allow_edit == true %>
-  <%= link_to "機器情報を編集する", edit_product_path %>
-<% end %>
 <h1>レビュ一覧</h1>
 <table>
   <thead>

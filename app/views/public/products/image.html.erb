@@ -6,6 +6,11 @@
     <%= s.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= s.label :"*トップ画像" %><br>
+    <%= s.file_field :top_image %>
+  </div>
+
   <div class="products">
     <%= s.fields_for :product_images do |t| %>
       <%= render "product_image_fields", f: t %>

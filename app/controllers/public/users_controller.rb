@@ -4,20 +4,22 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     #@room_recevier.id = @user.id
     #チャット機能
-    @current_user_entry = Entry.where(user_id: current_user.id)
-    @user_entry = Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
-      @current_user_entry.each do |cu|
-        @user_entry.each do |u|
-          if cu.room_id == u.room_id
-            @have_room = true
-            @room_id = cu.room_id
+    if user_signed_in?
+      @current_user_entry = Entry.where(user_id: current_user.id)
+      @user_entry = Entry.where(user_id: @user.id)
+      unless @user.id == current_user.id
+        @current_user_entry.each do |cu|
+          @user_entry.each do |u|
+            if cu.room_id == u.room_id
+              @have_room = true
+              @room_id = cu.room_id
+            end
           end
         end
-      end
-      unless @have_room
-				@room = Room.new
-				@entry = Entry.new
+        unless @have_room
+          @room = Room.new
+          @entry = Entry.new
+        end
       end
     end
     @products = Product.where(user_id: params[:id])
@@ -53,13 +55,13 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
-    @user = current_user
-    @favorites = current_user.favorites
+    @user = User.find(params[:id])
+    @favorites = @user.favorites
   end
 
   def review
-    @user = current_user
-    @reviews = current_user.reviews
+    @user = User.find(params[:id])
+    @reviews = @user.reviews
   end
 
   def room

@@ -8,8 +8,8 @@ class Review < ApplicationRecord
   #タグ機能
   has_many :review_tag_maps, dependent: :destroy
   has_many :tags, through: :review_tag_maps
-  
-  validates :user_id, :product_id, :title, :comment, :evaluation, presence :true
+
+  validates :user_id, :product_id, :title, :comment, :evaluation, presence: true
 
   def save_tag(sent_tags)
     unless self.tags.nil?

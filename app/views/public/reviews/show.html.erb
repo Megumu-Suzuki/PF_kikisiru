@@ -1,11 +1,6 @@
 <!-----------------------商品情報----------------------------------------------------------------------->
 <% if @product.product_images %>
-  <% @product.product_images.each do |product_image| %>
-    <% product_image.images.each do |image| %>
-      <%= image_tag image.variant(resize:'100x100') %>
-    <% end %>
-    <%= product_image.description %>
-  <% end %>
+  <%= image_tag @product.top_image.variant(resize:'100x100') %>
 <% else %>
   <%= image_tag 'no_image.png', size: '100x100' %>
 <% end %><br>
@@ -29,14 +24,11 @@
 <!---------------------レビュー情報------------------------------------------------------------->
 <div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
 <div><%= @review.evaluation %></div>
-<% if @user.id == current_user.id %>
-  <%= link_to "レビュー編集ページ", edit_product_review_path(@product.id, @review.id) %>
-<% end %><br>
-<%# @average = 0 %>
-<%# @review.evaluations.each do |evaluation| %>
-  <%# @average += (evaluation.score / @user.evaluation.count) %>
-<%# end %>
-<%#= @average %>
+<% if user_signed_in? %>
+  <% if @user.id == current_user.id %>
+    <%= link_to "レビュー編集ページ", edit_product_review_path(@product.id, @review.id) %>
+  <% end %><br>
+<% end %>
 
 <%= @review.title %>
 <%= @review.comment %>
@@ -49,9 +41,12 @@
   <% end %>
 <% end %>
 
-<div class="favorite-<%= @product.id %>">
-  <%= render 'public/favorites/favorite-btn', product: @product %>
-</div>
+<% if user_signed_in? %>
+  <div class="favorite-<%= @product.id %>">
+    <%= render 'public/favorites/favorite-btn', product: @product %>
+  </div>
+<% end %>
+
 <table>
   <tbody>
     <tr>
@@ -130,8 +125,10 @@
     </tr>
   </tbody>
 </table>
-<% if @product.allow_edit == true %>
-  <%= link_to "商品編集ページ", edit_product_path %>
+<% if user_signed_in? %>
+  <% if @product.allow_edit == true %>
+    <%= link_to "商品編集ページ", edit_product_path %>
+  <% end %>
 <% end %>
 <h1>レビュ一覧</h1>
 <table>

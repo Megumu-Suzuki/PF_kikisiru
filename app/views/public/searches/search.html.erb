@@ -1,17 +1,18 @@
-<h3>商品名検索</h3>
+<h3>商品名で検索する</h3>
 <%= form_with url: search_path, method: :get, local:true do |f| %>
   <%= f.text_field 'search[value]', placeholder: "商品名を入力" %>
   <%= f.hidden_field 'search[model]', value: "product" %>
   <%= f.submit "商品検索", class: "btn btn-outline-success" %>
 <% end %>
-<h3>ジャンル検索</h3>
+<h3>カテゴリーから検索する</h3>
 <% @genres.each do |genre| %>
   <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) %>
 <% end %>
-<h3>タグ検索</h3>
+<h3>タグから検索する</h3>
 <% @tags.each do |tag| %>
   <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %>
 <% end %>
+<p>※最近登録された順に20件表示しています。</p>
 <h3>検索結果</h3>
 <% if @model == 'product' %>
   <h4>商品名『<%= @value %>』で商品を検索</h4>
@@ -21,5 +22,6 @@
   <h4>タグ『<%= @tag.name %>』で商品を検索</h4>
 <% end %>
 <% @datas.each do |product| %>
-    <%= link_to product.title, product_path(product.id) %><br>
+    <%= link_to product.full_name, product_path(product.id) %>
+    <%= image_tag product.top_image.variant(resize:'100x100') %><br>
 <% end %>

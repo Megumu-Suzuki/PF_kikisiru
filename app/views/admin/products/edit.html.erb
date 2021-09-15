@@ -32,14 +32,14 @@
 
   <%= form_with model: @product, url: admin_product_path(@product), method: :patch, local:true do |f| %>
 
-  <% if @product.image.attached? %>
-    <%= image_tag @product.image.variant(resize:'100x100') %>
+  <% if @product.top_image.attached? %>
+    <%= image_tag @product.top_image.variant(resize:'100x100') %>
     <%= f.hidden_field :delete, value: "image" %>
     <%= f.submit "削除" %>
   <% else %>
     <div class="field">
       <%= f.label :"*トップ画像" %><br>
-      <%= f.file_field :image %>
+      <%= f.file_field :top_image %>
     </div>
   <% end %>
 

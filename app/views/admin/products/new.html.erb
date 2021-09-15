@@ -1,9 +1,9 @@
 <%= form_with model: @product, url: admin_products_path, local:true do |s| %>
 
-  
+
    <div class="field">
-    <%= s.label :"*画像" %><br>
-    <%= s.file_field :image %>
+    <%= s.label :"*トップ画像" %><br>
+    <%= s.file_field :top_image %>
   </div>
 
   <div class="field">
