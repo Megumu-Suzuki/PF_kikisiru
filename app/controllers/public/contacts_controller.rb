@@ -34,17 +34,24 @@ class Public::ContactsController < ApplicationController
     render :index and return if params[:back]
     if current_user.nil?
       @contact = Contact.create
+      @contact_message = ContactMessage.create(contact_message_params)
+      unless @contact_message.valid?
+        @contact = Contact.new
+        @contact_message = ContactMessage.new(contact_message_params)
+        render :index and return
+      end
     else
       @contact = Contact.create(contact_params)
+      @contact_message = ContactMessage.create(contact_message_params)
+      unless @contact_message.valid?
+        @contact = Contact.new
+        @contact_message = ContactMessage.new(contact_message_params)
+        render :index and return
+      end
     end
-    @contact_message = ContactMessage.create(contact_message_params)
     redirect_to thanx_contacts_path
-    #else
-    #  flash.now[:alert] = "送信に失敗しました"
-    #  redirect_to contacts_path
-    #  @product = Product.new(contact_params)
-    # end
   end
+
 
   def thanx
   end

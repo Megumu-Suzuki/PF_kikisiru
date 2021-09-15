@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :genre
   #商品画像
-  has_one_attached :image
+  has_one_attached :top_image
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, allow_destroy: true
   #いいね機能
@@ -15,20 +15,16 @@ class Product < ApplicationRecord
   has_many :product_tag_maps, dependent: :destroy
   has_many :tags, through: :product_tag_maps, source: :product
 
-  validates :image_presence
+  validate :image_presence, on: :update
   validates :genre_id, :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }
   validates :model, presence: true, uniqueness: true
-  validates :price, :width, :hight, :power_consumption, :city_gas, :propane_gas, numericality: {only_integer: true}
-  
+  validates :price, :width, :height, :power_consumption, :city_gas, :propane_gas, allow_nil: true, numericality: {only_float: true}
+
 
   def image_presence
-    if image.attached?
-      if !image.content_type.in?(%('image/png image/png'))
-        errors.add(:image, 'にはjpegまたはpngファイルを添付してください')
-      end
-    else
-      errors.add(:image, '画像を添付してください')
+    unless top_image.attached?
+      errors.add(:top_image, '画像を添付してください')
     end
   end
 

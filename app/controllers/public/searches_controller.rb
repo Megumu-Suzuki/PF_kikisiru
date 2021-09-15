@@ -3,9 +3,9 @@ class Public::SearchesController < ApplicationController
   def search
     @model = params["search"]["model"]
     @value = params["search"]["value"]
-    @datas = search_for(@model, @value)
+    @datas = search_for(@model, @value).reverse
     @genres = Genre.all
-    @tags = Tag.all
+    @tags = Tag.limit(20).order("id DESC")
   end
 
   private

@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
   create_table "contact_messages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.integer "contact_id"
-    t.string "name"
-    t.string "email"
-    t.string "subject"
-    t.text "body"
+    t.integer "contact_id", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "subject", null: false
+    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
 
   create_table "contacts", force: :cascade do |t|
     t.integer "user_id"
-    t.boolean "is_completed", default: true, null: false
+    t.boolean "is_completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,44 +91,44 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_id"
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "genres", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "product_images", force: :cascade do |t|
-    t.integer "product_id"
-    t.text "description"
+    t.integer "product_id", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "product_tag_maps", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "tag_id"
+    t.integer "product_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "genre_id"
+    t.integer "genre_id", null: false
     t.string "title", limit: 30, null: false
-    t.text "description"
+    t.text "description", null: false
     t.string "model", null: false
     t.integer "price"
     t.integer "manufacture"
@@ -146,22 +146,22 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
   end
 
   create_table "review_images", force: :cascade do |t|
-    t.integer "review_id"
-    t.text "description"
+    t.integer "review_id", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "review_tag_maps", force: :cascade do |t|
-    t.integer "review_id"
-    t.integer "tag_id"
+    t.integer "review_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
     t.string "title", null: false
     t.text "comment", null: false
     t.float "evaluation", null: false
@@ -170,13 +170,13 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

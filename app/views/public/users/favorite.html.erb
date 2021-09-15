@@ -3,9 +3,11 @@
 <% if @favorites.exists? %>
   <% @user.favorite_products.each do |product| %>
     <%= render 'index', product: product %>
-    <div class="favorite-<%= product.id %>">
-      <%= render 'public/favorites/favorite-btn', product: product %>
-    </div>
+    <% if user_signed_in? %>
+      <div class="favorite-<%= product.id %>">
+        <%= render 'public/favorites/favorite-btn', product: product %>
+      </div>
+    <% end %>
   <% end %>
 <% else %>
 	<p>いいねしている機器はありません</p>

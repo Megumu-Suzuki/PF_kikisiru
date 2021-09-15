@@ -13,9 +13,11 @@ class Admin::ProductsController < ApplicationController
       @product.save_tag(tag_list)
       redirect_to admin_product_path(@product.id)
     else
-      flash.now[:alert] = "機器の投稿に失敗しました"
-      redirect_to new_admin_product
+      flash.now[:alert] = "内容に不備があります"
       @product = Product.new(product_params)
+      @tags = Tag.all
+      @genres = Genre.all
+      render :new and return
     end
   end
 
@@ -45,13 +47,14 @@ class Admin::ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if params[:product][:delete].present?
-      @product.image.purge
+      @product.top_image.purge
       redirect_back(fallback_location: root_path)
     else
       if @product.update(product_params)
         redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
       else
         flash.now[:alert] = "変更の保存に失敗しました"
+        @genres = Genre.all
         render :edit
       end
     end
@@ -66,7 +69,7 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, :image, product_images_attributes: [:images, :description])
+    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, :top_image, product_images_attributes: [:images, :description])
   end
 
 end

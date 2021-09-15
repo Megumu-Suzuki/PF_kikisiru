@@ -1,7 +1,7 @@
 <div class="nested-fields">
-  <%= f.label :"機器画像" %>
-  <%= f.file_field :images, class: "push", onchange: "loadImage(this);" %>
-  <%= f.label :"画像説明" %><br />
-  <%= f.text_field :description %>
-  <%= link_to_remove_association "画像を削除する", f, class: 'btn' %>
+  <%= f.label :"機器画像" %><br>
+  <%= f.file_field :images, class: "push", onchange: "loadImage(this);" %><br>
+  <%= f.label :"画像説明" %><br>
+  <%= f.text_field :description %><br>
+  <%= link_to_remove_association "画像を削除する", f, class: 'btn' %><br>
 </div>
