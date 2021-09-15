@@ -4,4 +4,6 @@ class Tag < ApplicationRecord
 
   has_many :review_tag_maps, dependent: :destroy
   has_many :reviews, through: :review_tag_maps
+  
+  validates :name, presence :true 
 end

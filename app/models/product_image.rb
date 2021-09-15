@@ -1,6 +1,18 @@
 class ProductImage < ApplicationRecord
   belongs_to :product
-  has_many_attached :images
+  has_one_attached :image
 
-  #validates :description, presence: true
+  validates :image_presence
+  validates :description, presence: true
+  
+  def image_presence
+    if image.attached?
+      if !image.content_type.in?(%('image/png image/png'))
+        errors.add(:image, 'にはjpegまたはpngファイルを添付してください')
+      end
+    else
+      errors.add(:image, '画像を添付してください')
+    end
+  end
+  
 end

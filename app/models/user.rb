@@ -21,8 +21,12 @@ class User < ApplicationRecord
   #問い合わせ機能
   has_many :contacts, dependent: :destroy
   has_many :contact_messages, dependent: :destroy
-  
-  
+
+  validates :last_name, :first_name, :last_name_kana, :first_name_kana, presence :true, length: { maximum: 15 }
+  validates :nickname, length:{ in: 1..15 }
+  validates :email, length: { maximum: 50 }
+  validates :phone_number, presence: true, numericality: {only_integer: true},length: { minimum: 10, maximum: 11 }
+
 
 
   def full_name

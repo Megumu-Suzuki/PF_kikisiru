@@ -94,7 +94,9 @@
       </div>
     <% else %>
   　<% end %>
-    <%= link_to "機器投稿ページ", new_product_path %><br>
+  　<% if user_signed_in? %>
+      <%= link_to "機器投稿ページ", new_product_path %><br>
+    <% end %>
     <%= yield %>
     <footer class="text-center">
       ©︎kikisiru.com

@@ -2,9 +2,9 @@ class CreateProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :products do |t|
       t.integer :user_id
-      t.integer :genre_id
+      t.integer :genre_id, null: false
       t.string :title, null: false, limit: 30
-      t.text :description
+      t.text :description, null: false
       t.string :model, null: false, unique: true
       t.integer :price
       t.integer :manufacture
