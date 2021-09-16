@@ -10,12 +10,15 @@ class Public::RoomsController < ApplicationController
 
 	def show
 		@room = Room.find(params[:id])
+		@room.check_messages_notification(current_user)
     if Entry.where(user_id: current_user.id, room_id: @room.id).present?
+    	user_id = @room.entries.where.not(user_id: current_user.id).select(:user_id)
+    	@user = User.find_by(id: user_id)
       @direct_messages = @room.direct_messages
       @direct_message = DirectMessage.new
       @entries = @room.entries
     else
-      redirect_back(fallback_location: root_path)
+      redirect_to root_path, notice: "アクセス権限がありません"
     end
 	end
 
