@@ -2,35 +2,59 @@
   <%= link_to "チャット一覧に戻る", room_user_path(current_user), class:"edit-link" %>
 </div>
 <h4 class="rooms-title">トークメンバー</h4>
-<% @entries.each do |e| %>
   <div class="user-name">
   <strong>
-    <%#= attachment_image_tag e.user, :profile_image, size: "40x40", format: 'jpeg', class:"attachment user profile_image fallback", fallback: "no_image.jpg" %>
-      <a class="rooms-user-link" href="/users/<%= e.user.id %>">
-        <% if e.user.nickname.present? %>
-          <%= e.user.nickname %>さん
+    <% if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image.variant(resize:'50x50') %>
+    <% else %>
+      <%= image_tag 'no_image.png', size: '100x100' %>
+    <% end %>
+      <a class="rooms-user-link" href="/users/<%= @user.id %>">
+        <% if @user.nickname.present? %>
+          <%= @user.nickname %>さん
         <% else %>
-          匿名<%= e.user.id %>さん
+          匿名<%= @user.id %>さん
         <% end %>
       </a>
   </strong>
   </div>
-<% end %>
 <hr>
 <div class="chats">
   <div class="chat">
     <% if @direct_messages.present? %>
-      <% @direct_messages.each do |m| %>
+      <% @direct_messages.each do |message| %>
         <div class="chat-box">
-          <div class="chat-face">
-    				<%#= attachment_image_tag m.user, :profile_image, size: "40x40", format: 'jpeg', class:"attachment user profile_image fallback", fallback: "no_image.jpg" %>
-          </div>
-          <div class="chat-hukidashi"> <strong><%= m.message %></strong> <br>
-            <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
-          </div>
+          <% if message.user == current_user %>
+            <div class="sent-dm">
+              <% if current_user.profile_image.attached? %>
+                <%= image_tag current_user.profile_image.variant(resize:'50x50'), class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag 'no_image.png', size: '100x100', class: "rounded-circle" %>
+              <% end %>
+              <div class="chat-hukidashi">
+                <strong><%= message.message %></strong><br>
+                <%= message.created_at.strftime("%Y-%m-%d %H:%M")%>
+              </div>
+            </div>
+          <% else %>
+            <div class="recive-dm">
+              <% if @user.profile_image.attached? %>
+                <%= image_tag @user.profile_image.variant(resize:'50x50'), class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag 'no_image.png', size: '100x100', class: "rounded-circle" %>
+              <% end %>
+              <div class="chat-hukidashi">
+                <strong><%= message.message %></strong><br>
+                <%= message.created_at.strftime("%Y-%m-%d %H:%M")%>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
+  </div>
+
+
   </div>
   <div class="posts">
     <%= form_with model: @direct_message, local:true do |f| %>

@@ -78,8 +78,6 @@ Rails.application.routes.draw do
     resources :product_images, only: [:update, :destroy]
 
 
-
-
     #チャットルームの記述
     resources :rooms, only: [:create,:show]
 
@@ -96,9 +94,6 @@ Rails.application.routes.draw do
 
     #問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
-
-    #通知の記述
-    resources :notifications, only: [:index]
 
     #検索の記述
     get 'search' => 'searches#search'

@@ -1,2 +1,0 @@
-class ContactNotification < ApplicationRecord
-end

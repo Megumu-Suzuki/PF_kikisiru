@@ -7,6 +7,7 @@
     <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/8f0be0a856.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -34,7 +35,12 @@
               </li>
 
               <li class="nav-item">
-                <%= link_to "通知", notifications_path, class:"nav-link text-dark" %>
+                <%= link_to room_user_path(current_user), class:"nav-link text-dark" do %>
+                  <i class="far fa-envelope fa-lg.fa-stack-2x fa-backcolor" style="font-size: 1.5em;"></i>
+                  <% if current_user.unchecked_message? %>
+                    <i class="fa fa-circle fa-xs n-circle-chat" style="color: blue;"></i>
+                  <% end %>
+                <% end %>
               </li>
 
               <li class="nav-item">

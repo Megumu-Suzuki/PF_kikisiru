@@ -2,8 +2,6 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #@room_recevier.id = @user.id
-    #チャット機能
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)
       @user_entry = Entry.where(user_id: @user.id)
@@ -65,7 +63,10 @@ class Public::UsersController < ApplicationController
   end
 
   def room
-    @rooms = current_user.rooms
+    # ログインユーザーが持っているentryのroom_idを取得
+    my_room_ids = current_user.entries.select(:room_id)
+    # entryからroom_idがmy_rooms_idsと一致し、user_idがcurrent_user_idではないものを取得
+    @entries = Entry.includes(:user).where(room_id: my_room_ids).where.not(user_id: current_user.id).reverse_order
   end
 
   private
