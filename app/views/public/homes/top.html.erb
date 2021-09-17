@@ -1,40 +1,122 @@
-<h3>商品名で検索する</h3>
-<%= form_with url: search_path, method: :get, local:true do |f| %>
-  <%= f.text_field 'search[value]', placeholder: "商品名を入力" %>
-  <%= f.hidden_field 'search[model]', value: "product" %>
-  <%= f.submit "商品検索", class: "btn btn-outline-success" %>
-<% end %>
-<h3>カテゴリーから検索する</h3>
-<% @genres.each do |genre| %>
-  <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) %>
-<% end %>
-<h3>タグから検索する</h3>
-<% @tags.each do |tag| %>
-  <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %>
-<% end %>
-<p>※最近登録された順に20件表示しています。</p>
-<h3>カテゴリー別評価ランキング</h3>
-<table>
-  <thead>
-    <tr>
-      <th>機器名</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>
-        <% @genre_rankings.each do |genre| %>
-          <%= genre.name %>のランキング<br>
-          <% genre.products.each do |product| %>
-            <%= link_to product.full_name, product_path(product) %>
-            <%= image_tag product.top_image.variant(resize:'100x100') %>
-            <div class="review-average" data-score=<%= product.review_average %>></div><%= product.review_average.round(1) %><br>
-          <% end %>
+<div class="container">
+  <div class="row mt-3 mb-5 border border-dark rounded">
+    <div class="col-4 mt-4 mb-3">
+      <h5>商品名で検索する</h5>
+    </div>
+    <div class="col-6 mt-3 mb-1 justify-content-center">
+      <%= form_with url: search_path, method: :get, local:true do |f| %>
+      <div class="form-group">
+        <%= f.text_field 'search[value]',class: "form-control", placeholder: "商品名を入力" %>
+        <%= f.hidden_field 'search[model]', value: "product" %>
+      </div>
+    </div>
+    <div class="col-1">
+        <%= f.submit "検索", class: "btn btn-success mt-3 mb-1" %>
+    </div>
+      <% end %>
+  </div>
+
+
+  <div class="row mt-5 mb-3">
+    <div class="col-4 d-flex">
+      <h5>カテゴリーから検索する</h5>
+    </div>
+    <div class="col-8"></div>
+  </div>
+  <div class="row mb-5 justify-content-center">
+    <% @genres.each do |genre| %>
+      <div class="col-4 col-sm-3">
+        <div class="card my-2" style="max-width: 200px;">
+          <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
+            <div class="bg_image">
+              <%= image_tag genre.image.variant(gravity: :center, resize:'150x150^', crop:"150x150+0+0").processed, class: "card-img" %>
+            </div>
+            <div class="card-img-overlay">
+              <p class="text-white"><%= genre.name %></p>
+            </div>
+          </div>
         <% end %>
-      </th>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div class="row mt-5 mb-3">
+    <div class="col-6 d-flex">
+      <h5>タグから検索する</h5>
+      <p class="text-muted">(※最近登録された20件を表示しています。)</p>
+    </div>
+    <div class="col-6"></div>
+  </div>
+  <div class="row">
+  <% @tags.each do |tag| %>
+    <div class="p-1 flex-row">
+    <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
+      <button type="button" class="btn btn-outline-secondary text-nowrap">
+        <%= tag.name %>
+      </button>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+
+
+  <div class="row mt-5 mb-3">
+    <div class="col-4 d-flex">
+      <h5>カテゴリー別評価ランキング</h5>
+    </div>
+    <div class="col-8"></div>
+  </div>
+  <table>
+    <tbody>
+      <tr>
+        <th class="row justify-content-center">
+          <% @genre_rankings.each do |genre| %>
+          <div class="col-6">
+            <div class="card my-3">
+              <div class="row">
+                <div class="col d-flex justify-content-center">
+                  <%= genre.name %>
+                </div>
+              </div>
+              <% genre.products.each.with_index(1) do |product, i| %>
+                <%= link_to product_path(product) do %>
+                  <div class="card my-1 mx-2">
+                    <div class="row">
+                      <div class="col-1 pr-0 d-flex">
+                        <%= i %>位
+                      </div>
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col mt-3 mb-4 d-flex">
+                            <%= product.title %><br>
+                            (<%= product.model %>)
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="review-average" data-score=<%= product.review_average %>></div>
+                          </div>
+                          <div class="col-1 d-flex">
+                            <%= product.review_average.round(1) %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-5">
+                        <%= image_tag product.top_image.variant(gravity: :center, resize:'150x150^', crop:"150x150+0+0") %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            </div>
+          <% end %>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
 <script>
