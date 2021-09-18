@@ -12,94 +12,102 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">
-          <%= image_tag 'logo_transparent.png', style: "height: 50px;" %>
-        </a>
-        <div class="container-fluid justify-content-end">
-          <ul class="navbar-nav">
-            <% if user_signed_in? %>
-            <!--会員ログイン後のヘッダー-------------------------------------------------------------------------->
-              <li class="nav-item">
-                <a class="nav-link text-dark">
-                  <% if current_user.nickname.present? %>
-                    <%= current_user.nickname %>さん
-                  <% else %>
-                    匿名<%= current_user.id %>さん
+      <% if current_page?(root_path) %>
+        <div class="header-img position-relative">
+      <% end %>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid position-relative">
+          <a class="navbar-brand" href="/">
+            <%= image_tag 'logo_transparent.png', style: "height: 50px;" %>
+          </a>
+          <p class="m-0">業務用厨房機器レビューサイト</p>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerList" aria-controls="navbarTogglerList" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerList">
+            <ul class="navbar-nav">
+              <% if user_signed_in? %>
+              <!--会員ログイン後のヘッダー-------------------------------------------------------------------------->
+                <li class="nav-item d-flex justify-content-end">
+                  <a class="nav-link text-dark">
+                    <% if current_user.nickname.present? %>
+                      <%= current_user.nickname %>さん
+                    <% else %>
+                      匿名<%= current_user.id %>さん
+                    <% end %>
+                  </a>
+                </li>
+
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
+                </li>
+
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to room_user_path(current_user), class:"nav-link text-dark" do %>
+                    <i class="far fa-envelope fa-lg.fa-stack-2x fa-backcolor" style="font-size: 1.5em;"></i>
+                    <% if current_user.unchecked_message? %>
+                      <i class="fa fa-circle fa-xs n-circle-chat" style="color: blue;"></i>
+                    <% end %>
                   <% end %>
-                </a>
-              </li>
+                </li>
 
-              <li class="nav-item">
-                <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
-              </li>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+                </li>
 
-              <li class="nav-item">
-                <%= link_to room_user_path(current_user), class:"nav-link text-dark" do %>
-                  <i class="far fa-envelope fa-lg.fa-stack-2x fa-backcolor" style="font-size: 1.5em;"></i>
-                  <% if current_user.unchecked_message? %>
-                    <i class="fa fa-circle fa-xs n-circle-chat" style="color: blue;"></i>
-                  <% end %>
-                <% end %>
-              </li>
-
-              <li class="nav-item">
-                <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
-              </li>
-
-              <li class="nav-item">
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
-              </li>
-
-            <% elsif admin_signed_in? %>
-            <!--管理者ログイン後のヘッダー-------------------------------------------------------------------------->
-              <li class="nav-item">
-                <%= link_to "お問い合わせ一覧", admin_path, class:"nav-link text-dark" %>
-              </li>
-
-              <li class="nav-item">
-                <%= link_to "会員一覧", admin_users_path, class:"nav-link text-dark" %>
-              </li>
-
-              <li class="nav-item">
-                <%= link_to "機器一覧", admin_products_path, class:"nav-link text-dark" %>
-              </li>
-
-              <li class="nav-item">
-                <%= link_to "ジャンル一覧", admin_genres_path, class:"nav-link text-dark" %>
-              </li>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
+                </li>
 
 
+              <% elsif admin_signed_in? %>
+              <!--管理者ログイン後のヘッダー-------------------------------------------------------------------------->
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "お問い合わせ一覧", admin_path, class:"nav-link text-dark" %>
+                </li>
 
-              <li class="nav-item">
-                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
-              </li>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "会員一覧", admin_users_path, class:"nav-link text-dark" %>
+                </li>
 
-            <% else %>
-            <!--ログイン前のヘッダー----------------------------------------------------------------------------->
-              <li class="nav-item">
-                <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
-              </li>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "機器一覧", admin_products_path, class:"nav-link text-dark" %>
+                </li>
 
-              <li class="nav-item">
-                <%= link_to "新規登録/ログイン", new_user_session_path, class: "nav-link text-dark" %>
-              </li>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "ジャンル一覧", admin_genres_path, class:"nav-link text-dark" %>
+                </li>
 
-            <% end %>
-          </ul>
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
+                </li>
+
+
+              <% else %>
+              <!--ログイン前のヘッダー----------------------------------------------------------------------------->
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+                </li>
+
+                <li class="nav-item d-flex justify-content-end">
+                  <%= link_to "新規登録/ログイン", new_user_session_path, class: "nav-link text-dark" %>
+                </li>
+
+              <% end %>
+            </ul>
+          </div>
         </div>
       </nav>
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <span>商品名で検索する</span>
-          <%= form_with url: search_path, method: :get, local:true do |f| %>
-            <%= f.text_field 'search[value]', placeholder: "商品名を入力" %>
-            <%= f.hidden_field 'search[model]', value: "product" %>
-            <%= f.submit "商品検索", class: "btn btn-outline-success" %>
-          <% end %>
+      <% if current_page?(root_path) %>
+          <div class="header-title">
+            <h1 class="font-weight-bold">
+              厨房機器で悩んだら「キキシル」
+            </h1>
+          </div>
         </div>
-      </nav>
+      <% end %>
     </header>
+
     <% if flash[:alert] %>
       <div class="alert">
         <%= flash[:alert] %>
@@ -110,11 +118,11 @@
       </div>
     <% else %>
   　<% end %>
-  　<% if user_signed_in? %>
-      <%= link_to "機器投稿ページ", products_path %><br>
-    <% end %>
+
     <%= yield %>
-    <footer class="text-center">
+
+
+    <footer class="text-center my-5">
       ©︎kikisiru.com
     </footer>
   </body>
