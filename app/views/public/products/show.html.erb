@@ -198,3 +198,6 @@
 </script>
 
  <%= link_to "レビュー投稿", new_product_review_path(@product.id) %>
+<% if user_signed_in? %>
+      <%= link_to "機器投稿ページ", products_path %><br>
+    <% end %>

@@ -14,3 +14,36 @@
  *= require_self
  */
 @import "bootstrap";
+
+// .card-img-overlay {
+//   padding: 0;
+//   top: 80%;
+//   text-align: center;
+//   font-weight: bold;
+//   font-size: 20px;
+// }
+
+
+.bg_image::before {
+  content: "";
+  position: absolute;
+  top: 0;  bottom: 0;
+  left: 0;  right: 0;
+  background: black;
+  opacity: 0.3;
+}
+
+.header-img{
+  background:url(iron.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat:no-repeat;
+  height: 350px;
+  position: relative;
+}
+
+.header-title{
+  display: flex;
+  position: absolute;
+  top: 125px; left: 100px;
+}

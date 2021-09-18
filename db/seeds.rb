@@ -12,16 +12,35 @@ User.create!(
     {email: 'test1@gmail.com', password: '222222', last_name: 'テスト', first_name: '太郎', last_name_kana: 'テスト', first_name_kana: 'タロウ', is_deleted: 'true'}
   ]
 )
-Genre.create!(
+genre = Genre.create(name: '冷凍・冷蔵機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/ice-cubes-3506781_640.jpg')), filename: 'ice-cubes-3506781_640.jpg')
+genre = Genre.create(name: '加熱機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/burgers-1839090_640.jpg')), filename: 'burgers-1839090_640.jpg')
+genre = Genre.create(name: '洗浄機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/dishwasher-1772579_640.jpg')), filename: 'dishwasher-1772579_640.jpg')
+genre = Genre.create(name: 'サービス機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/beverage-1840426_640.jpg')), filename: 'beverage-1840426_640.jpg')
+genre = Genre.create(name: '製菓・製パン機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/bread-3467243_640.jpg')), filename: 'bread-3467243_640.jpg')
+genre = Genre.create(name: '衛生管理機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/eggplant-3587785_640.jpg')), filename: 'eggplant-3587785_640.jpg')
+genre = Genre.create(name: 'その他機器')
+genre.image.attach(io: File.open(Rails.root.join('db/images/kitchen-1159532_640.jpg')), filename: 'kitchen-1159532_640.jpg')
+genre = Genre.create(name: 'その他備品')
+genre.image.attach(io: File.open(Rails.root.join('db/images/mixer-tap-413745_640.jpg')), filename: 'mixer-tap-413745_640.jpg')
+
+Tag.create!(
   [
-    {name: '冷凍・冷蔵機器'},
-    {name: '加熱機器'},
-    {name: '洗浄機器'},
-    {name: 'サービス用機器'},
-    {name: '製菓・製パン機器'},
-    {name: '作業機器'},
-    {name: 'その他機器'},
-    {name: 'その他備品'}
+    {name: '便利'},
+    {name: '丈夫'},
+    {name: '大きい'},
+    {name: '小さい'},
+    {name: '美味しくなった'},
+    {name: '助かる'},
+    {name: 'コーヒー'},
+    {name: 'ローストビーフ'},
+    {name: '焼き鳥'},
+    {name: '焼肉'}
   ]
 )
 

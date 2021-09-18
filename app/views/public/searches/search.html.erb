@@ -1,27 +1,82 @@
-<h3>商品名で検索する</h3>
-<%= form_with url: search_path, method: :get, local:true do |f| %>
-  <%= f.text_field 'search[value]', placeholder: "商品名を入力" %>
-  <%= f.hidden_field 'search[model]', value: "product" %>
-  <%= f.submit "商品検索", class: "btn btn-outline-success" %>
-<% end %>
-<h3>カテゴリーから検索する</h3>
-<% @genres.each do |genre| %>
-  <%= link_to genre.name, search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) %>
-<% end %>
-<h3>タグから検索する</h3>
-<% @tags.each do |tag| %>
-  <%= link_to tag.name, search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) %>
-<% end %>
-<p>※最近登録された順に20件表示しています。</p>
-<h3>検索結果</h3>
-<% if @model == 'product' %>
-  <h4>商品名『<%= @value %>』で商品を検索</h4>
-<% elsif @model == 'genre' %>
-  <h4>ジャンル『<%= @genre.name %>』で商品を検索</h4>
-<% elsif @model == 'tag' %>
-  <h4>タグ『<%= @tag.name %>』で商品を検索</h4>
-<% end %>
-<% @datas.each do |product| %>
-    <%= link_to product.full_name, product_path(product.id) %>
-    <%= image_tag product.top_image.variant(resize:'100x100') %><br>
-<% end %>
+<div class="container-fluid">
+  <div class="container sticky-top">
+    <div id="header" class="sticky-top">
+      <div class="row mt mb-5 border border-dark rounded bg-white">
+        <div class="col-4 mt-4 mb-3">
+          <h5 class="font-weight-bold">商品名で検索する</h5>
+        </div>
+        <div class="col-6 mt-3 mb-1 justify-content-center">
+          <%= form_with url: search_path, method: :get, local:true do |f| %>
+          <div class="form-group">
+            <%= f.text_field 'search[value]',class: "form-control", placeholder: "商品名を入力" %>
+            <%= f.hidden_field 'search[model]', value: "product" %>
+          </div>
+        </div>
+        <div class="col-1">
+            <%= f.submit "検索", class: "btn btn-success mt-3 mb-1" %>
+        </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mx-5">
+    <div class="row">
+      <!--左側検索-->
+      <div class="col-2">
+        <h5 class="font-weight-bold mb-2">カテゴリーから検索する</h5>
+        <div class="row">
+          <% @genres.each do |genre| %>
+            <div class="col-6 px-1">
+              <div class="card my-1" style="max-width: 200px;">
+                <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
+                  <div class="bg_image">
+                    <%= image_tag genre.image.variant(gravity: :center, resize:'150x150^', crop:"150x150+0+0").processed, class: "card-img" %>
+                    <div class="card-img-overlay p-0 d-flex align-items-end justify-content-center">
+                      <p class="card-text text-white"><%= genre.name %></p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <h5 class="font-weight-bold mt-5 mb-2">タグから検索する</h4>
+        <div class="row">
+          <% @tags.each do |tag| %>
+            <div class="p-1 flex-row">
+              <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
+                <button type="button" class="btn btn-outline-secondary text-nowrap">
+                  <%= tag.name %>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
+          <p class="text-muted">(※最近登録された20件を表示しています。)</p>
+        </div>
+      </div>
+
+      <!--右側検索結果-->
+      <div class="col-10">
+        <% if @model == 'product' %>
+          <h4 class="font-weight-bold">商品名『<%= @value %>』の機器</h4>
+        <% elsif @model == 'genre' %>
+          <h4 class="font-weight-bold">ジャンル『<%= @genre.name %>』の機器</h4>
+        <% elsif @model == 'tag' %>
+          <h4 class="font-weight-bold">タグ『<%= @tag.name %>』の機器</h4>
+        <% end %>
+        
+        <% @datas.each do |product| %>
+          <%= link_to product.full_name, product_path(product.id) %>
+          <%= image_tag product.top_image.variant(resize:'100x100') %><br>
+        <% end %>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
