@@ -62,11 +62,9 @@
 
   <tbody>
     <tr>
-      <th><strong>寸法</strong>(間口×奥行×高さ)</th>
+      <th><strong>寸法</strong><%= @product.product_size_unit %></th>
       <td>
-        <%= @product.width %>
-        × <%= @product.depth %>
-        × <%= @product.height %>mm
+        <%= @product.product_size %>
       </td>
     </tr>
   </tbody>
@@ -135,7 +133,7 @@
   <% end %><br>
 <% end %>
 
-<% @tags_all.each do |tag| %>
+<% @product.product_tags.each do |tag| %>
   <%= tag.name %><br>
 <% end %>
 

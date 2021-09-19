@@ -1,11 +1,13 @@
 class Public::SearchesController < ApplicationController
 
   def search
+    @genres = Genre.all.includes(:products)
+    @tags = Tag.limit(20).order("id DESC")
     @model = params["search"]["model"]
     @value = params["search"]["value"]
-    @datas = search_for(@model, @value).reverse
-    @genres = Genre.all
-    @tags = Tag.limit(20).order("id DESC")
+    @datas = search_for(@model, @value).sort {|a,b| b.id <=> a.id}
+    # .page(params[:page]).per(5)
+    @datas = Kaminari.paginate_array(@datas).page(params[:page]).per(10)
   end
 
   private
