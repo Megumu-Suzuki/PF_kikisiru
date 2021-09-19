@@ -52,14 +52,6 @@ class Public::ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = Review.where(product_id: @product.id)
-    # 商品についているタグ情報
-    @product_tags = Tag.joins(:product_tag_maps).where(product_tag_maps: {product_id: @product.id})
-    # レビューについておるタグ情報
-    @review_tags = Tag.joins(:review_tag_maps).where(review_tag_maps: {review_id: @reviews.pluck(:id)})
-    # 商品とレビューのタグ情報を合わせる
-    @tags = @product_tags + @review_tags
-    # 被っているタグを削除
-    @tags_all = @tags.uniq
     if @product.reviews.blank?
       @average_review = 0
     else

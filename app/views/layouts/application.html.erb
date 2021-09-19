@@ -85,6 +85,12 @@
 
               <% else %>
               <!--ログイン前のヘッダー----------------------------------------------------------------------------->
+
+                <li class="nav-item d-flex justify-content-end">
+                  <a class="nav-link text-dark">
+                    ようこそゲストさん
+                  </a>
+                </li>
                 <li class="nav-item d-flex justify-content-end">
                   <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
                 </li>

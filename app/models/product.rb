@@ -53,7 +53,8 @@ class Product < ApplicationRecord
       self.product_tag_maps.push(maps)
     end
   end
-
+  
+  # 評価の平均点
   def review_average
     if self.reviews.present?
       self.reviews.map(&:evaluation).sum / self.reviews.size
@@ -62,9 +63,57 @@ class Product < ApplicationRecord
     end
   end
 
+  # 機器名と型式
   def full_name
     self.title + "(" + self.model + ")"
   end
+  
+  # 機器のサイズの定義
+  def product_size
+    if self.width.present?
+      if self.depth.present?
+        if self.height.present?
+          self.width.to_s + " × " + self.depth.to_s + " × " + self.height.to_s + " mm"
+        else
+          self.width.to_s + " × " + self.depth.to_s+ " mm"
+        end
+      elsif self.height.present?
+        self.width.to_s + " × " + self.height.to_s+ " mm"
+      end
+    elsif self.depth.present? && self.height.present?
+      self.depth.to_s + " × " + self.height.to_s+ " mm"
+    end
+  end
+  # 機器のサイズの単位の定義
+  def product_size_unit
+    if self.width.present?
+      if self.depth.present?
+        if self.height.present?
+          "(間口×奥行×高さ)"
+        else
+          "(間口×奥行)"
+        end
+      elsif self.height.present?
+        "(間口×高さ)"
+      end
+    elsif self.depth.present? && self.height.present?
+      "(奥行×高さ)"
+    end
+  end
+
+  # 機器と機器のレビューについてるタグを機器のタグとする定義
+  def product_tags
+    @reviews = Review.where(product_id: self.id)
+    # 機器についているタグ情報
+    @product_tags = Tag.joins(:product_tag_maps).where(product_tag_maps: {product_id: self.id})
+    # レビューについておるタグ情報
+    @review_tags = Tag.joins(:review_tag_maps).where(review_tag_maps: {review_id: @reviews.pluck(:id)})
+    # 機器とレビューのタグ情報を合わせる
+    @tags = @product_tags + @review_tags
+    # 被っているタグを削除
+    @tags_all = @tags.uniq
+  end
+
 
 
 
