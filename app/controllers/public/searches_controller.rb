@@ -6,7 +6,6 @@ class Public::SearchesController < ApplicationController
     @model = params["search"]["model"]
     @value = params["search"]["value"]
     @datas = search_for(@model, @value).sort {|a,b| b.id <=> a.id}
-    # .page(params[:page]).per(5)
     @datas = Kaminari.paginate_array(@datas).page(params[:page]).per(10)
   end
 

@@ -1,1 +1,2 @@
 $(".favorite-<%= @product.id %>").html("<%= j(render 'public/favorites/favorite-btn', product: @product) %>");
+$(".favorite-count-<%= @product.id %>").html("<%= j(render 'public/favorites/favorite-count', product: @product) %>");

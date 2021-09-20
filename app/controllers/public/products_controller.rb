@@ -51,12 +51,15 @@ class Public::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @reviews = Review.where(product_id: @product.id)
+    @reviews = Review.where(product_id: @product.id).sort {|a,b| b.created_at <=> a.id}
+    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if @product.reviews.blank?
       @average_review = 0
     else
       @average_review = @product.review_average.round(1)
     end
+    @all_images = @product.product_all_images
+    @all_images = Kaminari.paginate_array(@all_images).page(params[:page]).per(18)
   end
 
   def edit
