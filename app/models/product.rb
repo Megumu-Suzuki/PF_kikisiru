@@ -2,7 +2,7 @@ class Product < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :genre
-  #商品画像
+  #機器画像
   has_one_attached :top_image
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, allow_destroy: true
@@ -53,7 +53,7 @@ class Product < ApplicationRecord
       self.product_tag_maps.push(maps)
     end
   end
-  
+
   # 評価の平均点
   def review_average
     if self.reviews.present?
@@ -64,10 +64,10 @@ class Product < ApplicationRecord
   end
 
   # 機器名と型式
-  def full_name
-    self.title + "(" + self.model + ")"
-  end
-  
+  # def full_name
+  #   self.title + "(" + self.model + ")"
+  # end
+
   # 機器のサイズの定義
   def product_size
     if self.width.present?
@@ -82,8 +82,11 @@ class Product < ApplicationRecord
       end
     elsif self.depth.present? && self.height.present?
       self.depth.to_s + " × " + self.height.to_s+ " mm"
+    else
+      "- mm"
     end
   end
+
   # 機器のサイズの単位の定義
   def product_size_unit
     if self.width.present?
@@ -114,6 +117,21 @@ class Product < ApplicationRecord
     @tags_all = @tags.uniq
   end
 
+
+  # 機器と機器のレビューについている画像全ての定義
+  def product_all_images
+    # 機器の画像全て
+    @product_images = self.product_images
+    
+    if self.reviews.present?
+      # レビューの画像全て
+      @review_images = ReviewImage.joins(:review).where(reviews: {product_id: self.id})
+      # 機器の画像の全てとレビューの画像の全てを合計
+      @all_images = @product_images | @review_images
+    else
+      @all_images = @product_images
+    end
+  end
 
 
 
