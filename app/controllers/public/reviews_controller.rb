@@ -49,12 +49,21 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @user = @review.user
     @product = @review.product
-    @reviews = Review.where(product_id: @product.id)
+    @reviews = Review.where(product_id: @product.id).sort {|a,b| b.created_at <=> a.id}
+    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
+    @review_images = @review.review_images.page(params[:page]).per(5)
   end
 
   def edit
-    @product = Product.find(params[:product_id])
-    @review = Review.find(params[:id])
+    @target = params["target"]
+    if @target == "image"
+      @product = Product.find(params[:product_id])
+      @review = Review.find(params[:id])
+      @review_image = ReviewImage.new
+    else
+      @product = Product.find(params[:product_id])
+      @review = Review.find(params[:id])
+    end
   end
 
   def update

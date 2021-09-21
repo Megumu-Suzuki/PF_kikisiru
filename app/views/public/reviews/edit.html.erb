@@ -1,3 +1,37 @@
+<% if @target == "image" %>
+<!--画像編集をクリックした時------------------------------------------------------------------------------------->
+    <div>
+      <% unless @product.product_images.empty? %>
+        <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
+          <% @review.review_images.each do |review_image| %>
+            <% review_image.images.each do |image| %>
+              <%= image_tag image, style: "object-fit: cover; width: 75px; height: 75px;" %>
+            <% end %>
+            <%= form_with model: review_image, url: review_image_path(review_image), method: :patch, local:true do |f| %>
+              <%= f.label :"画像説明" %>
+              <%= f.text_field :description %>
+              <%= f.submit "更新", class: "btn btn-primary" %>
+            <% end %>
+            <%= link_to  "削除", review_image_path(review_image), method: :delete %><br>
+          <% end %>
+      <% end %>
+    </div>
+    <%= form_with model: Review.new, url: product_review_path(@product.id, @review.id), method: :patch, local:true do |s| %>
+      <div class="products">
+        <%= s.fields_for :review_images do |t| %>
+          <%= render "review_image_fields", f: t %>
+        <% end %>
+        <p>↓ボタンをクリックするとフォームを増やすことができます</p>
+        <div class="links">
+          <%= link_to_add_association "画像を追加する", s, :review_images, class: 'btn' %>
+        </div>
+      </div>
+      <%= s.submit "画像情報を更新する" %>
+    <% end %>
+
+
+
+<% else %>
 <h1>レビューを投稿</h1>
 <%= form_with(model:[@product, @review], local: true) do |f| %>
   <div>
@@ -27,3 +61,4 @@
     half: true
   });
 </script>
+<% end %>
