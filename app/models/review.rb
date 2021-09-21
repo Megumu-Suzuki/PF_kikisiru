@@ -32,6 +32,5 @@ class Review < ApplicationRecord
       #self.tags.push(review_tag_map)
     end
   end
-
-
+  
 end

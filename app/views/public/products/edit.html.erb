@@ -1,11 +1,11 @@
 <% if @target == "image" %>
 <!--画像編集をクリックした時------------------------------------------------------------------------------------->
-    <div id="image_preview">
+    <div>
       <% unless @product.product_images.empty? %>
         <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
           <% @product.product_images.each do |product_image| %>
             <% product_image.images.each do |image| %>
-              <%= image_tag image.variant(resize:'100x100') %>
+              <%= image_tag image, style: "object-fit: cover; width: 100px; height: 100px;" %>
             <% end %>
             <%= form_with model: product_image, url: product_image_path(product_image), method: :patch, local:true do |f| %>
               <%= f.label :"画像説明" %>

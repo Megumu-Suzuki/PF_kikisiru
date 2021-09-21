@@ -73,9 +73,13 @@ Rails.application.routes.draw do
           post 'confirm'
         end
       end
+
     end
     # 商品画像の記述
     resources :product_images, only: [:update, :destroy]
+
+    # レビュー画像の記述
+    resources :review_images, only: [:update, :destroy]
 
 
     #チャットルームの記述
