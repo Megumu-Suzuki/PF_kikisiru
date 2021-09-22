@@ -75,9 +75,6 @@ class Public::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if params[:product][:delete] == "image"
-      @product.image.purge
-    end
     if @product.update(product_params)
       redirect_to product_path(@product.id), notice: "変更を保存しました"
     else

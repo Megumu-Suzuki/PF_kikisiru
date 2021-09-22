@@ -1,80 +1,93 @@
-<% if @target == "image" %>
-<!--画像編集をクリックした時------------------------------------------------------------------------------------->
-    <div>
-      <% unless @product.product_images.empty? %>
-        <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
-          <% @product.product_images.each do |product_image| %>
-            <% product_image.images.each do |image| %>
-              <%= image_tag image, style: "object-fit: cover; width: 100px; height: 100px;" %>
-            <% end %>
-            <%= form_with model: product_image, url: product_image_path(product_image), method: :patch, local:true do |f| %>
-              <%= f.label :"画像説明" %>
-              <%= f.text_field :description %>
-              <%= f.submit "更新", class: "btn btn-primary" %>
-            <% end %>
-            <%= link_to  "削除", product_image_path(product_image), method: :delete %><br>
-          <% end %>
-      <% end %>
-    </div>
-    <%= form_with model: Product.new, url: product_path, method: :patch, local:true do |s| %>
+<div class="container">
+  <% if @target == "image" %>
+  <!--画像編集をクリックした時------------------------------------------------------------------------------------->
 
-    <div class="products">
-      <%= s.fields_for :product_images do |t| %>
-        <%= render "product_image_fields", f: t %>
-      <% end %>
-      <p>↓ボタンをクリックするとフォームを増やすことができます</p>
-      <div class="links">
-        <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+    <%= render 'public/products/product_image_edit', product: @product %>
+
+  <!--商品編集をクリックした時------------------------------------------------------------------------------------>
+  <% else %>
+    <%= form_with model: @product, url: product_path, local:true do |f| %>
+
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body p-1">
+          <p class="card-text text-break d-flex justify-content-center">
+            現在登録されているトップ画像
+          </p>
+        </div>
+        <div class="card-img-bottom my-3 d-flex justify-content-center">
+          <%= image_tag @product.top_image, style: "object-fit: cover; width: 200px; height: 200px;" %>
+        </div>
       </div>
     </div>
-    <%= s.submit "画像情報を更新する" %>
-  <% end %>
 
-<% else %>
+    <div class="col-md-auto d-flex justify-content-center">
+        <%= f.label :"トップ画像を変更する場合は画像ファイルを選択してください", style: "background-color: #DDDDDD;" %>
+    </div>
+    <div class="col ml-5 d-flex justify-content-center">
+        <%= f.file_field :top_image, style: "background-color: #EEEEEE;" %>
+    </div>
+  </div>
 
-<!--商品編集をクリックした時------------------------------------------------------------------------------------>
-  <%= form_with model: @product, url: product_path, local:true do |f| %>
-    <% if @product.top_image.attached? %>
-      <div class="field">
-        <%= f.label :top_image do %>
-          <%= image_tag @product.top_image.variant(resize:'100x100') %>
-          <%= f.file_field :top_image, style: 'display:none' %>
-        <% end %>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-2 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"機器名", class: "m-0" %>
+        </p>
       </div>
-    <% else %>
-      <div class="field">
-        <%= f.label :top_image do %>
-          <%= image_tag 'no_image.png', size: '100x100' %>
-          <%= f.file_field :top_image, style: 'display:none' %>
-        <% end %>
+      <div class="col-5 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :title, class: "form-control" %>
       </div>
-    <% end %>
-  <%= f.submit "変更" %>
-
-
-    <div class="field">
-      <%= f.label :"*機器名" %><br />
-      <%= f.text_field :title %>
     </div>
 
-    <div class="field">
-      <%= f.label :"メーカー" %><br />
-      <%= f.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'} %>
+    <div class="row mt-3">
+      <div class="col-2 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"メーカー", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-5 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'}, class: "form-control" %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :"*型式" %><br />
-      <%= f.text_field :model %>
+    <div class="row mt-3">
+      <div class="col-2 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"*型式", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-5 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :model, class: "form-control"%>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :"*ジャンル" %><br>
-      <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択してください--", class: "form-control" %>
+    <div class="row mt-3">
+      <div class="col-2 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"*ジャンル", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-5 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.collection_select :genre_id, @genres, :id, :name, {prompt: "--選択してください--"}, class: "form-control" %>
+      </div>
     </div>
 
-    <div class="field">
-      <%= f.label :"定価" %><br />
-      <%= f.text_field :price %>円
+    <div class="row mt-3">
+      <div class="col-2 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"定価", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :price, class: "form-control" %>
+      </div>
+      <div class="col-md-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        円
+      </div>
     </div>
 
     <div class="field">
@@ -135,3 +148,6 @@
   <% end %>
 
 <% end %>
+
+  </div>
+</div>

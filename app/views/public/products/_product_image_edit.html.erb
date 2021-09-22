@@ -1,0 +1,29 @@
+<div>
+    <% unless product.product_images.empty? %>
+      <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
+        <% product.product_images.each do |product_image| %>
+          <% product_image.images.each do |image| %>
+            <%= image_tag image, style: "object-fit: cover; width: 100px; height: 100px;" %>
+          <% end %>
+          <%= form_with model: product_image, url: product_image_path(product_image), method: :patch, local:true do |f| %>
+            <%= f.label :"画像説明" %>
+            <%= f.text_field :description %>
+            <%= f.submit "更新", class: "btn btn-primary" %>
+          <% end %>
+          <%= link_to  "削除", product_image_path(product_image), method: :delete %><br>
+        <% end %>
+    <% end %>
+  </div>
+  <%= form_with model: Product.new, url: product_path, method: :patch, local:true do |s| %>
+    <div class="products">
+      <%= s.fields_for :product_images do |t| %>
+        <%= render "product_image_fields", f: t %>
+      <% end %>
+      <p>↓ボタンをクリックするとフォームを増やすことができます</p>
+      <div class="links">
+        <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+      </div>
+    </div>
+    <%= s.hidden_field :product_id, value: product.id %>
+    <%= s.submit "画像情報を更新する" %>
+  <% end %>
