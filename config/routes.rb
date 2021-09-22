@@ -1,5 +1,36 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations',
+    sessions: 'admins/sessions'
+  }
+  # 管理者側
+  namespace :admin do
+    # 問い合わせの記述
+    resources :contacts, only: [:show] do
+      member do
+        patch 'completed'
+      end
+    end
+    # 会員の記述
+    resources :users, only: [:index, :show, :edit, :update]
+    # 商品の記述
+    resources :products do
+      # レビューの記述
+      resources :reviews, only: [:show, :destroy]
+    end
+    # 商品画像の記述
+    resources :product_images, only: [:update, :destroy]
+    # ジャンルの記載
+    resources :genres, only: [:index, :create, :edit, :update]
+    # 問い合わせメッセージの記述
+    resources :contact_messages, only: [:create]
+  end
+
+
+
+  get '/admin' => 'admin/homes#top'
+
   #ユーザー新規登録、ログイン
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -23,26 +54,36 @@ Rails.application.routes.draw do
 
     #商品の記述
     resources :products, except: [:destroy] do
+      member do
+        get 'image'
+        patch 'addition'
+      end
+      collection do
+        post 'confirm'
+      end
       #いいね機能の記述
       resource :favorites, only: [:create, :destroy]
-      collection do
-        post 'confirm'
+      #レビューの記述
+      resources :reviews do
+        member do
+          get 'image'
+          patch 'addition'
+        end
+        collection do
+          post 'confirm'
+        end
       end
-    end
 
-    #レビューの記述
-    resources :reviews do
-      collection do
-        post 'confirm'
-      end
     end
+    # 商品画像の記述
+    resources :product_images, only: [:update, :destroy]
+
+    # レビュー画像の記述
+    resources :review_images, only: [:update, :destroy]
+
 
     #チャットルームの記述
-    resources :rooms, only: [:create,:show] do
-      collection do
-        post 'confirm'
-      end
-    end
+    resources :rooms, only: [:create,:show]
 
     #チャットの記述
     resources :direct_messages, only: [:create]
@@ -58,15 +99,11 @@ Rails.application.routes.draw do
     #問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
 
-    #通知の記述
-    resources :notifications, only: [:index]
-
     #検索の記述
     get 'search' => 'searches#search'
 
   end
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
 end

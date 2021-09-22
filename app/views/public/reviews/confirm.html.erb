@@ -1,0 +1,36 @@
+<h1>レビュ一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>レビュー内容</th>
+      <th>評価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @review.title %></td>
+      <td><%= @review.comment %></td>
+      <td class="review-evaluation" data-score="<%= @review.evaluation %>"></td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  $('.review-evaluation').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
+
+<%= form_with model: @review, url: product_reviews_path, local:true do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :product_id, value: @product.id %>
+  <%= f.hidden_field :title, value: @review.title %>
+  <%= f.hidden_field :comment, value: @review.comment %>
+  <%= f.hidden_field :evaluation, value: @review.evaluation %>
+  <%= f.submit "レビュー内容を修正する", name: :return, class: "btn btn-primary" %>
+  <%= f.submit "内容を確定し画像の投稿へ", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,180 @@
+<!-----------------------商品情報----------------------------------------------------------------------->
+<div class="container">
+  <%= link_to  product_path(@product.id), class:"text-decoration-none" do %>
+    <%= render 'public/products/product_top', product: @product %>
+  <% end %>
+
+<!---------------------レビュー情報------------------------------------------------------------->
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col-1 offset-md-1">
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, style: "object-fit: cover; width: 75px; height: 75px;" %>
+        <% else %>
+          <%= image_tag 'no_image.png', size: '75x75' %>
+        <% end %>
+      </div>
+
+      <span class="h5 col-3 d-flex align-items-center">
+        <% if @user.nickname.present? %>
+          <%= link_to @user.nickname, user_path(@user.id) %>
+        <% else %>
+          <%= link_to user_path(@user.id) do %>
+            匿名<%= @user.id %>
+          <% end %>
+        <% end %>
+        さんのレビュー
+      </span>
+      <div class="col-2 pr-0 offset-md-1 d-flex justify-content-end align-items-center">
+        <div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
+        <span class="h4 col-2"><%= @review.evaluation %></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10 offset-md-1">
+        <div class="col mb-2">
+          <span class="h4 font-weight-bold border-bottom">
+            <%= @review.title %>
+          </span>
+        </div>
+        <div class="col">
+          <%= @review.comment %>
+        </div>
+      </div>
+      <div class="col offset-md-8">
+        <p class="pt-2">
+          <% if user_signed_in? %>
+            <% if @user.id == current_user.id %>
+              <button type="button" class="btn btn-outline-info p-1">
+                <%= link_to edit_product_review_path(@product.id, @review.id), class: "text-decoration-none" do %>
+                  <span class="text-dark">
+                    レビュー内容を編集する
+                  </span>
+                <% end %>
+              </button>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <span class="h4 offset-md-1">投稿写真</span>
+      <div class="col-3">
+        <% if user_signed_in? %>
+          <% if @user.id == current_user.id %>
+            <button type="button" class="btn btn-outline-info p-1">
+              <%= link_to edit_product_review_path(@product.id, @review.id, target: "image"), class: "text-decoration-none" do %>
+                <span class="text-dark">
+                  投稿写真を編集する
+                </span>
+              <% end %>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-md-1">
+        <div class="row">
+          <% if @review.review_images %>
+            <% @review_images.each do |review_image| %>
+              <% review_image.images.each do |image| %>
+                <div class="col-2 p-1">
+                  <div class="card">
+                    <div class="card-img-top p-1 d-flex justify-content-center">
+                      <%= image_tag image, style: "object-fit: cover; width: 125px; height: 125px;" %>
+                    </div>
+                    <div class="card-body p-1">
+                      <p class="card-text text-break">
+                        <%= review_image.description %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="container d-flex justify-content-center">
+          <%= paginate @review_images %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-2">
+      <span class="h4 offset-md-1">この機器に関するほかのレビュー</span>
+      <div class="col-3 offset-md-4">
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-outline-info p-1">
+            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+              <span class="text-dark">
+                レビューを投稿する
+              </span>
+            <% end %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-10 offset-md-1">
+          <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+            <div class="card my-3 ml-0">
+              <div class="container-fluid py-2">
+                <div class="row pl-1">
+                  <span class="h5 card-title font-weight-bold border-bottom">
+                    <%= review.title %>
+                  </span>
+                </div>
+                <div class="row mb-3 px-2">
+                  <span class="h6 card-text text-dark">
+                    <%= truncate(review.comment, length: 100) %>
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col-3 d-flex justify-content-end">
+                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+                  </div>
+                  <div class="col-1 pl-0">
+                    <span class="h5"><%= review.evaluation %></span>
+                  </div>
+                  <div class="col-3 offset-md-4">
+                    <span class="h6 text-dark">
+                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="container d-flex justify-content-center">
+            <%= paginate @reviews %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>

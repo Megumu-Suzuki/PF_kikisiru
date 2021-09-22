@@ -1,25 +1,25 @@
-<h2>Sign up</h2>
+<h2>新規会員登録</h2>
 
 <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :"苗字" %><br />
+    <%= f.label :"姓" %><br />
     <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
   </div>
 
   <div class="field">
-    <%= f.label :"名前" %><br />
+    <%= f.label :"名" %><br />
     <%= f.text_field :first_name, placeholder: "太郎" %>
   </div>
 
   <div class="field">
-    <%= f.label :"苗字(カナ)" %><br />
+    <%= f.label :"セイ" %><br />
     <%= f.text_field :last_name_kana, placeholder: "キキ" %>
   </div>
 
   <div class="field">
-    <%= f.label :"名前(カナ)" %><br />
+    <%= f.label :"メイ" %><br />
     <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
   </div>
 

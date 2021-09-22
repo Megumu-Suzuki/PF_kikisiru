@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        商品画像
+      </th>
+      <th>
+        商品名
+      </th>
+      <th>
+        型式
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= image_tag product.top_image.variant(resize:'100x100') %>
+      </td>
+      <td>
+        <%= link_to product.title, product_path(product.id) %><br>
+      </td>
+      <td>
+        <%= product.model %>
+      </td>
+    </tr>
+  </tbody>
+</table>

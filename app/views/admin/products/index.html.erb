@@ -1,0 +1,31 @@
+<%= link_to "機器を追加する", new_admin_product_path %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        商品名
+      </th>
+      <th>
+        型式
+      </th>
+      <th>
+        ジャンル名
+      </th>
+    </tr>
+  </thead>
+  <% @products.each do |product| %>
+  <tbody>
+    <tr>
+      <td>
+        <%= link_to product.title, admin_product_path(product.id) %><br>
+      </td>
+      <td>
+        <%= product.model %>
+      </td>
+      <td>
+        <%= product.genre.name %>
+      </td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

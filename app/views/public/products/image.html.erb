@@ -1,0 +1,25 @@
+<!--商品画像登録ページ-->
+<%= form_with model: @product, url: addition_product_path, local:true do |s| %>
+
+  <div class ="tags-field">
+    <%= s.label "タグ" %>
+    <%= s.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= s.label :"*トップ画像" %><br>
+    <%= s.file_field :top_image %>
+  </div>
+
+  <div class="products">
+    <%= s.fields_for :product_images do |t| %>
+      <%= render "product_image_fields", f: t %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= s.submit "投稿する", class: "btn btn-primary" %>
+  </div>
+<% end %>

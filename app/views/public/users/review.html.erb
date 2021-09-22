@@ -1,0 +1,12 @@
+<%= render 'header', user: @user %>
+<% @user.review_products.each do |product| %>
+  <%= render 'index', product: product %>
+  <%#= product.review.id %>
+  <%#= link_to product.review.comment, product_review_path(review.product.id, review.id) %>
+<% end %>
+  <%# @reviews.each do |review| %>
+    <%#= render 'index', product: review.product %>
+    <%# @products.each do |product| %>
+    <%# product.review.comment %>
+    <%# end %>
+

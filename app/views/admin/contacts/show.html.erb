@@ -1,0 +1,75 @@
+<div class="contact">
+  <table>
+    <tbody>
+      <tr>
+        <th><strong>名前</strong></th>
+        <td><%= @contact_messages.name %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>メールアドレス</strong></th>
+        <td><%= @contact_messages.email %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>件名</strong></th>
+        <td><%= @contact_messages.subject %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>本文</strong></th>
+        <td><%= @contact_messages.body %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% if @admin_messages.present? %>
+<div class="admin">
+  <% @admin_messages.each do |message| %>
+  <table>
+    <tbody>
+      <tr>
+        <th><strong>件名</strong></th>
+        <td><%= message.subject %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <th><strong>本文</strong></th>
+        <td><%= message.body %></td>
+      </tr>
+    </tbody>
+  </table>
+  <% end %>
+</div>
+<% end %>
+<% if @contact.is_completed == true %>
+  <%= link_to "対応完了", completed_admin_contact_path(@contact.id), method: :patch, class: "btn btn-primary" %>
+<% else %>
+  <%= link_to "対応済み", admin_path, class: "btn btn-primary" %>
+<% end %>
+
+<div class="posts">
+    <%= form_with model: ContactMessage.new, url: admin_contact_messages_path, local:true do |f| %>
+      <div class="field">
+        <%= f.label :"件名" %><br>
+        <%= f.text_field :subject %>
+      </div>
+      <div class="field">
+        <%= f.label :"本文" %><br>
+        <%= f.text_field :body, placeholder: "メッセージを入力して下さい" , size: 100, class:"form-text-field" %>
+      </div>
+      <%= f.hidden_field :admin_id, value: current_admin.id %>
+      <%= f.hidden_field :name, value: "管理者" %>
+      <%= f.hidden_field :email, value: "kikisiru@gmai.com" %>
+      <%= f.hidden_field :contact_id, value: @contact_messages.contact.id %>
+      <%= f.submit "投稿",class: 'form-submit'%>
+    <% end %>
+</div>

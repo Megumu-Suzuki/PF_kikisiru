@@ -1,0 +1,14 @@
+<% if user.profile_image.attached? %>
+  <%= image_tag user.profile_image.variant(resize:'100x100') %>
+<% else %>
+  <%= image_tag 'no_image.png', size: '100x100' %>
+<% end %><br>
+
+
+<%= link_to "投稿一覧", product_user_path(params[:id]) %>
+<%= link_to "レビュー一覧", review_user_path(params[:id]) %>
+<%= link_to "いいね一覧", favorite_user_path(params[:id]) %>
+<% if user == current_user %>
+  <%= link_to "チャット一覧", room_user_path(current_user) %>
+<% end %>
+<%= link_to "ユーザー情報編集", edit_user_path(params[:id]) %>

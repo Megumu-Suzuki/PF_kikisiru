@@ -1,0 +1,19 @@
+<% if product.favorited_by?(current_user) %>
+  <span>
+    <%= link_to product_favorites_path(product.id), method: :delete, remote: true do %>
+    <button type="button" class="btn btn-light p-1">
+      <span class="text-dark">いいね済</span>
+      <span class="text-danger"><i class="fa fa-heart"="true"></i></span>
+    </button>
+    <% end %>
+  </span>
+<% else %>
+  <span>
+    <%= link_to product_favorites_path(product.id), method: :post, remote: true do %>
+    <button type="button" class="btn btn-light p-1">
+      <span class="text-dark">いいね！</span>
+      <span class="text-danger"><i class="far fa-heart"></i></span>
+    </button>
+    <% end %>
+  </span>
+<% end %>

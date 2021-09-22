@@ -10,21 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_121630) do
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.integer "resource_id"
-    t.string "author_type"
-    t.integer "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
-  end
+ActiveRecord::Schema.define(version: 2021_09_12_104034) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -47,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "admin_users", force: :cascade do |t|
+  create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -55,34 +41,25 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "contact_messages", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "admin_user_id"
-    t.integer "contact_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "contact_notifications", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "admin_user_id"
-    t.integer "message_id"
-    t.boolean "is_checked"
+    t.integer "admin_id"
+    t.integer "contact_id", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "subject", null: false
+    t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "contacts", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
-    t.string "subject"
-    t.text "body"
-    t.boolean "is_completed"
+    t.boolean "is_completed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,93 +67,88 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
   create_table "direct_messages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "room_id"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "dm_notifications", force: :cascade do |t|
-    t.integer "visitor_id"
-    t.integer "visited_"
-    t.integer "message_id"
-    t.boolean "is_checked"
+    t.text "message", null: false
+    t.boolean "is_checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "entries", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_id"
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "genres", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "product_images", force: :cascade do |t|
-    t.integer "product_id"
-    t.text "description"
+    t.integer "product_id", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "product_tag_maps", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "tag_id"
+    t.integer "product_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "genre_id"
-    t.string "title"
-    t.text "description"
-    t.string "type"
+    t.integer "genre_id", null: false
+    t.string "title", limit: 30, null: false
+    t.text "description", null: false
+    t.string "model", null: false
     t.integer "price"
-    t.string "manufacture"
+    t.integer "manufacture"
     t.integer "width"
     t.integer "depth"
     t.integer "height"
-    t.integer "weight"
-    t.string "fuel"
-    t.integer "power_consumplion"
-    t.integer "gas_consumplion"
-    t.boolean "allow_edit"
+    t.float "weight"
+    t.integer "phase"
+    t.float "power_consumption"
+    t.float "city_gas"
+    t.float "propane_gas"
+    t.boolean "allow_edit", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "review_images", force: :cascade do |t|
-    t.integer "review_id"
-    t.text "description"
+    t.integer "review_id", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "review_tag_maps", force: :cascade do |t|
-    t.integer "review_id"
-    t.integer "tag_id"
+    t.integer "review_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
-    t.text "comment"
-    t.float "evaluation"
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.string "title", null: false
+    t.text "comment", null: false
+    t.float "evaluation", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -188,7 +160,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_121630) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

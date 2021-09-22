@@ -1,0 +1,36 @@
+<% if @target == "image" %>
+<!--画像編集をクリックした時------------------------------------------------------------------------------------->
+  <%= render 'public/reviews/review_image_edit', review: @review %>
+<% else %>
+<!--情報編集をクリックした時------------------------------------------------------------------------------------->
+
+  <h1>レビュー内容を編集</h1>
+  <%= form_with(model:[@product, @review], local: true) do |f| %>
+    <div>
+      <%= f.label :"タイトル" %>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :"内容" %>
+      <%= f.text_area :comment, size: "100x5" %>
+    </div>
+
+    <div id="evaluate_stars">
+      <label>評価</label>
+    </div>
+    <div class="actions">
+      <%= f.submit "更新する", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <%= link_to "削除する", product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-danger" %>
+  <script>
+    $('#evaluate_stars').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: <%= @review.evaluation %>,
+      scoreName: 'review[evaluation]',
+      half: true
+    });
+  </script>
+<% end %>

@@ -1,0 +1,65 @@
+<%= form_with model: @user, url: admin_user_path(@user.id), local: true do |f| %>
+
+  <% if @user.profile_image.attached? %>
+      <div class="field">
+        <%= f.label :profile_image do %>
+          <%= image_tag @user.profile_image.variant(resize:'100x100') %>
+          <%= f.file_field :profile_image, style: 'display:none' %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= f.label :profile_image do %>
+          <%= image_tag 'no_image.png', size: '100x100' %>
+          <%= f.file_field :profile_image, style: 'display:none' %>
+        <% end %>
+      </div>
+    <% end %>
+
+  <div class="field">
+    <%= f.label :"*姓" %><br />
+    <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*名" %><br />
+    <%= f.text_field :first_name, placeholder: "太郎" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*セイ" %><br />
+    <%= f.text_field :last_name_kana, placeholder: "キキ" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*メイ" %><br />
+    <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"ニックネーム" %><br />
+    <%= f.text_field :nickname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"電話番号(ハイフンなし)" %><br />
+    <%= f.text_field :phone_number, placeholder: "01234567890" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"*メールアドレス" %><br />
+    <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email" %>
+  </div>
+
+  <div>
+    <%= f.radio_button :is_deleted, :true %>
+    <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>
+    <%= f.radio_button :is_deleted, :false %>
+    <%= f.label :is_deleted, "退会", {value: :true, checked: true, style: "display: inline-block;"} %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新", class: "btn btn-outline-success" %>
+  </div>
+  <th><%= link_to "詳細に戻る", admin_user_path(@user.id) %></th>
+<% end %>

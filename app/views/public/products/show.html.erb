@@ -1,0 +1,366 @@
+<div class="container">
+  <%= render 'public/products/product_top', product: @product %>
+
+  <div class="container pt-3">
+    <div class="row mb-4">
+      <span class="h4 offset-md-1">機器詳細</span>
+      <div class="col">
+        <% if user_signed_in? %>
+          <% if @product.allow_edit == true %>
+            <button type="button" class="btn btn-outline-info p-1">
+              <%= link_to edit_product_path, class: "text-decoration-none" do %>
+                <span class="text-dark">
+                  機器情報を編集する
+                </span>
+              <% end %>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-2 offset-md-2">
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-outline-info p-1">
+            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+              <span class="h6 text-dark">
+                レビューを投稿する
+              </span>
+            <% end %>
+          </button>
+        <% end %>
+      </div>
+      <div class="col">
+        <% if user_signed_in? %>
+          <div class="favorite-<%= @product.id %>">
+            <%= render 'public/favorites/favorite-btn', product: @product %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-md-1">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>機器名</strong></th>
+              <td class="col-1"></td>
+              <td class="col-6"><%= @product.title %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>メーカー</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.manufacture.present? %>
+                  <%= @product.manufacture %>
+                <% else %>
+                 <span>-</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>型式</strong></th>
+              <td class="col-1"></td>
+              <td><%= @product.model %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>ジャンル</strong></th>
+              <td class="col-1"></td>
+              <td><%= @product.genre.name %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>定価</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.price.present? %>
+                  <%= @product.price %>円
+                <% else %>
+                  <span>- 円</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>寸法</strong><%= @product.product_size_unit %></th>
+              <td class="col-1"></td>
+              <td><%= @product.product_size %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>重量</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.weight.present? %>
+                  <%= @product.weight %>kg
+                <% else %>
+                  <span>- kg</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>電源</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.phase.present? %>
+                  <%= @product.phase %>
+                <% else %>
+                  <span>-</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>消費電力</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.power_consumption.present? %>
+                  <%= @product.power_consumption %>kW
+                <% else %>
+                  <span>- kW</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>ガス消費量(都市ガス)</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.city_gas.present? %>
+                  <%= @product.city_gas %>kW
+                <% else %>
+                  <span>- kW</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>ガス消費量(PLガス)</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <% if @product.propane_gas.present? %>
+                  <%= @product.propane_gas %>kW
+                <% else %>
+                  <span>- kW</span>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>機器説明</strong></th>
+              <td class="col-1"></td>
+              <td><%= @product.description %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>タグ</strong></th>
+              <td class="col-1"></td>
+              <td>
+                <div class="row">
+                  <% @product.product_tags.each do |tag| %>
+                    <div class="p-1 flex-row">
+                      <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
+                        <button type="button" class="btn btn-outline-secondary text-nowrap">
+                          <%= tag.name %>
+                        </button>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th class="col-1"></th>
+              <th class="col-3"><strong>投稿者</strong></th>
+              <td class="col-1"></td>
+              <td class="col">
+                <% if current_user.nickname.present? %>
+                  <%= link_to current_user.nickname, user_path(@product.user.id)%>さん
+                <% else %>
+                  <%= link_to user_path(@product.user.id) do %>
+                    匿名<%= current_user.id %>さん
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <span class="h4 offset-md-1">機器写真</span>
+      <div class="col-3">
+        <% if user_signed_in? %>
+          <% if @product.allow_edit == true %>
+            <button type="button" class="btn btn-outline-info p-1">
+              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+                <span class="text-dark">
+                  機器画像を編集する
+                </span>
+              <% end %>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-md-1">
+        <div class="row">
+          <% @all_images.each do |product_image| %>
+            <% product_image.images.each do |image| %>
+              <div class="col-2 p-1">
+                <div class="card">
+                  <div class="card-img-top p-1 d-flex justify-content-center">
+                    <%= image_tag image, style: "object-fit: cover; width: 125px; height: 125px;" %>
+                  </div>
+                  <div class="card-body p-1">
+                    <p class="card-text text-break">
+                      <%= product_image.description %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="container d-flex justify-content-center">
+          <%= paginate @all_images%>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-2">
+      <span class="h4 offset-md-1">レビュー</span>
+      <div class="col-3 offset-md-6">
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-outline-info p-1">
+            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+              <span class="text-dark">
+                レビューを投稿する
+              </span>
+            <% end %>
+          </button>
+        <% end %>
+      </div>
+    </div>
+    <% if @reviews.blank? %>
+      <div="container-fluid">
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <span class="h5">まだレビューは投稿されていません</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <span class="h6">この機器を使われたことがある方は、レビューを投稿してみませんか？</span>
+          </div>
+        </div>
+      </div>
+    <% else %>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-10 offset-md-1">
+          <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+            <div class="card my-3 ml-0">
+              <div class="container-fluid py-2">
+                <div class="row pl-1">
+                  <span class="h5 card-title font-weight-bold border-bottom">
+                    <%= review.title %>
+                  </span>
+                </div>
+                <div class="row mb-3 px-2">
+                  <span class="h6 card-text text-dark">
+                    <%= truncate(review.comment, length: 100) %>
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col-3 d-flex justify-content-end">
+                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+                  </div>
+                  <div class="col-1 pl-0">
+                    <span class="h5"><%= review.evaluation %></span>
+                  </div>
+                  <div class="col-3 offset-md-4">
+                    <span class="h6 text-dark">
+                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="container d-flex justify-content-center">
+            <%= paginate @reviews %>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+    });
+</script>
+
