@@ -216,11 +216,11 @@
               <th class="col-3"><strong>投稿者</strong></th>
               <td class="col-1"></td>
               <td class="col">
-                <% if current_user.nickname.present? %>
-                  <%= link_to current_user.nickname, user_path(@product.user.id)%>さん
+                <% if @product.user.nickname.present? %>
+                  <%= link_to @product.user.nickname, user_path(@product.user.id)%>さん
                 <% else %>
                   <%= link_to user_path(@product.user.id) do %>
-                    匿名<%= current_user.id %>さん
+                    匿名<%= @product.user.id %>さん
                   <% end %>
                 <% end %>
               </td>
