@@ -14,6 +14,14 @@
                 </span>
               <% end %>
             </button>
+          <% elsif @product.allow_edit == false && @product.user = current_user %>
+            <button type="button" class="btn btn-outline-info p-1">
+              <%= link_to edit_product_path, class: "text-decoration-none" do %>
+                <span class="text-dark">
+                  機器情報を編集する
+                </span>
+              <% end %>
+            </button>
           <% end %>
         <% end %>
       </div>
@@ -216,11 +224,11 @@
               <th class="col-3"><strong>投稿者</strong></th>
               <td class="col-1"></td>
               <td class="col">
-                <% if current_user.nickname.present? %>
-                  <%= link_to current_user.nickname, user_path(@product.user.id)%>さん
+                <% if @product.user.nickname.present? %>
+                  <%= link_to @product.user.nickname, user_path(@product.user.id)%>さん
                 <% else %>
                   <%= link_to user_path(@product.user.id) do %>
-                    匿名<%= current_user.id %>さん
+                    匿名<%= @product.user.id %>さん
                   <% end %>
                 <% end %>
               </td>
@@ -235,6 +243,14 @@
       <div class="col-3">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
+            <button type="button" class="btn btn-outline-info p-1">
+              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+                <span class="text-dark">
+                  機器画像を編集する
+                </span>
+              <% end %>
+            </button>
+          <% elsif @product.allow_edit == false && @product.user = current_user %>
             <button type="button" class="btn btn-outline-info p-1">
               <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
                 <span class="text-dark">
@@ -347,20 +363,24 @@
   $('.review-evaluation').empty();
     $('.review-evaluation').raty({
       readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
       score: function() {
         return $(this).attr('data-score');
       },
-      path: '/assets/'
     });
 </script>
 <script>
   $('.review-average').empty();
     $('.review-average').raty({
       readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
       score: function() {
         return $(this).attr('data-score');
       },
-      path: '/assets/'
     });
 </script>
 

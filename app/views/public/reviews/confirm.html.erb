@@ -15,15 +15,7 @@
     </tr>
   </tbody>
 </table>
-<script>
-  $('.review-evaluation').raty({
-    readOnly: true,
-    score: function() {
-      return $(this).attr('data-score');
-    },
-    path: '/assets/'
-  });
-</script>
+
 
 <%= form_with model: @review, url: product_reviews_path, local:true do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
@@ -34,3 +26,16 @@
   <%= f.submit "レビュー内容を修正する", name: :return, class: "btn btn-primary" %>
   <%= f.submit "内容を確定し画像の投稿へ", class: "btn btn-primary" %>
 <% end %>
+
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>
