@@ -14,7 +14,7 @@ class Review < ApplicationRecord
   def save_tag(sent_tags)
     unless self.tags.nil?
       # pluckメソッド =アクティブストレージから指定のカラムのデータをZZ
-      current_tags = self.tags.pluck(:tag_name)
+      current_tags = self.tags.pluck(:name)
     end
     old_tags = current_tags - sent_tags
     new_tags = sent_tags - current_tags
@@ -32,5 +32,5 @@ class Review < ApplicationRecord
       #self.tags.push(review_tag_map)
     end
   end
-  
+
 end
