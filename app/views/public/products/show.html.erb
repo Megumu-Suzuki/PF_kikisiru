@@ -7,33 +7,33 @@
       <div class="col">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path, class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path, class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器情報を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% elsif @product.allow_edit == false && @product.user = current_user %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path, class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path, class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器情報を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% end %>
         <% end %>
       </div>
       <div class="col-2 offset-md-2">
         <% if user_signed_in? %>
-          <button type="button" class="btn btn-outline-info p-1">
-            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
-              <span class="h6 text-dark">
+          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+            <button type="button" class="btn btn-outline-secondary p-1">
+              <span>
                 レビューを投稿する
               </span>
-            <% end %>
-          </button>
+            </button>
+          <% end %>
         <% end %>
       </div>
       <div class="col">
@@ -243,21 +243,21 @@
       <div class="col-3">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器画像を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% elsif @product.allow_edit == false && @product.user = current_user %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器画像を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% end %>
         <% end %>
       </div>
@@ -292,13 +292,13 @@
       <span class="h4 offset-md-1">レビュー</span>
       <div class="col-3 offset-md-6">
         <% if user_signed_in? %>
-          <button type="button" class="btn btn-outline-info p-1">
-            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
-              <span class="text-dark">
+          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+            <button type="button" class="btn btn-outline-secondary p-1">
+              <span>
                 レビューを投稿する
               </span>
-            <% end %>
-          </button>
+            </button>
+          <% end %>
         <% end %>
       </div>
     </div>

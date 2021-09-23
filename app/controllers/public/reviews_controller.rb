@@ -23,12 +23,14 @@ class Public::ReviewsController < ApplicationController
       redirect_to new_product_review_path
       @review = Review.new(review_params)
     end
+    
   end
   #レビュータグ、画像登録ページ
   def image
     @review = Review.find(params[:id])
     @review_images = @review.review_images.build
   end
+  
   #レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
