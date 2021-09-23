@@ -1,26 +1,69 @@
-<!--商品画像登録ページ-->
-<%= form_with model: @product, url: addition_product_path, local:true do |s| %>
-
-  <div class ="tags-field">
-    <%= s.label "タグ" %>
-    <%= s.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= s.label :"*トップ画像" %><br>
-    <%= s.file_field :top_image %>
-  </div>
-
-  <div class="products">
-    <%= s.fields_for :product_images do |t| %>
-      <%= render "product_image_fields", f: t %>
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
+<div class="container">
+<!--タグ登録-->
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+      <p class="h4">タグ登録</p>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <p class="h6">複数のタグをつける場合は「,」で区切ってください</p>
     </div>
   </div>
-  <%= s.hidden_field :product_id, value: @product.id %>
-  <div class="actions">
-    <%= s.submit "投稿する", class: "btn btn-primary" %>
-  </div>
-<% end %>
+  <%= form_with model: @product, url: addition_product_path, local:true do |s| %>
+    <div class="row mt-3">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= s.label "タグ", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= s.text_field :name, class: "form-control" %>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p class="h6">※例:うまい,はやい,おいしい</p>
+      </div>
+    </div>
+
+<!--画像登録-->
+    <div class="row mt-5">
+      <div class="col-md-12 mb-3 d-flex justify-content-center">
+        <p class="h4">トップ画像登録</p>
+      </div>
+
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= s.label :"*トップ画像", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= s.file_field :top_image %>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p class="h6">※トップで表示される画像になります。</p>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-12 mb-1 d-flex justify-content-center">
+        <p class="h4">機器画像登録</p>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p class="h5">（「画像を追加する」をクリックするとフォームが追加されます）</p>
+      </div>
+      <div class="col-md-12 mt-3 d-flex justify-content-center">
+        <div class="products">
+          <%= s.fields_for :product_images do |t| %>
+            <%= render "product_image_fields", f: t %>
+          <% end %>
+          <div class="links d-flex justify-content-center">
+            <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn btn-outline-secondary p-1' %>
+          </div>
+        </div>
+      </div>
+      <%= s.hidden_field :product_id, value: @product.id %>
+      <div class="col-md-12 mt-5 d-flex justify-content-center">
+        <%= s.submit "投稿する", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

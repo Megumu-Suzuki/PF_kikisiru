@@ -1,103 +1,25 @@
-<h1>投稿内容をご確認ください</h1>
-<table>
-  <tbody>
-    <tr>
-      <th><strong>商品名</strong></th>
-      <td><%= @product.title %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>メーカー</strong></th>
-      <td><%= @product.manufacture %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>型式</strong></th>
-      <td><%= @product.model %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>ジャンル</strong></th>
-      <td><%= @product.genre.name %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>定価</strong></th>
-      <td><%= @product.price %>円</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>定価</strong></th>
-      <td><%= @product.width %>×<% @product.depth %>×<%= @product.height %>mm</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>重量</strong></th>
-      <td><%= @product.weight %>kg</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>電源</strong></th>
-      <td><%= @product.phase %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>消費電力</strong></th>
-      <td><%= @product.power_consumption %>kW</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>ガス消費量(都市ガス)</strong></th>
-      <td><%= @product.city_gas %>kW</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>ガス消費量(PLガス)</strong></th>
-      <td><%= @product.propane_gas %>kW</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>商品説明</strong></th>
-      <td><%= @product.description %></td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <th><strong>編集権限</strong></th>
-      <td>
-        <% if @product.allow_edit == true %>
-          誰でも編集可能
-        <% else %>
-          投稿者本人のみ
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+<div class="container">
+  <div class="row mb-3 d-flex justify-content-center">
+    <p class="h4">投稿内容をご確認ください</h1>
+  </div>
+  <%= render 'public/products/detail', product: @product %>
+      <tbody>
+        <tr>
+          <th class="col-1"></th>
+          <th class="col-3"><strong>編集権限</strong></th>
+          <td class="col-1"></td>
+          <td>
+            <% if @product.allow_edit == true %>
+              誰でも編集可能
+            <% else %>
+              投稿者本人のみ
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <%= form_with model: @product, url: products_path, local:true do |f| %>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :title, value: @product.title %>
@@ -115,6 +37,13 @@
   <%= f.hidden_field :propane_gas, value: @product.propane_gas %>
   <%= f.hidden_field :description, value: @product.description %>
   <%= f.hidden_field :allow_edit, value: @product.allow_edit %>
-  <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-primary" %>
-  <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-primary" %>
+  <div class="row">
+    <div class="col-md-3 offset-md-3">
+      <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-danger" %>
+    </div>
+    <div class="col-md-3 offset-md-1">
+      <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
+</div>
