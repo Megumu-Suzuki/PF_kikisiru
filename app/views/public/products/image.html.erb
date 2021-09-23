@@ -5,7 +5,7 @@
     <%= s.label "タグ" %>
     <%= s.text_field :name %>
   </div>
-  
+
   <div class="field">
     <%= s.label :"*トップ画像" %><br>
     <%= s.file_field :top_image %>
@@ -19,6 +19,7 @@
       <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
     </div>
   </div>
+  <%= s.hidden_field :product_id, value: @product.id %>
   <div class="actions">
     <%= s.submit "投稿する", class: "btn btn-primary" %>
   </div>
