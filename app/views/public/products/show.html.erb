@@ -169,33 +169,7 @@
       <% @reviews.each do |review| %>
         <div class="col-10 offset-md-1">
           <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-            <div class="card my-3 ml-0">
-              <div class="container-fluid py-2">
-                <div class="row pl-1">
-                  <span class="h5 card-title font-weight-bold border-bottom">
-                    <%= review.title %>
-                  </span>
-                </div>
-                <div class="row mb-3 px-2">
-                  <span class="h6 card-text text-dark">
-                    <%= truncate(review.comment, length: 100) %>
-                  </span>
-                </div>
-                <div class="row">
-                  <div class="col-3 d-flex justify-content-end">
-                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
-                  </div>
-                  <div class="col-1 pl-0">
-                    <span class="h5"><%= review.evaluation %></span>
-                  </div>
-                  <div class="col-3 offset-md-4">
-                    <span class="h6 text-dark">
-                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render 'public/reviews/review_top', review: review %>
           <% end %>
           <div class="container d-flex justify-content-center">
             <%= paginate @reviews %>

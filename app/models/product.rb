@@ -63,10 +63,7 @@ class Product < ApplicationRecord
     end
   end
 
-  # 機器名と型式
-  # def full_name
-  #   self.title + "(" + self.model + ")"
-  # end
+
 
   # 機器のサイズの定義
   def product_size

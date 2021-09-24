@@ -45,7 +45,6 @@ Rails.application.routes.draw do
       member do
         get 'unsubscribe'
         patch 'withdraw'
-        get 'product'
         get 'favorite'
         get 'review'
         get 'room'

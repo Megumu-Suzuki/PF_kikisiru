@@ -1,14 +1,28 @@
-<%= render 'header', user: @user %>
-<h2>いいねした機器</h2>
-<% if @favorites.exists? %>
-  <% @user.favorite_products.each do |product| %>
-    <%= render 'index', product: product %>
-    <% if user_signed_in? %>
-      <div class="favorite-<%= product.id %>">
-        <%= render 'public/favorites/favorite-btn', product: product %>
-      </div>
+<div class="container">
+  <%= render 'header', user: @user %>
+  <% if @favorites.present? %>
+    <% @favorites.each do |favorite| %>
+      <%= link_to  product_path(favorite.product.id), class:"text-decoration-none" do %>
+        <%= render 'public/products/product_top', product: favorite.product %>
+      <% end %>
     <% end %>
+    <div class="row d-flex justify-content-center">
+      <%= paginate @favorites %>
+    </div>
+  <% else %>
+  	<p>いいねしている機器はありません</p>
   <% end %>
-<% else %>
-	<p>いいねしている機器はありません</p>
-<% end %>
+</div>
+
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>
