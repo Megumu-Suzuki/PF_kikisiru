@@ -1,24 +1,5 @@
 <div class="container-fluid">
-  <div class="container sticky-top">
-    <div id="header" class="sticky-top">
-      <div class="row mt mb-5 border border-dark rounded bg-white">
-        <div class="col-4 mt-4 mb-3">
-          <h5 class="font-weight-bold">商品名で検索する</h5>
-        </div>
-        <div class="col-6 mt-3 mb-1 justify-content-center">
-          <%= form_with url: search_path, method: :get, local:true do |f| %>
-            <div class="form-group">
-              <%= f.text_field 'search[value]',class: "form-control", placeholder: "商品名を入力" %>
-              <%= f.hidden_field 'search[model]', value: "product" %>
-            </div>
-        </div>
-        <div class="col-1">
-            <%= f.submit "検索", class: "btn btn-success mt-3 mb-1" %>
-        </div>
-          <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render 'public/searches/search_name' %>
 
   <div class="container-fluid mx-5">
     <div class="row">

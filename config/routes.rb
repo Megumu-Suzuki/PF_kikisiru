@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     end
 
     #商品の記述
-    resources :products, except: [:destroy] do
+    resources :products, except: [:destroy, :new] do
       member do
         get 'image'
         patch 'addition'
@@ -64,7 +64,7 @@ Rails.application.routes.draw do
       #いいね機能の記述
       resource :favorites, only: [:create, :destroy]
       #レビューの記述
-      resources :reviews do
+      resources :reviews, except: [:new] do
         member do
           get 'image'
           patch 'addition'

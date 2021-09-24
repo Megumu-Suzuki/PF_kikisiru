@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render 'public/searches/search_name' %>
   <%= render 'public/products/product_top', product: @product %>
 
   <div class="container pt-3">
@@ -27,7 +28,7 @@
       </div>
       <div class="col-2 offset-md-2">
         <% if user_signed_in? %>
-          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
               <span>
                 レビューを投稿する
@@ -140,7 +141,7 @@
       <span class="h4 offset-md-1">レビュー</span>
       <div class="col-3 offset-md-6">
         <% if user_signed_in? %>
-          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
               <span>
                 レビューを投稿する

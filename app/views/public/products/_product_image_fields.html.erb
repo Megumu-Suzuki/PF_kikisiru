@@ -3,7 +3,7 @@
   <div class="card mb-3">
     <div class="row my-3">
       <div class="col-md-2 offset-md-2 mb-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
-        <%= f.label :"機器画像", class: "m-0" %>
+        <%= f.label :"画像ファイル", class: "m-0" %>
       </div>
       <div class="col-md-6 ml-3 mb-2 p-2" style="background-color: #EEEEEE;">
         <%= f.file_field :images, class: "push", onchange: "loadImage(this);" %>
@@ -15,7 +15,7 @@
         <%= f.text_field :description, class: "form-control" %>
       </div>
       <div class="col-md-2 p-2" style="background-color: #EEEEEE;">
-        <%= link_to_remove_association "削除", f, class: 'btn btn btn-danger' %>
+        <%= link_to_remove_association "削除", f, class: 'btn btn-outline-danger' %>
       </div>
     </div>
   </div>

@@ -135,7 +135,7 @@
       <%= f.text_area :description, size: "20x20", placeholder: "その他機器の説明や特徴をお書きください", class: "form-control" %>
     </div>
 
-    <% if product.user_id == current_user.id %>
+    <% if product.user_id == nil ||product.user_id == current_user.id %>
       <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
         <p class="m-0">
           編集権限
@@ -162,10 +162,27 @@
         </div>
       </div>
     <% end %>
+
+    <% unless current_page?(products_path) %>
+      <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          タグ
+        </p>
+      </div>
+      <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :name, value: @tag_list, class: "form-control" %>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p class="h6">複数のタグをつける場合は「,」で区切ってください</p>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p class="h6">※例:うまい,はやい,おいしい</p>
+      </div>
+    <% end %>
   </div>
   <div class="row mt-3 d-flex justify-content-center">
     <div class="col-md-3">
-      <%= f.submit "機器情報を保存する", class: "form-control" %>
+      <%= f.submit "機器情報を保存する", class: "btn btn-outline-secondary form-control" %>
     </div>
   </div>
 <% end %>

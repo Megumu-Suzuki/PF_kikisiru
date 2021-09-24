@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="col-md-12 d-flex justify-content-center">
+    <p class="h4">レビュー新規投稿</p>
+  </div>
+
+  <%= render 'public/reviews/form', product: @product, review: @review, product_review_path: confirm_product_reviews_path %>
+</div>
+
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[evaluation]',
+    half: true
+  });
+</script>
