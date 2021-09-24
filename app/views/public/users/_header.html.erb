@@ -1,16 +1,102 @@
-<% if user.profile_image.attached? %>
-  <%= image_tag user.profile_image.variant(resize:'100x100') %>
-<% else %>
-  <%= image_tag 'no_image.png', size: '100x100' %>
-<% end %><br>
+<div class="row d-flex justify-content-center">
+  <div class="col-md-2 offset-md-4">
+    <% if user.profile_image.attached? %>
+      <%= image_tag user.profile_image, style: "object-fit: cover; width: 125px; height: 125px;"%>
+    <% else %>
+      <%= image_tag 'no_image.png', style: "object-fit: cover; width: 125px; height: 125px;" %>
+    <% end %>
+  </div>
+  <div class="col-md-2 d-flex align-items-center">
+    <span class="h4">
+      <% if user.nickname.present? %>
+        <%= user.nickname %>さん
+      <% else %>
+        匿名<%= user.id %>さん
+      <% end %>
+    </span>
+  </div>
+  <div class="col-md-4 d-flex align-items-center">
+    <% if user_signed_in? %>
+      <% if user.id == current_user.id %>
+        <%= link_to edit_user_path(params[:id]) do %>
+          <button type="button" class="btn btn-outline-secondary p-1">
+            <span>
+              ユーザー情報編集
+            </span>
+          </button>
+        <% end %>
+      <% else %>
+        <div class="dm box">
+          <% if @have_room ==  true %>
+            <%= link_to room_path(@room_id) do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>チャットへ</span>
+              </button>
+            <% end %>
+          <% else %>
+            <%= form_with model: @room, url: rooms_path, local:true do |f| %>
+              <%= fields_for @entry do |e| %>
+                <%= e.hidden_field :user_id, value: @user.id %>
+              <% end %>
+              <%= f.button :type => "submit", class: "btn btn-outline-secondary p-1" do %>
+                <span>チャットを始める</span>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-
-<%= link_to "投稿一覧", product_user_path(params[:id]) %>
-<%= link_to "レビュー一覧", review_user_path(params[:id]) %>
-<%= link_to "いいね一覧", favorite_user_path(params[:id]) %>
-<% if user_signed_in? %>
-  <% if user == current_user %>
-    <%= link_to "チャット一覧", room_user_path(current_user) %>
-    <%= link_to "ユーザー情報編集", edit_user_path(params[:id]) %>
-  <% end %>
-<% end %>
+  <div class="row mt-3">
+    <% if current_page?(user_path(user)) %>
+      <div class="col-md-4 border-bottom border-secondary d-flex justify-content-center align-items-center text-decoration-none">
+        <span class="h4">
+          投稿一覧
+        </span>
+      </div>
+      <%= link_to review_user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          レビュー一覧
+        </span>
+      <% end %>
+      <%= link_to favorite_user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          いいね一覧
+        </span>
+      <% end %>
+    <% elsif current_page?(review_user_path(user)) %>
+      <%= link_to user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          投稿一覧
+        </span>
+      <% end %>
+      <div class="col-md-4 border-bottom border-secondary d-flex justify-content-center align-items-center text-decoration-none">
+        <span class="h4">
+          レビュー一覧
+        </span>
+      </div>
+      <%= link_to favorite_user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          いいね一覧
+        </span>
+      <% end %>
+    <% elsif current_page?(favorite_user_path(user)) %>
+      <%= link_to user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          投稿一覧
+        </span>
+      <% end %>
+      <%= link_to review_user_path(params[:id]), class: "col-md-4 btn btn-outline-secondary d-flex justify-content-center align-items-center text-decoration-none" do %>
+        <span class="h4">
+          レビュー一覧
+        </span>
+      <% end %>
+      <div class="col-md-4 border-bottom border-secondary d-flex justify-content-center align-items-center text-decoration-none">
+        <span class="h4">
+          いいね一覧
+        </span>
+      </div>
+    <% end %>
+  </div>

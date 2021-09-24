@@ -1,12 +1,56 @@
-<%= render 'header', user: @user %>
-<% @user.review_products.each do |product| %>
-  <%= render 'index', product: product %>
-  <%#= product.review.id %>
-  <%#= link_to product.review.comment, product_review_path(review.product.id, review.id) %>
-<% end %>
-  <%# @reviews.each do |review| %>
-    <%#= render 'index', product: review.product %>
-    <%# @products.each do |product| %>
-    <%# product.review.comment %>
-    <%# end %>
+<div class="container">
+  <%= render 'header', user: @user %>
+  <% if @reviews.present? %>
+    <% @reviews.each do |review| %>
+      <%= link_to product_review_path(review.product.id, review.id), class: "text-decoration-none" do %>
+        <div class="card my-3 ml-0">
+          <div class="container-fluid py-2">
+            <div class="row pl-1">
+              <div class="col-md-2 d-flex justify-content-center">
+                <%= image_tag review.product.top_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
+              </div>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-auto">
+                    <span class="h5 card-title font-weight-bold border-bottom">
+                      <%= review.product.title %>
+                    </span>
+                  </div>
+                  <div class="col-md-auto">
+                    <span class="h6 card-title font-weight-bold">
+                      (<%= review.product.model %>)
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-2 px-2">
+                  <span class="h6 card-text text-dark">
+                    <%= render 'public/reviews/review_top', review: review %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="row d-flex justify-content-center">
+      <%= paginate @reviews %>
+    </div>
+  <% else %>
+    <p>投稿したレビューはありません</p>
+  <% end %>
+</div>
 
+
+<script>
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>

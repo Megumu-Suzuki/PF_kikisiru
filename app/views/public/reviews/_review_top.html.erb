@@ -1,0 +1,38 @@
+<div class="card my-3 ml-0">
+  <div class="container-fluid py-2">
+    <div class="row pl-1">
+      <div class="col-md-6">
+        <span class="h5 card-title font-weight-bold border-bottom">
+          <%= review.title %>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <span class="h6 text-dark d-flex justify-content-end align-items-center">
+          <% if review.user.nickname.present? %>
+            <%= review.user.nickname %>さん
+          <% else %>
+            匿名<%= review.user.id %>さん
+          <% end %>
+        </span>
+      </div>
+    </div>
+    <div class="row mt-2 mb-3 px-2">
+      <span class="h6 card-text text-dark">
+        <%= truncate(review.comment, length: 100) %>
+      </span>
+    </div>
+    <div class="row">
+      <div class="col-3 d-flex justify-content-end">
+        <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+      </div>
+      <div class="col-1 pl-0">
+        <span class="h5"><%= review.evaluation %></span>
+      </div>
+      <div class="col-3 offset-md-4">
+        <span class="h6 text-dark">
+          <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

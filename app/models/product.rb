@@ -13,7 +13,7 @@ class Product < ApplicationRecord
   has_many :reviews, dependent: :destroy
   #タグ機能
   has_many :product_tag_maps, dependent: :destroy
-  has_many :tags, through: :product_tag_maps, source: :product
+  has_many :tags, through: :product_tag_maps
 
   validate :image_presence, on: :update
   validates :genre_id, :description, presence: true
@@ -63,10 +63,7 @@ class Product < ApplicationRecord
     end
   end
 
-  # 機器名と型式
-  # def full_name
-  #   self.title + "(" + self.model + ")"
-  # end
+
 
   # 機器のサイズの定義
   def product_size
@@ -122,7 +119,7 @@ class Product < ApplicationRecord
   def product_all_images
     # 機器の画像全て
     @product_images = self.product_images
-    
+
     if self.reviews.present?
       # レビューの画像全て
       @review_images = ReviewImage.joins(:review).where(reviews: {product_id: self.id})

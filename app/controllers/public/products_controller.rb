@@ -70,12 +70,15 @@ class Public::ProductsController < ApplicationController
     else
       @product = Product.find(params[:id])
       @genres = Genre.all
+      @tag_list = @product.tags.pluck(:name).join(",")
     end
   end
 
   def update
     @product = Product.find(params[:id])
+    tag_list = params[:product][:name].split(",")
     if @product.update(product_params)
+      @product.save_tag(tag_list)
       redirect_to product_path(@product.id), notice: "変更を保存しました"
     else
       @genres = Genre.all

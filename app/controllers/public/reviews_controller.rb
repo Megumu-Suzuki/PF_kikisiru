@@ -1,6 +1,6 @@
 class Public::ReviewsController < ApplicationController
 
-  def new
+  def index
     @product = Product.find(params[:product_id])
     @review = Review.new
   end
@@ -15,20 +15,22 @@ class Public::ReviewsController < ApplicationController
     @product = Product.find(params[:product_id])
     @review.user_id = current_user.id
     @review.product_id = @product.id
-    render :new and return if params[:return]
+    render :index and return if params[:return]
     if @review.save
       redirect_to image_product_review_path(@product.id, @review.id), notice: "レビューを投稿しました"
     else
       flash.now[:alert] = "レビューの投稿に失敗しました"
-      redirect_to new_product_review_path
+      redirect_to product_reviews_path
       @review = Review.new(review_params)
     end
+
   end
   #レビュータグ、画像登録ページ
   def image
     @review = Review.find(params[:id])
     @review_images = @review.review_images.build
   end
+
   #レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
@@ -60,16 +62,20 @@ class Public::ReviewsController < ApplicationController
       @product = Product.find(params[:product_id])
       @review = Review.find(params[:id])
       @review_image = ReviewImage.new
+      @tag_list = @review.tags.pluck(:name).join(",")
     else
       @product = Product.find(params[:product_id])
       @review = Review.find(params[:id])
+      @tag_list = @review.tags.pluck(:name).join(",")
     end
   end
 
   def update
     @product = Product.find(params[:product_id])
     @review = Review.find(params[:id])
+    tag_list = params[:review][:name].split(",")
     if @review.update(review_params)
+      @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
     else
       flash.now[:alert] = "変更の保存に失敗しました"

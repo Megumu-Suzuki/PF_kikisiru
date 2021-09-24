@@ -12,10 +12,8 @@ class Review < ApplicationRecord
   validates :user_id, :product_id, :title, :comment, :evaluation, presence: true
 
   def save_tag(sent_tags)
-    unless self.tags.nil?
-      # pluckメソッド =アクティブストレージから指定のカラムのデータをZZ
-      current_tags = self.tags.pluck(:tag_name)
-    end
+    # pluckメソッド =アクティブストレージから指定のカラムのデータをZZ
+    current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - sent_tags
     new_tags = sent_tags - current_tags
     # 古いタグの削除
@@ -32,5 +30,5 @@ class Review < ApplicationRecord
       #self.tags.push(review_tag_map)
     end
   end
-  
+
 end

@@ -1,28 +1,22 @@
-<% if @target == "image" %>
-<!--画像編集をクリックした時------------------------------------------------------------------------------------->
-  <%= render 'public/reviews/review_image_edit', review: @review %>
-<% else %>
-<!--情報編集をクリックした時------------------------------------------------------------------------------------->
-
-  <h1>レビュー内容を編集</h1>
-  <%= form_with(model:[@product, @review], local: true) do |f| %>
-    <div>
-      <%= f.label :"タイトル" %>
-      <%= f.text_field :title %>
+<div class="container">
+  <% if @target == "image" %>
+    <!--画像編集をクリックした時------------------------------------------------------------------------------------->
+    <%= render 'public/reviews/review_image_edit', review: @review, product: @product %>
+  <% else %>
+    <!--情報編集をクリックした時------------------------------------------------------------------------------------->
+    <div class="col-md-12 d-flex justify-content-center">
+      <p class="h4">レビュー内容編集</p>
     </div>
-    <div>
-      <%= f.label :"内容" %>
-      <%= f.text_area :comment, size: "100x5" %>
-    </div>
-
-    <div id="evaluate_stars">
-      <label>評価</label>
-    </div>
-    <div class="actions">
-      <%= f.submit "更新する", class: "btn btn-primary" %>
+    <%= render 'public/reviews/form', product: @product, review: @review %>
+    <div class="row mt-5 d-flex justify-content-center">
+      <div class="col-md-3">
+        <%= link_to "削除する", product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-outline-danger form-control" %>
+      </div>
     </div>
   <% end %>
-  <%= link_to "削除する", product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-danger" %>
+</div>
+
+
   <script>
     $('#evaluate_stars').raty({
       starOn: "<%= asset_path('star-on.png') %>",
@@ -33,4 +27,3 @@
       half: true
     });
   </script>
-<% end %>

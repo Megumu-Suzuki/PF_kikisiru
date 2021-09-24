@@ -2,6 +2,8 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @products = Product.where(user_id: params[:id]).sort {|a,b| b.id <=> a.id}
+    @products = Kaminari.paginate_array(@products).page(params[:page]).per(5)
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)
       @user_entry = Entry.where(user_id: @user.id)
@@ -20,7 +22,6 @@ class Public::UsersController < ApplicationController
         end
       end
     end
-    @products = Product.where(user_id: params[:id])
   end
 
   def edit
@@ -30,7 +31,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to edit_user_path(current_user), notice: '会員情報を変更しました'
+      redirect_to user_path(current_user), notice: '会員情報を変更しました'
     else
       flash.now[:alert] = "会員情報を変更できませんでした"
       redirect_to request.referer
@@ -47,19 +48,52 @@ class Public::UsersController < ApplicationController
     redirect_to root_path, notice: "退会しました"
   end
 
-  def product
-    @user = User.find(params[:id])
-    @products = Product.where(user_id: params[:id])
-  end
-
   def favorite
     @user = User.find(params[:id])
-    @favorites = @user.favorites
+    @favorites = @user.favorites.sort {|a,b| b.id <=> a.id}
+    @favorites = Kaminari.paginate_array(@favorites).page(params[:page]).per(5)
+    if user_signed_in?
+      @current_user_entry = Entry.where(user_id: current_user.id)
+      @user_entry = Entry.where(user_id: @user.id)
+      unless @user.id == current_user.id
+        @current_user_entry.each do |cu|
+          @user_entry.each do |u|
+            if cu.room_id == u.room_id
+              @have_room = true
+              @room_id = cu.room_id
+            end
+          end
+        end
+        unless @have_room
+          @room = Room.new
+          @entry = Entry.new
+        end
+      end
+    end
   end
 
   def review
     @user = User.find(params[:id])
-    @reviews = @user.reviews
+    @reviews = @user.reviews.sort {|a,b| b.id <=> a.id}
+    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
+    if user_signed_in?
+      @current_user_entry = Entry.where(user_id: current_user.id)
+      @user_entry = Entry.where(user_id: @user.id)
+      unless @user.id == current_user.id
+        @current_user_entry.each do |cu|
+          @user_entry.each do |u|
+            if cu.room_id == u.room_id
+              @have_room = true
+              @room_id = cu.room_id
+            end
+          end
+        end
+        unless @have_room
+          @room = Room.new
+          @entry = Entry.new
+        end
+      end
+    end
   end
 
   def room

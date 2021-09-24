@@ -1,25 +1,28 @@
-<%= render 'header', user: @user %>
-<% @products.each do |product| %>
-  <%= render 'index', product: product %>
-<% end %>
-<% if user_signed_in? %>
-<div class="dm box">
-  <% unless @user.id == current_user.id %>
-    <% if @have_room ==  true %>
-      <%= link_to room_path(@room_id) do %>
-        <p>チャットへ</p>
-      <% end %>
-    <% else %>
-      <%= form_with model: @room, url: rooms_path, local:true do |f| %>
-        <%= fields_for @entry do |e| %>
-          <%= e.hidden_field :user_id, value: @user.id %>
-        <% end %>
-        <%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
-          <p>チャットを始める</p>
-        <% end %>
+<div class="container">
+  <%= render 'header', user: @user %>
+  <% if @products.present? %>
+    <% @products.each do |product| %>
+      <%= link_to  product_path(product.id), class:"text-decoration-none" do %>
+        <%= render 'public/products/product_top', product: product %>
       <% end %>
     <% end %>
+    <div class="row d-flex justify-content-center">
+      <%= paginate @products %>
+    </div>
+  <% else %>
+    <p>投稿した機器はありません</p>
   <% end %>
 </div>
-<% end %>
 
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>

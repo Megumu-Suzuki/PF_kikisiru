@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render 'public/searches/search_name' %>
   <%= render 'public/products/product_top', product: @product %>
 
   <div class="container pt-3">
@@ -7,33 +8,33 @@
       <div class="col">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path, class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path, class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器情報を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% elsif @product.allow_edit == false && @product.user = current_user %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path, class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path, class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器情報を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% end %>
         <% end %>
       </div>
       <div class="col-2 offset-md-2">
         <% if user_signed_in? %>
-          <button type="button" class="btn btn-outline-info p-1">
-            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
-              <span class="h6 text-dark">
+          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+            <button type="button" class="btn btn-outline-secondary p-1">
+              <span>
                 レビューを投稿する
               </span>
-            <% end %>
-          </button>
+            </button>
+          <% end %>
         <% end %>
       </div>
       <div class="col">
@@ -44,159 +45,7 @@
         <% end %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-10 offset-md-1">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>機器名</strong></th>
-              <td class="col-1"></td>
-              <td class="col-6"><%= @product.title %></td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>メーカー</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.manufacture.present? %>
-                  <%= @product.manufacture %>
-                <% else %>
-                 <span>-</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>型式</strong></th>
-              <td class="col-1"></td>
-              <td><%= @product.model %></td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>ジャンル</strong></th>
-              <td class="col-1"></td>
-              <td><%= @product.genre.name %></td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>定価</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.price.present? %>
-                  <%= @product.price %>円
-                <% else %>
-                  <span>- 円</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>寸法</strong><%= @product.product_size_unit %></th>
-              <td class="col-1"></td>
-              <td><%= @product.product_size %></td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>重量</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.weight.present? %>
-                  <%= @product.weight %>kg
-                <% else %>
-                  <span>- kg</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>電源</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.phase.present? %>
-                  <%= @product.phase %>
-                <% else %>
-                  <span>-</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>消費電力</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.power_consumption.present? %>
-                  <%= @product.power_consumption %>kW
-                <% else %>
-                  <span>- kW</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>ガス消費量(都市ガス)</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.city_gas.present? %>
-                  <%= @product.city_gas %>kW
-                <% else %>
-                  <span>- kW</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>ガス消費量(PLガス)</strong></th>
-              <td class="col-1"></td>
-              <td>
-                <% if @product.propane_gas.present? %>
-                  <%= @product.propane_gas %>kW
-                <% else %>
-                  <span>- kW</span>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <th class="col-1"></th>
-              <th class="col-3"><strong>機器説明</strong></th>
-              <td class="col-1"></td>
-              <td><%= @product.description %></td>
-            </tr>
-          </tbody>
-
+    <%= render 'public/products/detail', product: @product %>
           <tbody>
             <tr>
               <th class="col-1"></th>
@@ -243,21 +92,21 @@
       <div class="col-3">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器画像を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% elsif @product.allow_edit == false && @product.user = current_user %>
-            <button type="button" class="btn btn-outline-info p-1">
-              <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
-                <span class="text-dark">
+            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
                   機器画像を編集する
                 </span>
-              <% end %>
-            </button>
+              </button>
+            <% end %>
           <% end %>
         <% end %>
       </div>
@@ -292,13 +141,13 @@
       <span class="h4 offset-md-1">レビュー</span>
       <div class="col-3 offset-md-6">
         <% if user_signed_in? %>
-          <button type="button" class="btn btn-outline-info p-1">
-            <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
-              <span class="text-dark">
+          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+            <button type="button" class="btn btn-outline-secondary p-1">
+              <span>
                 レビューを投稿する
               </span>
-            <% end %>
-          </button>
+            </button>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -320,33 +169,7 @@
       <% @reviews.each do |review| %>
         <div class="col-10 offset-md-1">
           <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-            <div class="card my-3 ml-0">
-              <div class="container-fluid py-2">
-                <div class="row pl-1">
-                  <span class="h5 card-title font-weight-bold border-bottom">
-                    <%= review.title %>
-                  </span>
-                </div>
-                <div class="row mb-3 px-2">
-                  <span class="h6 card-text text-dark">
-                    <%= truncate(review.comment, length: 100) %>
-                  </span>
-                </div>
-                <div class="row">
-                  <div class="col-3 d-flex justify-content-end">
-                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
-                  </div>
-                  <div class="col-1 pl-0">
-                    <span class="h5"><%= review.evaluation %></span>
-                  </div>
-                  <div class="col-3 offset-md-4">
-                    <span class="h6 text-dark">
-                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render 'public/reviews/review_top', review: review %>
           <% end %>
           <div class="container d-flex justify-content-center">
             <%= paginate @reviews %>

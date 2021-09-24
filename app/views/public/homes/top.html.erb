@@ -1,127 +1,25 @@
 <div class="container">
   <div class="sticky-top">
     <div class="row mt mb-5 border border-dark rounded bg-white">
-      <div class="col-4 mt-4 mb-3">
+      <div class="col-md-4 mt-4 mb-3">
         <h4 class="font-weight-bold">商品名で検索する</h4>
       </div>
-      <div class="col-6 mt-3 mb-1 justify-content-center">
+      <div class="col-md-6 mt-3 mb-1 justify-content-center">
         <%= form_with url: search_path, method: :get, local:true do |f| %>
         <div class="form-group">
           <%= f.text_field 'search[value]',class: "form-control", placeholder: "商品名を入力" %>
           <%= f.hidden_field 'search[model]', value: "product" %>
         </div>
       </div>
-      <div class="col-1">
-          <%= f.submit "検索", class: "btn btn-success mt-3 mb-1" %>
+      <div class="col-md-1">
+          <%= f.submit "検索", class: "btn btn-outline-success mt-3 mb-1" %>
       </div>
         <% end %>
     </div>
   </div>
-
-
-  <div class="row mt-5 mb-3">
-    <div class="col-4 d-flex">
-      <h4 class="font-weight-bold">カテゴリーから検索する</h4>
-    </div>
-    <div class="col-8"></div>
-  </div>
-  <div class="row mb-5 justify-content-center">
-    <% @genres.each do |genre| %>
-      <div class="col-4 col-sm-3">
-        <div class="card my-2" style="max-width: 200px;">
-          <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
-            <div class="bg_image">
-              <%= image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img" %>
-            </div>
-            <div class="card-img-overlay p-0 d-flex align-items-end justify-content-center">
-              <p class="h5 card-text text-white"><%= genre.name %></p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-
-  <div class="row mt-5 mb-3">
-    <div class="col-6 d-flex">
-      <h4 class="font-weight-bold">タグから検索する</h4>
-      <p class="text-muted">(※最近登録された20件を表示しています。)</p>
-    </div>
-    <div class="col-6"></div>
-  </div>
-  <div class="row">
-    <% @tags.each do |tag| %>
-      <div class="p-1 flex-row">
-      <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
-        <button type="button" class="btn btn-outline-secondary text-nowrap">
-          <%= tag.name %>
-        </button>
-      <% end %>
-      </div>
-    <% end %>
-  </div>
-
-
-  <div class="row mt-5 mb-3">
-    <div class="col-4 d-flex">
-      <h4 class="font-weight-bold">カテゴリー別評価ランキング</h4>
-    </div>
-    <div class="col-8"></div>
-  </div>
-  <table>
-    <tbody>
-      <tr>
-        <th class="row justify-content-center">
-          <% @genre_rankings.each do |genre| %>
-            <div class="col-6">
-              <div class="card my-3">
-                <div class="row">
-                  <div class="col d-flex justify-content-center">
-                    <h4 class="py-0 my-0"><%= genre.name %></h4>
-                  </div>
-                </div>
-                <% genre.products.each.with_index(1) do |product, i| %>
-                  <div class="card my-2 mx-2">
-                    <%= link_to product_path(product), class:"text-decoration-none" do %>
-                      <div class="container-fluid py-2">
-                        <div class="row">
-                          <div class="col-1 pr-0 d-flex">
-                            <%= i %>位
-                          </div>
-                          <div class="col-6">
-                            <div class="row">
-                              <div class="col mt-3 mb-4 d-flex">
-                                <%= product.title %><br>
-                                (<%= product.model %>)
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-8">
-                                <div class="review-average" data-score=<%= product.review_average %>></div>
-                              </div>
-                              <div class="col-1 d-flex">
-                                <%= product.review_average.round(1) %>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-4">
-                            <%= image_tag product.top_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
-                          </div>
-                        </div>
-                      </div>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </th>
-      </tr>
-    </tbody>
-  </table>
+  <%= render 'public/homes/search', genres: @genres, tags: @tags %>
+  <%= render 'public/homes/ranking', genre_rankings: @genre_rankings %>
 </div>
-
 
 <script>
   $('.review-average').empty();
