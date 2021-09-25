@@ -1,37 +1,59 @@
-<% @contact_messages.each do |contact| %>
-  <table>
-    <tbody>
-      <tr>
-        <th><strong>お問い合わせ</strong></th>
-        <td><%= contact.contact.id %></td>
-      </tr>
-    </tbody>
+<div class="container">
+  <div class="row my-3 d-flex justify-content-center">
+    <span class="h2 col-md-auto">
+      お問い合わせ一覧
+    </span>
+  </div>
 
-    <tbody>
-      <tr>
-        <th><strong>名前</strong></th>
-        <td><%=link_to contact.name, admin_contact_path(contact.id) %></td>
-      </tr>
-    </tbody>
+  <% @contact_messages.each do |contact| %>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5">
+        <%=link_to admin_contact_path(contact.id), class:"text-decoration-none" do %>
+          <div class="card my-1">
+            <div class="card-body p-1">
+              <div class="h6 card-text mb-0 text-dark">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <%= contact.contact.id %>
+                    </div>
+                    <div class="col-md-9 mt-1">
+                      名前<%= contact.name %>
+                    </div>
+                    <div class="col-md-9 offset-md-1 mt-1">
+                      件名<%= contact.subject %>
+                    </div>
+                    <div class="col-md-11 offset-md-1 mt-1">
+                      <div class="row">
+                        <div class="col-md-4 mt-1">
+                          <% if contact.contact.is_completed == false %>
+                            <p class="p-0 my-0 text-danger">未対応</p>
+                          <% else %>
+                            <p class="p-0 my-0 text-primary">対応済み</p>
+                          <% end %>
+                        </div>
+                        <div class="col-md-4 mt-1">
+                          <% if contact.contact.user_id == nil %>
+                            <p class="p-0 my-0 text-secondary">非会員</p>
+                          <% else %>
+                            <p class="p-0 my-0 text-secondary">会員</p>
+                          <% end %>
+                        </div>
+                        <div class="col-md-4 mt-1">
+                          <%= contact.created_at.strftime('%m/%d %H:%M') %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
-    <tbody>
-      <tr>
-        <th><strong>件名</strong></th>
-        <td><%= contact.subject %></td>
-      </tr>
-    </tbody>
-    <tbody>
-      <tr>
-        <th><strong>状態</strong></th>
-        <td>
-          <% if contact.contact.is_completed == false %>
-            <p>未対応</p>
-          <% else %>
-            <p>対応済み</p>
-          <% end %>
-        </td>
-      </tr>
-    </tbody>
-  </tabel
-<% end %>
+  <%= paginate @contact_messages %>
+</div>
 

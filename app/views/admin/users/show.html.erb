@@ -1,86 +1,119 @@
-<% if @user.profile_image.attached? %>
-  <%= image_tag @user.profile_image.variant(resize:'100x100') %>
-<% else %>
-  <%= image_tag 'no_image.png', size: '100x100' %>
-<% end %><br>
+<div class="container">
+  <div class="row mb-3 d-flex justify-content-center">
+    <p class="h4">会員詳細</h1>
+  </div>
 
-<table>
-  <tbody>
-    <tr>
-      <th><strong>姓</strong></th>
-      <td><%= @user.last_name %></td>
-    </tr>
-  </tbody>
+  <div class="row mb-3 d-flex justify-content-center">
+    <% if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
+    <% else %>
+      <%= image_tag 'no_image.png', style: "object-fit: cover; width: 150px; height: 150px;" %>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-md-2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="col-md-2"></th>
+            <th class="col-md-3"><strong>姓</strong></th>
+            <td class="col-md-3"></td>
+            <td class="col-md-4"><%= @user.last_name %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>名</strong></th>
-      <td><%= @user.first_name %></td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-2"></th>
+            <th class="col-3"><strong>名</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4"><%= @user.first_name %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>セイ</strong></th>
-      <td><%= @user.last_name_kana %></td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-2"></th>
+            <th class="col-3"><strong>セイ</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4"><%= @user.last_name_kana %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>メイ</strong></th>
-      <td><%= @user.first_name_kana %></td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-2"></th>
+            <th class="col-3"><strong>メイ</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4"><%= @user.first_name_kana %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>ニックネーム</strong></th>
-      <td>
-        <% if @user.nickname.blank? %>
-          <p class="text-muted">未登録</p>
-        <% else %>
-          <%= @user.nickname %>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>ニックネーム</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4">
+              <% if @user.nickname.blank? %>
+                <p class="m-0 text-muted">未登録</p>
+              <% else %>
+                <%= @user.nickname %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>電話番号</strong></th>
-      <td>
-        <% if @user.phone_number.blank? %>
-          <p class="text-muted">未登録</p>
-        <% else %>
-          <%= @user.phone_number %>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>電話番号</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4">
+              <% if @user.phone_number.blank? %>
+                <p class="m-0 text-muted">未登録</p>
+              <% else %>
+                <%= @user.phone_number %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>メールアドレス</strong></th>
-      <td><%= @user.email %></td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>メールアドレス</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4"><%= @user.email %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>会員状態</strong></th>
-      <td>
-        <% if @user.is_deleted == true %>
-          <p class="text-success">有効</p>
-        <% else %>
-          <p class="text-muted">退会</p>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>会員状態</strong></th>
+            <td class="col-3"></td>
+            <td class="col-4">
+              <% if @user.is_deleted == true %>
+                <p class="m-0 text-success">有効</p>
+              <% else %>
+                <p class="m-0 text-muted">退会</p>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <%= link_to "編集", edit_admin_user_path, class: "btn btn-outline-success btn-lg mr-1" %>
-  <%= link_to "一覧に戻る", admin_users_path, class: "btn btn-outline-success btn-lg mr-1" %>
-
-
+  <div class="row mt-3 d-flex justify-content-center">
+    <div class="col-md-3">
+      <%= link_to "編集", edit_admin_user_path, class: "btn btn-outline-success form-control" %>
+    </div>
+  </div>
+  <div class="row mt-3 d-flex justify-content-center">
+    <div class="col-md-3">
+      <%= link_to "一覧に戻る", admin_users_path, class: "btn btn-outline-secondary form-control" %>
+    </div>
+  </div>
+</div>

@@ -1,70 +1,178 @@
+<div class="container">
+  <!-----------------------商品情報----------------------------------------------------------------------->
 
-<%= link_to @product.title, admin_product_path(@product.id) %><br>
-
-<% if @user.profile_image.attached? %>
-  <%= image_tag @user.profile_image.variant(resize:'50x50') %>
-<% else %>
-  <%= image_tag 'no_image.png', size: '100x100' %>
-<% end %>
-
-<% if @user.nickname.present? %>
-  <%= link_to @user.nickname, admin_user_path(@user.id) %>
-<% else %>
-  <%= link_to admin_user_path(@user.id) do %>
-    匿名<%= @user.id %>さんのレビュー
+  <%= link_to  admin_product_path(@product.id), class:"text-decoration-none" do %>
+    <%= render 'public/products/product_top', product: @product %>
   <% end %>
-<% end %><br>
 
-<div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
-<div><%= @review.evaluation %></div>
-<table>
-  <thead>
-    <tr>
-      <th>タイトル</th>
-      <th>内容</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><%= @review.title %></th>
-      <th><%= @review.comment %></th>
-    </tr>
-  </tbody>
-</table>
-<h5>レビュー画像</h5>
-<% if @review.review_images %>
-  <% @review.review_images.each do |review_image| %>
-    <% review_image.images.each do |image| %>
-      <%= image_tag image.variant(resize:'100x100') %>
-    <% end %>
-    <%= review_image.description %>
-  <% end %>
-<% end %><br>
-<%= link_to "レビューを削除する", admin_product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-danger" %>
+<div class="container pt-3">
+    <div class="row">
+      <div class="col-1 offset-md-1">
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.profile_image, style: "object-fit: cover; width: 75px; height: 75px;" %>
+        <% else %>
+          <%= image_tag 'no_image.png', size: '75x75' %>
+        <% end %>
+      </div>
+      <span class="h5 col-3 d-flex align-items-center">
+        <% if @user.nickname.present? %>
+          <%= link_to @user.nickname, admin_user_path(@user.id) %>
+        <% else %>
+          <%= link_to admin_user_path(@user.id) do %>
+            匿名<%= @user.id %>
+          <% end %>
+        <% end %>
+        さんのレビュー
+      </span>
+      <div class="col-md-2 pr-0 offset-md-1 d-flex justify-content-end align-items-center">
+        <div class="review-evaluation" data-score="<%= @review.evaluation %>"></div>
+        <span class="h4 col-2"><%= @review.evaluation %></span>
+      </div>
+      <div class="col-md-3 d-flex justify-content-end align-items-center">
+        <%= link_to admin_product_review_path(@product.id, @review.id), method: :delete, class: "text-decoration-none" do %>
+          <button type="button" class="btn btn-outline-danger p-1">
+            <span>
+              レビューを削除する
+            </span>
+          </button>
+        <% end %>
+      </div>
+    </div>
 
+    <div class="row mt-2">
+      <div class="col-10 offset-md-1">
+        <div class="col mb-2">
+          <span class="h4 font-weight-bold border-bottom">
+            <%= @review.title %>
+          </span>
+        </div>
+        <div class="col">
+          <%= @review.comment %>
+        </div>
+        <div class="row mt-3 ml-3">
+          <% @review.tags.each do |tag| %>
+            <div class="p-1 m-1 border flex-row">
+              <%= tag.name %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-<h1>レビュ一覧</h1>
-<table>
-  <thead>
-    <tr>
-      <th>レビュー内容</th>
-      <th>評価</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reviews.each do |review| %>
-      <tr>
-        <td><%= link_to review.title, product_review_path(@product.id, review.id) %></td>
-        <td><%= review.comment %></td>
-        <td class="review-evaluation" data-score="<%= review.evaluation %>"></td>
-        <td><%= review.evaluation %></div></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="row my-4">
+      <span class="h4 offset-md-1">投稿写真</span>
+      <div class="col-3">
+        <% if user_signed_in? %>
+          <% if @user.id == current_user.id %>
+            <%= link_to edit_product_review_path(@product.id, @review.id, target: "image"), class: "text-decoration-none" do %>
+              <button type="button" class="btn btn-outline-secondary p-1">
+                <span>
+                  投稿写真を編集する
+                </span>
+              </button>
+             <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-md-1">
+        <div class="row">
+          <% if @review.review_images %>
+            <% @review_images.each do |review_image| %>
+              <% review_image.images.each do |image| %>
+                <div class="col-2 p-1">
+                  <div class="card">
+                    <div class="card-img-top p-1 d-flex justify-content-center">
+                      <%= image_tag image, style: "object-fit: cover; width: 125px; height: 125px;" %>
+                    </div>
+                    <div class="card-body p-1">
+                      <p class="card-text text-break">
+                        <%= review_image.description %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="container d-flex justify-content-center">
+          <%= paginate @review_images %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-2">
+      <span class="h4 offset-md-1">この機器に関するほかのレビュー</span>
+      <div class="col-3 offset-md-4">
+        <% if user_signed_in? %>
+          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+            <button type="button" class="btn btn-outline-secondary p-1">
+              <span>
+                レビューを投稿する
+              </span>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-10 offset-md-1">
+          <%= link_to admin_product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+            <div class="card my-3 ml-0">
+              <div class="container-fluid py-2">
+                <div class="row pl-1">
+                  <span class="h5 card-title font-weight-bold border-bottom">
+                    <%= review.title %>
+                  </span>
+                </div>
+                <div class="row mb-3 px-2">
+                  <span class="h6 card-text text-dark">
+                    <%= truncate(review.comment, length: 100) %>
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col-3 d-flex justify-content-end">
+                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+                  </div>
+                  <div class="col-1 pl-0">
+                    <span class="h5"><%= review.evaluation %></span>
+                  </div>
+                  <div class="col-3 offset-md-4">
+                    <span class="h6 text-dark">
+                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="container d-flex justify-content-center">
+            <%= paginate @reviews %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <script>
   $('.review-evaluation').empty();
     $('.review-evaluation').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
       readOnly: true,
       starOn: "<%= asset_path('star-on.png') %>",
       starOff: "<%= asset_path('star-off.png') %>",

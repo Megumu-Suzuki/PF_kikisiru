@@ -1,66 +1,78 @@
-<div class="left-button">
-  <%= link_to "チャット一覧に戻る", room_user_path(current_user), class:"edit-link" %>
-</div>
-<h4 class="rooms-title">トークメンバー</h4>
-  <div class="user-name">
-  <strong>
-    <% if @user.profile_image.attached? %>
-      <%= image_tag @user.profile_image.variant(resize:'50x50') %>
-    <% else %>
-      <%= image_tag 'no_image.png', size: '100x100' %>
-    <% end %>
-      <a class="rooms-user-link" href="/users/<%= @user.id %>">
-        <% if @user.nickname.present? %>
-          <%= @user.nickname %>さん
-        <% else %>
-          匿名<%= @user.id %>さん
-        <% end %>
-      </a>
-  </strong>
+<div class="container">
+  <div class="row">
+    <div class="left-button">
+      <%= link_to "＜チャット一覧に戻る", room_user_path(current_user) %>
+    </div>
   </div>
-<hr>
-<div class="chats">
-  <div class="chat">
+  <div class="sticky-top">
+    <div class="row mb-2 d-flex justify-content-center bg-white">
+      <div class="col-md-auto">
+        <strong>
+          <% if @user.profile_image.attached? %>
+            <%= image_tag @user.profile_image, style: "object-fit: cover; width: 75px; height: 75px;", class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag 'no_image.png', style: "object-fit: cover; width: 75px; height: 75px;", class: "rounded-circle" %>
+          <% end %>
+            <%= link_to user_path(@user.id) do %>
+              <% if @user.nickname.present? %>
+                <%= @user.nickname %>さん
+              <% else %>
+                匿名<%= @user.id %>さん
+              <% end %>
+            <% end %>
+        </strong>
+      </div>
+    </div>
+  </div>
+  <div class="row border py-2">
     <% if @direct_messages.present? %>
       <% @direct_messages.each do |message| %>
-        <div class="chat-box">
-          <% if message.user == current_user %>
-            <div class="sent-dm">
+        <% if message.user == current_user %>
+            <div class="col-md-7 my-2 offset-md-3">
+              <span class="d-flex justify-content-end">
+                <strong><%= message.message %></strong>
+              </span>
+              <p class="d-flex justify-content-end mt-1">
+                <%= message.created_at.strftime("%m/%d %H:%M")%>
+              </span>
+            </div>
+            <div class="col-md-1 my-2 d-flex justify-content-end">
               <% if current_user.profile_image.attached? %>
-                <%= image_tag current_user.profile_image.variant(resize:'50x50'), class: "rounded-circle" %>
+                <%= image_tag current_user.profile_image, style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
               <% else %>
-                <%= image_tag 'no_image.png', size: '100x100', class: "rounded-circle" %>
+                <%= image_tag 'no_image.png', style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
               <% end %>
-              <div class="chat-hukidashi">
-                <strong><%= message.message %></strong><br>
-                <%= message.created_at.strftime("%Y-%m-%d %H:%M")%>
-              </div>
             </div>
-          <% else %>
-            <div class="recive-dm">
-              <% if @user.profile_image.attached? %>
-                <%= image_tag @user.profile_image.variant(resize:'50x50'), class: "rounded-circle" %>
-              <% else %>
-                <%= image_tag 'no_image.png', size: '100x100', class: "rounded-circle" %>
-              <% end %>
-              <div class="chat-hukidashi">
-                <strong><%= message.message %></strong><br>
-                <%= message.created_at.strftime("%Y-%m-%d %H:%M")%>
-              </div>
-            </div>
-          <% end %>
-        </div>
+        <% else %>
+          <div class="col-md-1 my-2 offset-md-1">
+            <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+            <% else %>
+              <%= image_tag 'no_image.png', style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+            <% end %>
+          </div>
+          <div class="col-md-7 my-2">
+            <span>
+              <strong><%= message.message %></strong>
+            </span>
+            <p class="mt-1">
+              <%= message.created_at.strftime("%m/%d %H:%M")%>
+            </p>
+          </div>
+          <div class="w-100"></div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
-
-
-  </div>
-  <div class="posts">
-    <%= form_with model: @direct_message, local:true do |f| %>
-      <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+  <%= form_with model: @direct_message, local:true do |f| %>
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-6">
+        <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-control" %>
+      </div>
+      <div class="col-1">
+        <%= f.submit "送信",class: 'form-control btn btn-outline-secondary' %>
         <%= f.hidden_field :room_id, value: @room.id %>
-          <%= f.submit "投稿",class: 'form-submit'%>
-    <% end %>
-  </div>
+      </div>
+    </div>
+  <% end %>
 </div>

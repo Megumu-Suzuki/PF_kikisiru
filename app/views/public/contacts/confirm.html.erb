@@ -1,38 +1,55 @@
-<h1>投稿内容をご確認ください</h1>
-<table>
-  <tbody>
-    <tr>
-      <th><strong>名前</strong></th>
-      <td><%= @contact_message.name %></td>
-    </tr>
-  </tbody>
+<div class="container">
+  <div class="row mb-3 d-flex justify-content-center">
+    <p class="h4 mt-3">お問い合わせ内容をご確認ください</h1>
+  </div>
 
-  <tbody>
-    <tr>
-      <th><strong>メールアドレス</strong></th>
-      <td><%= @contact_message.email %></td>
-    </tr>
-  </tbody>
+  <div class="row">
+    <div class="col-10 offset-md-1">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>名前</strong></th>
+            <td class="col-1"></td>
+            <td class="col-6"><%= @contact_message.name %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>件名</strong></th>
-      <td><%= @contact_message.subject %></td>
-    </tr>
-  </tbody>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>メールアドレス</strong></th>
+            <td class="col-1"></td>
+            <td class="col-6"><%= @contact_message.email %></td>
+          </tr>
+        </tbody>
 
-  <tbody>
-    <tr>
-      <th><strong>本文</strong></th>
-      <td><%= @contact_message.body %></td>
-    </tr>
-  </tbody>
-</table>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>件名</strong></th>
+            <td class="col-1"></td>
+            <td class="col-6"><%= @contact_message.subject %></td>
+          </tr>
+        </tbody>
 
-<%= form_with model: @contact, url: contacts_path, local:true do |f| %>
-  <% if current_user.present? %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-  <% end %>
+        <tbody>
+          <tr>
+            <th class="col-1"></th>
+            <th class="col-3"><strong>本文</strong></th>
+            <td class="col-1"></td>
+            <td class="col-6"><%= @contact_message.body %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <%= form_with model: @contact, url: contacts_path, local:true do |f| %>
+    <% if current_user.present? %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+    <% end %>
     <%= fields_for @contact_message do |e| %>
       <%= e.hidden_field :name, value: @contact_message.name %>
       <%= e.hidden_field :email, value: @contact_message.email %>
@@ -42,6 +59,13 @@
         <%= e.hidden_field :user_id, value: current_user.id %>
       <% end %>
     <% end %>
-  <%= f.submit "問い合わせ内容を修正する", name: :back, class: "btn btn-primary" %>
-  <%= f.submit "内容を確定し送信する", class: "btn btn-primary" %>
-<% end %>
+    <div class="row">
+      <div class="col-md-3 offset-md-3">
+        <%= f.submit "問い合わせ内容を修正する", name: :back, class: "btn btn-outline-danger" %>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <%= f.submit "内容を確定し送信する", class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

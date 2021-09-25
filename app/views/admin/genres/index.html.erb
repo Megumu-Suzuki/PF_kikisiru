@@ -1,9 +1,59 @@
-<% @genres.each do |genre| %>
-  <%= genre.name %>
-  <%= link_to "編集", edit_admin_genre_path(genre.id) %>
-<% end %>
+<div class="container">
+  <div class="row my-3 d-flex justify-content-center">
+    <span class="h2 col-md-auto">
+      ジャンル一覧
+    </span>
+  </div>
 
-<%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
-  <%= f.text_field :name, placeholder: "ジャンル名" %>
-  <%= f.submit "新規登録", class: "btn btn-outline-success" %>
-<% end %>
+  <table class="table">
+    <thead>
+      <tr class="row">
+        <th class="col-md-2 offset-md-3">ジャンルID</th>
+        <th class="col-md-3">ジャンル名</th>
+        <th class="col-md-2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @genres.each do |genre| %>
+        <tr class="row">
+          <th class="col-md-2 offset-md-3 d-flex align-items-center"><%= genre.id %></th>
+          <th class="col-md-3 d-flex align-items-center"><%= genre.name %></th>
+          <th class="col-md-2 d-flex align-items-center justify-content-center"><%= link_to "編集", edit_admin_genre_path(genre.id) %></th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
+    <div class="row mt-3">
+      <div class="col-md-12 mb-3 d-flex justify-content-center">
+        <p class="h4">ジャンル新規登録</p>
+      </div>
+
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"ジャンル名", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"ジャンル画像", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.file_field :image %>
+      </div>
+    </div>
+
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-3">
+        <%= f.submit "新規登録", class: "btn btn-outline-secondary form-control" %>
+      </div>
+    </div>
+  <% end %>
+</div>

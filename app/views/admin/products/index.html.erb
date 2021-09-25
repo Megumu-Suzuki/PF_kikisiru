@@ -1,31 +1,39 @@
-<%= link_to "機器を追加する", new_admin_product_path %>
-<table class="table">
-  <thead>
-    <tr>
-      <th>
-        商品名
-      </th>
-      <th>
-        型式
-      </th>
-      <th>
-        ジャンル名
-      </th>
-    </tr>
-  </thead>
-  <% @products.each do |product| %>
-  <tbody>
-    <tr>
-      <td>
-        <%= link_to product.title, admin_product_path(product.id) %><br>
-      </td>
-      <td>
-        <%= product.model %>
-      </td>
-      <td>
-        <%= product.genre.name %>
-      </td>
-    </tr>
-  </tbody>
-  <% end %>
-</table>
+<div class="container">
+  <div class="row mt-3 d-flex justify-content-center">
+    <span class="h2 col-md-auto">
+      商品一覧
+    </span>
+  </div>
+  <div class="col-md-auto mr-5 mb-2 pr-5 d-flex justify-content-end">
+    <%= link_to new_admin_product_path, class: "text-decoration-none" do %>
+      <button type="button" class="btn btn-outline-secondary p-1">
+        <span>
+          機器投稿ページ
+        </span>
+      </button>
+    <% end %>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr class="row">
+        <th class="col-md-2 offset-md-1">商品ID</th>
+        <th class="col-md-3">商品名</th>
+        <th class="col-md-3">型式</th>
+        <th class="col-md-2">ジャンル名</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+        <tr class="row">
+          <th class="col-md-2 offset-md-1 d-flex align-items-center"><%= product.id %></th>
+          <th class="col-md-3 d-flex align-items-center"><%= link_to product.title, admin_product_path(product.id) %></th>
+          <th class="col-md-3 d-flex align-items-center"><%= product.model %></th>
+          <th class="col-md-2 d-flex align-items-center"><%= product.genre.name %></th>
+        <tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

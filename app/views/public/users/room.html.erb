@@ -1,30 +1,54 @@
-<% if @entries.empty? %>
-  <p>チャットはありません</p>
-<% end %>
-<% @entries.each do |room| %>
-  <% if room.user.nickname.present? %>
-    <%= link_to user_path(room.user.id) do %>
-      <%= room.user.nickname %>さん
-    <% end %>
-  <% else %>
-    <%= link_to user_path(room.user.id) do %>
-      匿名<%= room.user.id %>さん
-    <% end %>
-  <% end %><br>
-  <% if room.user.profile_image.attached? %>
-    <%= image_tag room.user.profile_image.variant(resize:'100x100') %>
-  <% else %>
-    <%= image_tag 'no_image.png', size: '100x100' %>
+<div class="container">
+  <div class="row mb-3 d-flex justify-content-center">
+    <p class="h4">チャット一覧</h1>
+  </div>
+
+  <% if @entries.empty? %>
+    <p class="mt-4 d-flex justify-content-center">チャットはありません</p>
   <% end %>
-  <%= link_to "チャットへ", room_path(room.room_id) %><br>
-  <% if room.direct_messages != [] %>
-  <p><%= room.direct_messages.last.message %></p>
-    <span>
-      <% if room.check_message %>
-        <i class="fa fa-circle fa-x" style="color: blue;"></i>
-      <% end %>
-    </span>
-    <%= (room.direct_messages.last).created_at.strftime("%Y/%m/%d %H:%M") %>
+
+  <% @entries.each do |room| %>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <%= link_to  room_path(room.room_id), class: "text-decoration-none" do %>
+          <div class="card offset-md-2 my-3 ml-0">
+            <div class="row d-flex align-items-center">
+              <div class="col-md-3 d-flex justify-content-center">
+                <% if room.user.profile_image.attached? %>
+                  <%= image_tag room.user.profile_image, style: "object-fit: cover; width: 100px; height: 100px;", class: "rounded-circle" %>
+                <% else %>
+                  <%= image_tag 'no_image.png', style: "object-fit: cover; width: 100px; height: 100px;", class: "rounded-circle" %>
+                <% end %>
+              </div>
+              <span class="h4 col-md-auto m-0">
+                <% if room.user.nickname.present? %>
+                  <%= room.user.nickname %>さん
+                <% else %>
+                  匿名<%= room.user.id %>さん
+                <% end %>
+              </span>
+              <% if room.direct_messages != [] %>
+                <div class="col-md-auto offset-md-1">
+                  <span class="col-md-auto d-flex justify-content-end">
+                    <%= truncate(room.direct_messages.last.message, length: 10) %>
+                  </span>
+                </div>
+                <div class="col-md-auto">
+                  <span>
+                    <%= (room.direct_messages.last).created_at.strftime("%m/%d %H:%M") %>
+                  </span>
+                </div>
+                <div class="col-md-auto">
+                    <% if room.check_message %>
+                      <i class="fa fa-circle fa-x" style="color: blue;"></i>
+                    <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-<% end %>
+</div>
 

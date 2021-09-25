@@ -1,65 +1,134 @@
-<%= form_with model: @user, url: admin_user_path(@user.id), local: true do |f| %>
+<div class="container">
+  <div class="row mb-3 d-flex justify-content-center">
+    <p class="h4">会員情報編集</h1>
+  </div>
+  <%= form_with model: @user, url: admin_user_path(@user.id), local: true do |f| %>
 
-  <% if @user.profile_image.attached? %>
-      <div class="field">
-        <%= f.label :profile_image do %>
-          <%= image_tag @user.profile_image.variant(resize:'100x100') %>
-          <%= f.file_field :profile_image, style: 'display:none' %>
-        <% end %>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body p-1">
+            <p class="card-text text-break d-flex justify-content-center">
+              現在登録されているプロフィール画像
+            </p>
+          </div>
+          <div class="card-img-bottom my-3 d-flex justify-content-center">
+            <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', style: "object-fit: cover; width: 150px; height: 150px;" %>
+              <% end %>
+          </div>
+        </div>
       </div>
-    <% else %>
-      <div class="field">
-        <%= f.label :profile_image do %>
-          <%= image_tag 'no_image.png', size: '100x100' %>
-          <%= f.file_field :profile_image, style: 'display:none' %>
-        <% end %>
+    </div>
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-auto" style="background-color: #DDDDDD;">
+        <%= f.label :"プロフィール画像を変更する場合は画像ファイルを選択してください" %>
       </div>
-    <% end %>
+      <div class="w-100"></div>
+      <div class="col-md-auto" style="background-color: #EEEEEE;">
+        <%= f.file_field :profile_image %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :"*姓" %><br />
-    <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
-  </div>
+    <div class="row mt-3">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"姓", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :last_name, placeholder: "機器", autofocus: true, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"*名" %><br />
-    <%= f.text_field :first_name, placeholder: "太郎" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"名", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :first_name, placeholder: "太郎", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"*セイ" %><br />
-    <%= f.text_field :last_name_kana, placeholder: "キキ" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"セイ", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :last_name_kana, placeholder: "キキ", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"*メイ" %><br />
-    <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"メイ", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :first_name_kana, placeholder: "タロウ", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"ニックネーム" %><br />
-    <%= f.text_field :nickname %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"ニックネーム", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :nickname, placeholder: "タロウ", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"電話番号(ハイフンなし)" %><br />
-    <%= f.text_field :phone_number, placeholder: "01234567890" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"電話番号(ハイフンなし)", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :phone_number, placeholder: "01234567890", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"*メールアドレス" %><br />
-    <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"メールアドレス", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email", class: "form-control" %>
+      </div>
 
-  <div>
-    <%= f.radio_button :is_deleted, :true %>
-    <%= f.label :is_deleted, "有効", {value: :false, style: "display: inline-block;"} %>
-    <%= f.radio_button :is_deleted, :false %>
-    <%= f.label :is_deleted, "退会", {value: :true, checked: true, style: "display: inline-block;"} %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          会員状態
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <div class="row ml-3">
+          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <%= f.label :"有効", class: "mb-0" %>
+          </div>
+          <div class="col-md-1 mt-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+            <%= f.radio_button :is_deleted, :true, checked: true %>
+          </div>
+          <!--<div class="col-md-1 mt-1 pl-4" style="background-color: #EEEEEE;" ></div>-->
+          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <%= f.label :"退会", class: "mb-0" %>
+          </div>
+          <div class="col-md-1 mt-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+            <%= f.radio_button :is_deleted, :false %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "更新", class: "btn btn-outline-success" %>
-  </div>
-  <th><%= link_to "詳細に戻る", admin_user_path(@user.id) %></th>
-<% end %>
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-3">
+        <%= f.submit "更新", class: "btn btn-outline-success form-control" %>
+      </div>
+    </div>
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-3">
+        <%= link_to "詳細に戻る", admin_user_path(@user.id), class: "btn btn-outline-secondary form-control" %>
+      </div>
+    </div>
+  <% end %>
+</div>

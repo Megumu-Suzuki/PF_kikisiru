@@ -28,35 +28,38 @@ class Admin::ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = Review.where(product_id: @product.id)
-    @product_tags = Tag.joins(:product_tag_maps).where(product_tag_maps: {product_id: @product.id})
-    @review_tags = Tag.joins(:review_tag_maps).where(review_tag_maps: {review_id: @reviews.pluck(:id)})
-    @tags = @product_tags | @review_tags
-    @tags_all = @tags.uniq
+    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if @product.reviews.blank?
       @average_review = 0
     else
       @average_review = @product.review_average.round(1)
     end
+    @all_images = @product.product_all_images
+    @all_images = Kaminari.paginate_array(@all_images).page(params[:page]).per(18)
   end
 
   def edit
-    @product = Product.find(params[:id])
-    @genres = Genre.all
+    @target = params["target"]
+    if @target == "image"
+      @product = Product.find(params[:id])
+      @product_image = ProductImage.new
+    else
+      @product = Product.find(params[:id])
+      @genres = Genre.all
+      @tag_list = @product.tags.pluck(:name).join(",")
+    end
   end
 
   def update
     @product = Product.find(params[:id])
-    if params[:product][:delete].present?
-      @product.top_image.purge
-      redirect_back(fallback_location: root_path)
+    tag_list = params[:product][:name].split(",")
+    if @product.update(product_params)
+      @product.save_tag(tag_list)
+      redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
     else
-      if @product.update(product_params)
-        redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
-      else
-        flash.now[:alert] = "変更の保存に失敗しました"
-        @genres = Genre.all
-        render :edit
-      end
+      flash.now[:alert] = "変更の保存に失敗しました"
+      @genres = Genre.all
+      render :edit
     end
   end
 
