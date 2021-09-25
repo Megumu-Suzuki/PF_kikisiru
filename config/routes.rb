@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     # 商品画像の記述
     resources :product_images, only: [:update, :destroy]
     # ジャンルの記載
-    resources :genres, only: [:index, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update, :destroy]
     # 問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
   end

@@ -6,7 +6,7 @@
     <% product.product_images.each do |product_image| %>
       <% product_image.images.each do |image| %>
         <div class="col-md-4">
-          <%= form_with model: product_image, url: product_image_path(product_image), method: :patch, local:true do |f| %>
+          <%= form_with model: product_image, url: admin_product_image_path(product_image), method: :patch, local:true do |f| %>
             <div class="card mb-3">
               <div class="card-body p-1">
                 <div class="card-img-top mt-2 d-flex justify-content-center">
@@ -45,7 +45,7 @@
     <p class="h5">（「画像を追加する」をクリックするとフォームが表示されます）</p>
   </div>
   <div class="col-md-12 mt-5 d-flex justify-content-center">
-    <%= form_with model: Product.new, url: product_path, method: :patch, local:true do |s| %>
+    <%= form_with model: Product.new, url: admin_product_path, method: :patch, local:true do |s| %>
       <div class="col-md-12 d-flex justify-content-center">
         <div class="products">
           <%= s.fields_for :product_images do |t| %>

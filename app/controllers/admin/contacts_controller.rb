@@ -9,7 +9,7 @@ class Admin::ContactsController < ApplicationController
 
   def completed
     @contact = Contact.find(params[:id])
-    @contact.update(is_completed: false)
+    @contact.update(is_completed: true)
     redirect_to admin_path
   end
 end

@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
     t.integer "user_id"
     t.integer "genre_id", null: false
     t.string "title", limit: 30, null: false
-    t.text "description", null: false
+    t.text "description", null:key => "value" false
     t.string "model", null: false
     t.integer "price"
     t.integer "manufacture"

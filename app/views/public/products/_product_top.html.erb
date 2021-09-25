@@ -25,7 +25,7 @@
                     <span class="review-average" data-score="<%= product.review_average %>"></span>
                   </div>
                   <div class="col-5 pl-1">
-                    <span class="h4 text-dark"><%= product.review_average.round(2) %></span>
+                    <span class="h4 text-dark"><%= product.review_average.round(2).round(2) %></span>
                     <span class="h6 text-dark">　<%= product.reviews.count %>件のレビュー</span>
                     <span class="h6 ml-3 text-danger"><i class="fa fa-heart unlike"="true"></i></span>
                     <span class="h6 text-dark">
@@ -45,7 +45,7 @@
           </div>
           <div class="col-12">
             <div class="row ml-1">
-              <% product.product_tags.each do |tag|%>
+              <% product.product_tags.each do |tag| %>
                 <div class="p-1 flex-row">
                   <p class="border m-0 text-body"><%= tag.name %></p>
                 </div>

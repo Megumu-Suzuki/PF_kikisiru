@@ -1,126 +1,224 @@
-<div id="image_preview">
-      <% unless @product.product_images.empty? %>
-        <p>現在登録されている画像（削除したいものは削除をクリックしてください）</p>
-          <% @product.product_images.each do |product_image| %>
-            <% product_image.images.each do |image| %>
-              <%= image_tag image.variant(resize:'100x100') %>
-            <% end %>
-            <%= form_with model: product_image, url: admin_product_image_path(product_image), method: :patch, local:true do |f| %>
-              <%= f.label :"画像説明" %>
-              <%= f.text_field :description %>
-              <%= f.submit "更新", class: "btn btn-primary" %>
-            <% end %>
-            <%= link_to  "削除", admin_product_image_path(product_image), method: :delete %><br>
-          <% end %>
-      <% end %>
-    </div>
+<div class="container">
+  <% if @target == "image" %>
+    <!--画像編集をクリックした時------------------------------------------------------------------------------------->
 
-    <%= form_with model: Product.new, url: admin_product_path, method: :patch, local:true do |s| %>
+    <%= render 'admin/products/product_image_edit', product: @product %>
 
-    <div class="products">
-      <%= s.fields_for :product_images do |t| %>
-        <%= render "product_image_fields", f: t %>
-      <% end %>
-      <p>↓ボタンをクリックするとフォームを増やすことができます</p>
-      <div class="links">
-        <%= link_to_add_association "画像を追加する", s, :product_images, class: 'btn' %>
-      </div>
-    </div>
-    <%= s.hidden_field :product_id, value: @product.id %>
-    <%= s.submit "画像情報を更新する" %>
-  <% end %>
-
-  <%= form_with model: @product, url: admin_product_path(@product), method: :patch, local:true do |f| %>
-
-  <% if @product.top_image.attached? %>
-    <%= image_tag @product.top_image.variant(resize:'100x100') %>
-    <%= f.hidden_field :delete, value: "image" %>
-    <%= f.submit "削除" %>
+    <!--商品編集をクリックした時------------------------------------------------------------------------------------>
   <% else %>
-    <div class="field">
-      <%= f.label :"*トップ画像" %><br>
-      <%= f.file_field :top_image %>
-    </div>
+    <%= form_with model: @product, url: admin_product_path, local:true do |f| %>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body p-1">
+              <p class="card-text text-break d-flex justify-content-center">
+                現在登録されているトップ画像
+              </p>
+            </div>
+            <div class="card-img-bottom my-3 d-flex justify-content-center">
+              <%= image_tag @product.top_image, style: "object-fit: cover; width: 200px; height: 200px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-md-auto" style="background-color: #DDDDDD;">
+          <%= f.label :"トップ画像を変更する場合は画像ファイルを選択してください" %>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-md-auto" style="background-color: #EEEEEE;">
+          <%= f.file_field :top_image %>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-12 mt-3 d-flex justify-content-center">
+          <p class="h4">機器詳細</p>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"機器名", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"メーカー", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'}, class: "form-control" %>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"*型式", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :model, class: "form-control"%>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"*ジャンル", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.collection_select :genre_id, @genres, :id, :name, {prompt: "--選択してください--"}, class: "form-control" %>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"定価", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :price, class: "form-control" %>
+        </div>
+        <div class="col-md-1 my-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+          <span>円</span>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            寸法
+          </p>
+        </div>
+        <div class="row ml-3">
+          <div class="col-md-2 my-1 pl-3 pr-1 pb-2" style="background-color: #EEEEEE;" >
+            <%= f.label :"間口", class: "pt-1 mb-0" %>
+            <%= f.text_field :width, class: "form-control" %>
+          </div>
+          <div class="col-md-2 my-1 pr-1 pb-2" style="background-color: #EEEEEE;" >
+            <%= f.label :"奥行", class: "pt-1 mb-0" %>
+            <%= f.text_field :depth, class: "form-control" %>
+          </div>
+          <div class="col-md-2 my-1 pr-1 pb-2" style="background-color: #EEEEEE;" >
+            <%= f.label :"高さ", class: "pt-1 mb-0" %>
+            <%= f.text_field :height, class: "form-control" %>
+          </div>
+          <div class="col-md-2 my-1 pt-3 pl-2 pr-3 d-flex align-items-center" style="background-color: #EEEEEE;" >
+            <span>mm</span>
+          </div>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"重量", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :weight, class: "form-control" %>
+        </div>
+        <div class="col-md-1 my-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+          <span>kg</span>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"電源", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.select :phase, Product.phases.keys, {include_blank: '選択してください'}, class: "form-control" %>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            <%= f.label :"消費電力", class: "m-0" %>
+          </p>
+        </div>
+        <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :power_consumption, class: "form-control" %>
+        </div>
+        <div class="col-md-1 my-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+          <span>kW</span>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            ガス消費量
+          </p>
+        </div>
+        <div class="row ml-3">
+          <div class="col-md-4 my-1 pl-1 pr-1 pb-2" style="background-color: #EEEEEE;" >
+            <%= f.label :"都市ガス", class: "pt-1 mb-0" %>
+            <%= f.text_field :power_consumption, class: "form-control" %>
+          </div>
+          <div class="col-md-1 my-1 pt-3 pr-5 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <span>kW️</span>
+          </div>
+          <div class="col-md-4 my-1 px-0 pb-2" style="background-color: #EEEEEE;" >
+            <%= f.label :"プロパンガス", class: "pt-1 mb-0" %>
+            <%= f.text_field :propane_gas, class: "form-control" %>
+          </div>
+          <div class="col-md-1 my-1 pt-3 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <span>️kW</span>
+          </div>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            機器説明
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_area :description, size: "20x20", placeholder: "その他機器の説明や特徴をお書きください", class: "form-control" %>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            編集権限
+          </p>
+        </div>
+        <div class="row ml-3">
+          <div class="col-md-2 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <%= f.label :"編集可能", class: "mb-0" %>
+          </div>
+          <div class="col-md-2 mt-1 pl-1 d-flex align-items-center" style="background-color: #EEEEEE;" >
+            <%= f.radio_button :allow_edit, :true, checked: true %>
+          </div>
+          <div class="col-md-1 mt-1 pl-4" style="background-color: #EEEEEE;" ></div>
+          <div class="col-md-2 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <%= f.label :"編集不可", class: "mb-0" %>
+          </div>
+          <div class="col-md-2 mt-1 pl-1 d-flex align-items-center" style="background-color: #EEEEEE;" >
+            <%= f.radio_button :allow_edit, :false %>
+          </div>
+          <div class="col-md-9 mt-0 mb-1 pr-0  d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+            <p class="m-0">
+              ※誰でも編集できるかどうかを選択してください。
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+          <p class="m-0">
+            タグ
+          </p>
+        </div>
+        <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+          <%= f.text_field :name, value: @tag_list, class: "form-control" %>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+          <p class="h6">複数のタグをつける場合は「,」で区切ってください</p>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center">
+          <p class="h6">※例:うまい,はやい,おいしい</p>
+        </div>
+      </div>
+
+      <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-md-3">
+          <%= f.submit "機器情報を保存する", class: "btn btn-outline-secondary form-control" %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :"*機器名" %><br />
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"メーカー" %><br />
-    <%= f.select :manufacture, Product.manufactures.keys, {include_blank: '選択してください'} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"*型式" %><br />
-    <%= f.text_field :model %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"*ジャンル" %><br>
-    <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択してください--", class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"定価" %><br />
-    <%= f.text_field :price %>円
-  </div>
-
-  <div class="field">
-    <%= f.label :"間口" %><br />
-    <%= f.text_field :width %>mm
-  </div>
-
-  <div class="field">
-    <%= f.label :"奥行" %><br />
-    <%= f.text_field :depth %>mm
-  </div>
-
-  <div class="field">
-    <%= f.label :"高さ" %><br />
-    <%= f.text_field :height %>mm
-  </div>
-
-  <div class="field">
-    <%= f.label :"重量" %><br />
-    <%= f.text_field :weight %>kg
-  </div>
-
-  <div class="field">
-    <%= f.label :"電源" %><br />
-    <%= f.select :phase, Product.phases.keys, {include_blank: '選択してください'} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"消費電力" %><br />
-    <%= f.text_field :power_consumption %>kW
-  </div>
-
-  <div class="field">
-    <%= f.label :"ガス消費量(都市ガス)" %><br />
-    <%= f.text_field :city_gas %>kW
-  </div>
-
-  <div class="field">
-    <%= f.label :"ガス消費量(LPガス)" %><br />
-    <%= f.text_field :propane_gas %>kW
-  </div>
-
-    <div class="field">
-      <%= f.radio_button :allow_edit, :true, checked: true %>
-        <strong>編集可能</strong></br>
-      <%= f.radio_button :allow_edit, :false %>
-        <strong>編集不可</strong>
-    </div>
-
-  <div class="field">
-    <%= f.label :"説明" %><br />
-    <%= f.text_area :description, placeholder: "その他機器の説明や特徴をお書きください" %>
-  </div>
-
-  <%= f.submit "機器情報を更新する" %>
-  <%= link_to "機器を削除する", admin_product_path(@product), method: :delete %>
-
-<% end %>
+</div>
