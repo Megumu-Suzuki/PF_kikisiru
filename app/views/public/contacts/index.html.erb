@@ -1,96 +1,138 @@
-<% if @user_contact.present? %>
-  <div class="cotanct">
-    <% @contact_messages.each do |contact| %>
-      <table>
-        <tbody>
-          <tr>
-            <th><strong>名前</strong></th>
-            <td><%= contact.name %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th><strong>メールアドレス</strong></th>
-            <td><%= contact.email %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th><strong>件名</strong></th>
-            <td><%= contact.subject %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th><strong>本文</strong></th>
-            <td><%= contact.body %></td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
-  <div class="pull-left">
-    <% @admin_messages.each do |admin| %>
-      <table>
-        <tbody>
-          <tr>
-            <th><strong>名前</strong></th>
-            <td><%= admin.name %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th><strong>件名</strong></th>
-            <td><%= admin.subject %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th><strong>本文</strong></th>
-            <td><%= admin.body %></td>
-          </tr>
-        </tbody>
-
-        いただきましたお問い合わせに関してこちらが対応完了と判断しましたら再度お問い合わせ可能になります。
-      </table>
-    <% end %>
-  </div>
-<% else %>
-  <%= form_with model: @contact, url: confirm_contacts_path, local:true do |f| %>
-    <%= fields_for @contact_message do |e| %>
-      <div class="field">
-        <%= e.label :"名前" %><br>
-        <%= e.text_field :name, autofocus: true %>
+<div class="container">
+<!----------------------------------未解決のお問い合わせがある時--------------------------------------------->
+  <% if @user_contact.present? %>
+    <div class="cotanct">
+      <div class="col-md-auto d-flex justify-content-center">
+        <p class="h4 my-3">お問い合わせ内容</p>
       </div>
+      <% @contact_messages.each do |contact| %>
+        <div class="row">
+          <div class="col-10 offset-md-1">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th class="col-1"></th>
+                  <th class="col-3"><strong>名前</strong></th>
+                  <td class="col-1"></td>
+                  <td class="col-6"><%= contact.name %></td>
+                </tr>
+              </tbody>
 
-      <div class="field">
-        <%= e.label :"メールアドレス" %><br>
-        <%= e.email_field :email, autocomplete: "email" %>
-      </div>
+              <tbody>
+                <tr>
+                  <th class="col-1"></th>
+                  <th class="col-3"><strong>メールアドレス</strong></th>
+                  <td class="col-1"></td>
+                  <td class="col-6"><%= contact.email %></td>
+                </tr>
+              </tbody>
 
-      <div class="field">
-        <%= e.label :"件名" %><br>
-        <%= e.text_field :subject %>
-      </div>
+              <tbody>
+                <tr>
+                  <th class="col-1"></th>
+                  <th class="col-3"><strong>件名</strong></th>
+                  <td class="col-1"></td>
+                  <td class="col-6"><%= contact.subject %></td>
+                </tr>
+              </tbody>
 
-      <div class="field">
-        <%= e.label :"本文" %><br>
-        <%= e.text_area :body %>
-      </div>
-      <% if current_user.present? %>
-        <%= e.hidden_field :user_id, value: current_user.id %>
+              <tbody>
+                <tr>
+                  <th class="col-1"></th>
+                  <th class="col-3"><strong>本文</strong></th>
+                  <td class="col-1"></td>
+                  <td class="col-6"><%= contact.body %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       <% end %>
-    <% end %>
-    <% if current_user.present? %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-    <% end %>
-    <%= f.button :type => "submit", style: 'border-style: none; background-color: #fff;' do %>
-      <p>内容を確認する</p>
+    </div>
+    <div class="pull-left">
+      <% @admin_messages.each do |admin| %>
+        <table>
+          <tbody>
+            <tr>
+              <th><strong>名前</strong></th>
+              <td><%= admin.name %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th><strong>件名</strong></th>
+              <td><%= admin.subject %></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th><strong>本文</strong></th>
+              <td><%= admin.body %></td>
+            </tr>
+          </tbody>
+          いただきましたお問い合わせに関してこちらが対応完了と判断しましたら再度お問い合わせ可能になります。
+        </table>
+      <% end %>
+    </div>
+  <% else %>
+<!----------------------------------未解決のお問い合わせがない時--------------------------------------------->
+    <div class="col-md-auto d-flex justify-content-center">
+      <p class="h4 mt-3">お問い合わせフォーム</p>
+    </div>
+    <%= form_with model: @contact, url: confirm_contacts_path, local:true do |f| %>
+      <%= fields_for @contact_message do |e| %>
+        <div class="row mt-3">
+          <div class="col-md-2 my-1 p-0 offset-md-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+            <p class="m-0">
+              <%= e.label :"名前", class: "m-0" %>
+            </p>
+          </div>
+          <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+            <%= e.text_field :name, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div class="col-md-2 my-1 p-0 offset-md-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+            <p class="m-0">
+              <%= e.label :"メールアドレス", class: "m-0" %>
+            </p>
+          </div>
+          <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+            <%= e.email_field :email, autocomplete: "email", class: "form-control" %>
+          </div>
+
+          <div class="col-md-2 my-1 p-0 offset-md-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+            <p class="m-0">
+              <%= e.label :"件名", class: "m-0" %>
+            </p>
+          </div>
+          <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+            <%= e.text_field :subject, class: "form-control" %>
+          </div>
+
+          <div class="col-md-2 my-1 p-0 offset-md-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+            <p class="m-0">
+              <%= e.label :"本文", class: "m-0" %>
+            </p>
+          </div>
+          <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+            <%= e.text_area :body, size: "15x15", class: "form-control" %>
+          </div>
+        </div>
+
+        <% if current_user.present? %>
+          <%= e.hidden_field :user_id, value: current_user.id %>
+        <% end %>
+      <% end %>
+      <% if current_user.present? %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      <% end %>
+      <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-md-3">
+          <%= f.submit "内容を確認する", class: "btn btn-outline-secondary form-control" %>
+        </div>
+      </div>
     <% end %>
   <% end %>
-<% end %>
+</div>

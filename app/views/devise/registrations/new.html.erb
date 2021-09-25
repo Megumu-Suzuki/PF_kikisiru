@@ -1,49 +1,93 @@
-<h2>新規会員登録</h2>
-
-<%= form_with model: @user, url: user_registration_path, local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :"姓" %><br />
-    <%= f.text_field :last_name, placeholder: "機器", autofocus: true %>
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <span class="h2 mb-3 col-md-auto">
+      新規会員登録
+    </span>
   </div>
 
-  <div class="field">
-    <%= f.label :"名" %><br />
-    <%= f.text_field :first_name, placeholder: "太郎" %>
-  </div>
+  <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :"セイ" %><br />
-    <%= f.text_field :last_name_kana, placeholder: "キキ" %>
-  </div>
+    <div class="row mt-3">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"姓", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :last_name, placeholder: "機器", autofocus: true, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"メイ" %><br />
-    <%= f.text_field :first_name_kana, placeholder: "タロウ" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"名", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :first_name, placeholder: "太郎", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"メールアドレス" %><br />
-    <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"セイ", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :last_name_kana, placeholder: "キキ", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"パスワード" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> 桁以上で設定してください)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+       <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"メイ", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.text_field :first_name_kana, placeholder: "タロウ", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :"パスワード(確認用)" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"メールアドレス", class: "m-0" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email", class: "form-control" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"パスワード" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
 
-<%= render "devise/shared/links" %>
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+        <p class="m-0">
+          <%= f.label :"パスワード(確認用)" %>
+        </p>
+      </div>
+      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+      <div class="col-md-12 d-flex justify-content-center">
+        <p>
+          <% if @minimum_password_length %>
+            パスワードは<%= @minimum_password_length %> 桁以上で設定してください
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-3 d-flex justify-content-center">
+      <div class="col-md-3">
+        <%= f.submit "登録する", class: "btn btn-outline-secondary form-control" %>
+      </div>
+    </div>
+
+  <% end %>
+  <p class="mt-5 d-flex justify-content-center">
+    会員登録がお済みの方は<%= link_to "こちら", new_user_session_path %>から
+  </p>
+</div>
