@@ -3,8 +3,10 @@ class Public::ProductImagesController < ApplicationController
 
   def update
     @product_image = ProductImage.find(params[:id])
-    @product_image.update(image_params)
-    redirect_back(fallback_location: root_path)
+    if @product_image.update(image_params)
+      redirect_back(fallback_location: root_path)
+    else
+      redirect_back(fallback_location: root_path)
   end
 
   def destroy

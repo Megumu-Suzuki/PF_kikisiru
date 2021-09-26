@@ -34,7 +34,7 @@
       <div class="col-md-12 mt-3 d-flex justify-content-center">
         <div class="reviews">
           <%= s.fields_for :review_images do |t| %>
-            <%= render "public/products/review_image_fields", f: t %>
+            <%= render "public/reviews/review_image_fields", f: t %>
           <% end %>
           <div class="links d-flex justify-content-center">
             <%= link_to_add_association "画像を追加する", s, :review_images, class: "btn btn-outline-secondary p-1" %>

@@ -1,5 +1,11 @@
 class Product < ApplicationRecord
 
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :model, presence: true, uniqueness: true
+  validates :description, presence: true
+  validates :price, :width, :height, :weight, :power_consumption, :city_gas, :propane_gas, allow_nil: true, numericality: {only_float: true}
+  validate :image_presence, on: :update
+
   belongs_to :user, optional: true
   belongs_to :genre
   #機器画像
@@ -14,12 +20,6 @@ class Product < ApplicationRecord
   #タグ機能
   has_many :product_tag_maps, dependent: :destroy
   has_many :tags, through: :product_tag_maps
-
-  validate :image_presence, on: :update
-  validates :genre_id, :description, presence: true
-  validates :title, presence: true, length: { maximum: 30 }
-  validates :model, presence: true, uniqueness: true
-  validates :price, :width, :height, :power_consumption, :city_gas, :propane_gas, allow_nil: true, numericality: {only_float: true}
 
 
   def image_presence

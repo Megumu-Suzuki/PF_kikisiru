@@ -10,7 +10,6 @@ class Public::ProductsController < ApplicationController
     @product = Product.new(product_params)
     unless @product.valid?
       @genres = Genre.all
-      flash.now[:alert] = "内容に不備があります"
       render :index and return
     end
   end
@@ -43,8 +42,7 @@ class Public::ProductsController < ApplicationController
       @product.save_tag(tag_list)
       redirect_to product_path(@product.id), notice: "画像を登録しました"
     else
-      flash.now[:alert] = "画像の登録に失敗しました"
-      redirect_to image_product_path(@product.id)
+      redirect_to image_product_path(@product.id), notice: "内容に不備があります"
       @product = Product.find(params[:id])
       @product.product_images.new
     end
@@ -65,7 +63,15 @@ class Public::ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
-    if @product.allow_edit == false && @product.user == current_user
+    if @product.allow_edit == true
+      @target = params["target"]
+      if @target == "image"
+        @product_image = ProductImage.new
+      else
+        @genres = Genre.all
+        @tag_list = @product.tags.pluck(:name).join(",")
+      end
+    elsif @product.allow_edit == false && @product.user == current_user
       @target = params["target"]
       if @target == "image"
         @product_image = ProductImage.new

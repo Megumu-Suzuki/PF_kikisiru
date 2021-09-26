@@ -31,4 +31,11 @@ class Review < ApplicationRecord
     end
   end
 
+  def valid_of_specified?(*columns)
+    columns.each do |column|
+      return false if self.errors.messages.include?(column)
+    end
+      true
+  end
+
 end

@@ -8,7 +8,7 @@ class Public::ContactsController < ApplicationController
     else
       @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "false")
       if @user_contact.present?
-        @contact_messages = ContactMessage.where(user_id: current_user.id)
+        @contact_messages = ContactMessage.where(user_id: current_user.id, contact_id: @user_contact.id)
         @admin_messages = ContactMessage.where(user_id: nil, contact_id: @user_contact.id)
         @contact_message = ContactMessage.new
       else
@@ -21,6 +21,9 @@ class Public::ContactsController < ApplicationController
   def confirm
     @contact = Contact.new
     @contact_message = ContactMessage.new(contact_message_params)
+    unless @contact_message.valid?
+      render :index and return
+    end
   end
 
   def create

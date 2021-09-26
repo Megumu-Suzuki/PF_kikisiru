@@ -9,6 +9,10 @@ class Public::ReviewsController < ApplicationController
   def confirm
     @product = Product.find(params[:product_id])
     @review = Review.new(review_params)
+    unless @review.valid?
+      render :index and return
+    end
+
   end
 
   def create
@@ -81,9 +85,6 @@ class Public::ReviewsController < ApplicationController
       @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
     else
-      flash.now[:alert] = "変更の保存に失敗しました"
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
       @tag_list = @review.tags.pluck(:name).join(",")
       render :edit
     end
@@ -102,7 +103,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-      params.require(:review).permit(:title, :comment, :evaluation, review_images_attributes: [:images, :description])
+      params.require(:review).permit(:user_id, :product_id, :title, :comment, :evaluation, review_images_attributes: [:images, :description])
   end
 
 end

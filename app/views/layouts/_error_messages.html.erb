@@ -1,12 +1,12 @@
-<% if resource.errors.any? %>
+<% if model.errors.any? %>
   <div class="col-md-12">
     <span class="h4">
       内容に不備があります
     </span>
   </div>
   <div class="col-md-auto">
-    <ul>
-      <% resource.errors.full_messages.each do |message| %>
+    <ul class="border border-danger">
+      <% model.errors.full_messages.each do |message| %>
         <li class="text-danger">
           <span class="text-danger"><%= message %></span>
         </li>

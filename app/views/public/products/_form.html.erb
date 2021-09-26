@@ -1,8 +1,11 @@
-<%= form_with model: @product, url: product_path, local:true do |f| %>
+<%= form_with model: product, url: product_path, local:true do |f| %>
+  <div class="row">
+    <%= render 'layouts/error_messages', model: f.object %>
+  </div>
   <div class="row mt-3">
     <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
       <p class="m-0">
-        <%= f.label :"機器名", class: "m-0" %>
+        <%= f.label :"※機器名", class: "m-0" %>
       </p>
     </div>
     <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
@@ -20,7 +23,7 @@
 
     <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
       <p class="m-0">
-        <%= f.label :"*型式", class: "m-0" %>
+        <%= f.label :"※型式", class: "m-0" %>
       </p>
     </div>
     <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
@@ -29,7 +32,7 @@
 
     <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
       <p class="m-0">
-        <%= f.label :"*ジャンル", class: "m-0" %>
+        <%= f.label :"※ジャンル", class: "m-0" %>
       </p>
     </div>
     <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
@@ -128,7 +131,7 @@
 
     <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
       <p class="m-0">
-        機器説明
+        ※機器説明
       </p>
     </div>
     <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >

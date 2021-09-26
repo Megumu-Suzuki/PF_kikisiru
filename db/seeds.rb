@@ -19,7 +19,7 @@ genre.image.attach(io: File.open(Rails.root.join('db/images/burgers-1839090_640.
 genre = Genre.create(name: '洗浄機器')
 genre.image.attach(io: File.open(Rails.root.join('db/images/dishwasher-1772579_640.jpg')), filename: 'dishwasher-1772579_640.jpg')
 genre = Genre.create(name: 'サービス機器')
-genre.image.attach(io: File.open(Rails.root.join('db/images/beverage-1840426_640.jpg')), filename: 'beverage-1840426_640.jpg')
+genre.image.attach(io: File.open(Rails.root.jin('db/images/beverage-1840426_640.jpg')), filename: 'beverage-1840426_640.jpg')
 genre = Genre.create(name: '製菓・製パン機器')
 genre.image.attach(io: File.open(Rails.root.join('db/images/bread-3467243_640.jpg')), filename: 'bread-3467243_640.jpg')
 genre = Genre.create(name: '衛生管理機器')

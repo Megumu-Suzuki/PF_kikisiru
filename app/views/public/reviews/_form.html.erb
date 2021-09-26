@@ -1,4 +1,7 @@
 <%= form_with(model:[product, review], url: product_review_path, local: true) do |f| %>
+  <div class="row">
+    <%= render 'layouts/error_messages', model: f.object %>
+  </div>
   <div class="row mt-3">
     <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
       <p class="m-0">
@@ -31,27 +34,26 @@
         </div>
       </div>
     </div>
-
-    <% unless current_page?(products_path) %>
-      <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
-        <p class="m-0">
-          タグ
-        </p>
-      </div>
-      <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
-        <%= f.text_field :name, value: @tag_list, class: "form-control" %>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center">
-        <p class="h6">複数のタグをつける場合は「,」で区切ってください</p>
-      </div>
-      <div class="col-md-12 d-flex justify-content-center">
-        <p class="h6">※例:うまい,はやい,おいしい</p>
-      </div>
-    <% end %>
+    <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <p class="m-0">
+        タグ
+      </p>
+    </div>
+    <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <%= f.text_field :name, value: @tag_list, class: "form-control" %>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <p class="h6">複数のタグをつける場合は「,」で区切ってください</p>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <p class="h6">※例:うまい,はやい,おいしい</p>
+    </div>
   </div>
 
   <div class="row mt-5 d-flex justify-content-center">
     <div class="col-md-3">
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :product_id, value: @product.id %>
       <%= f.submit "レビュー内容を保存する", class: "btn btn-outline-secondary form-control" %>
     </div>
   </div>

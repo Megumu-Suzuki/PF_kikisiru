@@ -1,0 +1,110 @@
+---
+ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    models:
+      product: 機器
+      user: 会員
+      product_image: 機器画像
+      review: レビュー
+      review_image: レビュー画像
+      tag: タグ
+      genre: ジャンル
+      contact: お問い合わせ
+      contact_message: お問い合わせメッセージ
+      room: チャット
+      admin: 管理者
+
+    attributes:
+      product:
+        id: ID
+        user: 会員名
+        genre: ジャンル
+        title: 機器名
+        description: 機器説明
+        model: 型式
+        price: 定価
+        manufacture: メーカー
+        width: 間口
+        depth: 奥行
+        height: 高さ
+        weight: 重量
+        power_consumption: 消費電力
+        city_gas: 都市ガス
+        propane_gas: プロパンガス
+        allow_edit: 編集権限
+        create_at: 機器登録日時
+        update_at: 機器更新日時
+      user:
+        id: ID
+        email: メールアドレス
+        last_name: 姓
+        first_name: 名
+        last_name_kana: セイ
+        first_name_kana: メイ
+        nickname: ニックネーム
+        phone_number: 電話番号
+        password: パスワード
+        password_confirmation: パスワード（確認用）
+        is_deleted: 会員ステータス
+        create_at: 会員登録日時
+        update_at: 会員更新日時
+      product_image:
+        image: 画像
+        description: 画像説明
+        create_at: 機器画像登録日時
+        update_at: 機器画像更新日時
+      review:
+        title: タイトル
+        comment: レビュー内容
+        evaluation: 評価
+        create_at: レビュー登録日時
+        update_at: レビュー更新日時
+      review_image:
+        description: 画像説明
+        create_at: レビュー画像登録日時
+        update_at: レビュー画像更新日時
+      genre:
+        name: ジャンル名
+      contact_message:
+        name: 氏名
+        email: メールアドレス
+        subject: 件名
+        body: 本文
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      accepted: を受諾してください
+      blank: を入力してください
+      confirmation: と%{attribute}の入力が一致しません
+      empty: を入力してください
+      equal_to: は%{count}にしてください
+      even: は偶数にしてください
+      exclusion: は予約されています
+      greater_than: は%{count}より大きい値にしてください
+      greater_than_or_equal_to: は%{count}以上の値にしてください
+      inclusion: は一覧にありません
+      invalid: は不正な値です
+      less_than: は%{count}より小さい値にしてください
+      less_than_or_equal_to: は%{count}以下の値にしてください
+      model_invalid: 'バリデーションに失敗しました: %{errors}'
+      not_a_number: は数値で入力してください
+      not_an_integer: は整数で入力してください
+      odd: は奇数にしてください
+      other_than: は%{count}以外の値にしてください
+      present: は入力しないでください
+      required: を入力してください
+      taken: はすでに存在します
+      too_long: は%{count}文字以内で入力してください
+      too_short: は%{count}文字以上で入力してください
+      wrong_length: は%{count}文字で入力してください
+    template:
+      body: 次の項目を確認してください
+      header:
+        one: "%{model}にエラーが発生しました"
+        other: "%{model}に%{count}個のエラーが発生しました"
