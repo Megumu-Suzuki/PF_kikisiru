@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :admins, controllers: {
-    registrations: 'admins/registrations',
-    sessions: 'admins/sessions'
+    sessions: 'admins/sessions',
   }
   # 管理者側
   namespace :admin do
