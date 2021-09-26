@@ -15,7 +15,7 @@
                 </span>
               </button>
             <% end %>
-          <% elsif @product.allow_edit == false && @product.user = current_user %>
+          <% elsif @product.allow_edit == false && @product.user == current_user %>
             <%= link_to edit_product_path, class: "text-decoration-none" do %>
               <button type="button" class="btn btn-outline-secondary p-1">
                 <span>

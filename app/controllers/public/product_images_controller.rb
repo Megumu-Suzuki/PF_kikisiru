@@ -1,4 +1,5 @@
 class Public::ProductImagesController < ApplicationController
+  before_action :authenticate_user!
 
   def update
     @product_image = ProductImage.find(params[:id])

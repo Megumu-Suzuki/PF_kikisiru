@@ -1,4 +1,5 @@
 class Public::ProductsController < ApplicationController
+  before_action :authenticate_user!,except: [:show]
 
   def index
     @product = Product.new
@@ -63,14 +64,17 @@ class Public::ProductsController < ApplicationController
   end
 
   def edit
-    @target = params["target"]
-    if @target == "image"
-      @product = Product.find(params[:id])
-      @product_image = ProductImage.new
+    @product = Product.find(params[:id])
+    if @product.allow_edit == false && @product.user == current_user
+      @target = params["target"]
+      if @target == "image"
+        @product_image = ProductImage.new
+      else
+        @genres = Genre.all
+        @tag_list = @product.tags.pluck(:name).join(",")
+      end
     else
-      @product = Product.find(params[:id])
-      @genres = Genre.all
-      @tag_list = @product.tags.pluck(:name).join(",")
+      redirect_to product_path(@product.id), notice: "編集権限がありません"
     end
   end
 

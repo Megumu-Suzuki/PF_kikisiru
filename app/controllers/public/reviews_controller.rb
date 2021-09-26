@@ -1,4 +1,5 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_user!,except: [:show]
 
   def index
     @product = Product.find(params[:product_id])
@@ -57,16 +58,18 @@ class Public::ReviewsController < ApplicationController
   end
 
   def edit
-    @target = params["target"]
-    if @target == "image"
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
-      @review_image = ReviewImage.new
-      @tag_list = @review.tags.pluck(:name).join(",")
+    @product = Product.find(params[:product_id])
+    @review = Review.find(params[:id])
+    @user = @review.user
+    if @user.id == current_user.id
+      @target = params["target"]
+      if @target == "image"
+        @review_image = ReviewImage.new
+      else
+        @tag_list = @review.tags.pluck(:name).join(",")
+      end
     else
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
-      @tag_list = @review.tags.pluck(:name).join(",")
+      redirect_to product_review_path(@review.product.id, @review.id), notice: "編集権限がありません"
     end
   end
 
@@ -81,6 +84,7 @@ class Public::ReviewsController < ApplicationController
       flash.now[:alert] = "変更の保存に失敗しました"
       @product = Product.find(params[:product_id])
       @review = Review.find(params[:id])
+      @tag_list = @review.tags.pluck(:name).join(",")
       render :edit
     end
   end

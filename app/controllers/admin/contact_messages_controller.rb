@@ -1,4 +1,5 @@
 class Admin::ContactMessagesController < ApplicationController
+  before_action :authenticate_admin!
 
   def create
     @contact_message = ContactMessage.create(contact_message_params)
