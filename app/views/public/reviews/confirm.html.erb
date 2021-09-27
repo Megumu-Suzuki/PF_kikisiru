@@ -4,36 +4,22 @@
   </div>
 
   <div class="row">
-    <div class="col-10 offset-md-1">
-      <table class="table">
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>タイトル</strong></th>
-            <td class="col-1"></td>
-            <td class="col-6"><%= @review.title %></td>
-          </tr>
-        </tbody>
-  
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>レビュー内容</strong></th>
-            <td class="col-1"></td>
-            <td>
-              <%= @review.comment %>
-            </td>
-          </tr>
-        </tbody>
-  
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>評価</strong></th>
-            <td class="col-1"></td>
-            <td class="review-evaluation" data-score="<%= @review.evaluation %>"></td>
-          </tr>
-        </tbody>
+    <div class="col-8 offset-md-2">
+      <table class="table" style="table-layout:fixed;">
+        <tr>
+          <th scope="col" class="col-4"><strong>タイトル</strong></th>
+          <td scope="col" class="col-6"><%= @review.title %></td>
+        </tr>
+
+        <tr>
+          <th scope="col" class="col-4"><strong>レビュー内容</strong></th>
+          <td scope="col" class="col-6"><%= @review.comment %></td>
+        </tr>
+
+        <tr>
+          <th scope="col" class="col-4"><strong>評価</strong></th>
+          <td class="review-evaluation" data-score="<%= @review.evaluation %>"></td>
+        </tr>
       </table>
     </div>
   </div>
@@ -45,10 +31,10 @@
   <%= f.hidden_field :comment, value: @review.comment %>
   <%= f.hidden_field :evaluation, value: @review.evaluation %>
   <div class="row">
-    <div class="col-md-3 offset-md-3">
+    <div class="col-md-3 offset-md-2">
       <%= f.submit "レビュー内容を修正する", name: :return, class: "btn btn-outline-danger" %>
     </div>
-    <div class="col-md-3 offset-md-1">
+    <div class="col-md-3 offset-md-2">
       <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-outline-primary" %>
     </div>
   </div>

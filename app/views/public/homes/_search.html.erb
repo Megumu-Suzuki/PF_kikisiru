@@ -10,7 +10,11 @@
         <div class="card my-2" style="max-width: 200px;">
           <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
             <div class="bg_image">
-              <%= image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img" %>
+              <% if genre.image.attached? %>
+                <%= image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img" %>
+              <% else %>
+                <%= image_tag 'no_image.png', style: "object-fit: cover; width: 200px; height: 200px;" %>
+              <% end %>
             </div>
             <div class="card-img-overlay p-0 d-flex align-items-end justify-content-center">
               <p class="h5 card-text text-white"><%= genre.name %></p>
