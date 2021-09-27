@@ -6,31 +6,6 @@
 
   <!--商品編集をクリックした時------------------------------------------------------------------------------------>
   <% else %>
-    <%= form_with model: @product, url: product_path, local:true do |f| %>
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-3">
-          <div class="card">
-            <div class="card-body p-1">
-              <p class="card-text text-break d-flex justify-content-center">
-                現在登録されているトップ画像
-              </p>
-            </div>
-            <div class="card-img-bottom my-3 d-flex justify-content-center">
-              <%= image_tag @product.top_image, style: "object-fit: cover; width: 200px; height: 200px;" %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-3 d-flex justify-content-center">
-        <div class="col-md-auto" style="background-color: #DDDDDD;">
-          <%= f.label :"トップ画像を変更する場合は画像ファイルを選択してください" %>
-        </div>
-        <div class="w-100"></div>
-        <div class="col-md-auto" style="background-color: #EEEEEE;">
-          <%= f.file_field :top_image %>
-        </div>
-      </div>
-    <% end %>
-      <%= render 'public/products/form', product: @product %>
+    <%= render 'public/products/form', product: @product %>
   <% end %>
 </div>
