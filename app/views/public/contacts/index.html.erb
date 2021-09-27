@@ -13,22 +13,22 @@
                 <th scope="col" class="col-4"><strong>氏名</strong></th>
                 <td scope="col" class="col-6"><%= contact.name %></td>
               </tr>
-              
+
               <tr>
                 <th scope="col" class="col-4"><strong>メールアドレス</strong></th>
                 <td scope="col" class="col-6"><%= contact.email %></td>
               </tr>
-              
+
               <tr>
                 <th scope="col" class="col-4"><strong>件名</strong></th>
                 <td scope="col" class="col-6"><%= contact.subject %></td>
               </tr>
-              
+
               <tr>
                 <th scope="col" class="col-4"><strong>本文</strong></th>
                 <td scope="col" class="col-6">
                   <p class="text-break mb-0">
-                    <%= contact_message.body %>
+                    <%= contact.body %>
                   </p>
                 </td>
               </tr>
@@ -50,7 +50,7 @@
                 <th scope="col" class="col-4"><strong>件名</strong></th>
                 <td scope="col" class="col-6"><%= admin.subject %></td>
               </tr>
-              
+
               <tr>
                 <th scope="col" class="col-4"><strong>本文</strong></th>
                 <td scope="col" class="col-6"><%= admin.body %></td>
