@@ -37,8 +37,7 @@ class Public::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(current_user), notice: '会員情報を変更しました'
     else
-      flash.now[:alert] = "会員情報を変更できませんでした"
-      redirect_to request.referer
+      render :edit
     end
   end
 

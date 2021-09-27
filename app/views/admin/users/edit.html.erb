@@ -3,6 +3,9 @@
     <p class="h4">会員情報編集</h1>
   </div>
   <%= form_with model: @user, url: admin_user_path(@user.id), local: true do |f| %>
+    <div class="row">
+      <%= render 'layouts/error_messages', model: f.object %>
+    </div>
 
     <div class="row d-flex justify-content-center">
       <div class="col-md-4">

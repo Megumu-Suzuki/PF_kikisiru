@@ -9,7 +9,11 @@
             </p>
           </div>
           <div class="card-img-bottom my-3 d-flex justify-content-center">
-            <%= image_tag @genre.image, style: "object-fit: cover; width: 200px; height: 200px;" %>
+            <% if @genre.image.attached? %>
+              <%= image_tag @genre.image, style: "object-fit: cover; width: 200px; height: 200px;" %>
+            <% else %>
+              <%= image_tag 'no_image.png', style: "object-fit: cover; width: 200px; height: 200px;" %>
+            <% end %>
           </div>
         </div>
       </div>
