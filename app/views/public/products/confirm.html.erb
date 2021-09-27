@@ -2,13 +2,13 @@
   <div class="row mb-3 d-flex justify-content-center">
     <p class="h4">投稿内容をご確認ください</h1>
   </div>
-  <%= render 'public/products/detail', product: @product %>
-      <tbody>
+  <div class="row">
+    <div class="col-8 offset-md-2">
+      <table class="table" style="table-layout:fixed;">
+        <%= render 'public/products/detail', product: @product %>
         <tr>
-          <th class="col-1"></th>
-          <th class="col-3"><strong>編集権限</strong></th>
-          <td class="col-1"></td>
-          <td class="col-6">
+          <th scope="col" class="col-4"><strong>編集権限</strong></th>
+          <td scope="col" class="col-6">
             <% if @product.allow_edit == true %>
               誰でも編集可能
             <% else %>
@@ -16,33 +16,33 @@
             <% end %>
           </td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+    </div>
   </div>
+  <%= form_with model: @product, url: products_path, local:true do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :title, value: @product.title %>
+    <%= f.hidden_field :manufacture, value: @product.manufacture %>
+    <%= f.hidden_field :model, value: @product.model %>
+    <%= f.hidden_field :genre_id, value: @product.genre.id %>
+    <%= f.hidden_field :price, value: @product.price %>
+    <%= f.hidden_field :width, value: @product.width%>
+    <%= f.hidden_field :depth, value: @product.depth %>
+    <%= f.hidden_field :height, value: @product.height %>
+    <%= f.hidden_field :weight, value: @product.weight %>
+    <%= f.hidden_field :phase, value: @product.phase %>
+    <%= f.hidden_field :power_consumption, value: @product.power_consumption %>
+    <%= f.hidden_field :city_gas, value: @product.city_gas %>
+    <%= f.hidden_field :propane_gas, value: @product.propane_gas %>
+    <%= f.hidden_field :description, value: @product.description %>
+    <%= f.hidden_field :allow_edit, value: @product.allow_edit %>
+    <div class="row">
+      <div class="col-md-3 offset-md-3">
+        <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-danger" %>
+      </div>
+      <div class="col-md-3 offset-md-1">
+        <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
 </div>
-<%= form_with model: @product, url: products_path, local:true do |f| %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.hidden_field :title, value: @product.title %>
-  <%= f.hidden_field :manufacture, value: @product.manufacture %>
-  <%= f.hidden_field :model, value: @product.model %>
-  <%= f.hidden_field :genre_id, value: @product.genre.id %>
-  <%= f.hidden_field :price, value: @product.price %>
-  <%= f.hidden_field :width, value: @product.width%>
-  <%= f.hidden_field :depth, value: @product.depth %>
-  <%= f.hidden_field :height, value: @product.height %>
-  <%= f.hidden_field :weight, value: @product.weight %>
-  <%= f.hidden_field :phase, value: @product.phase %>
-  <%= f.hidden_field :power_consumption, value: @product.power_consumption %>
-  <%= f.hidden_field :city_gas, value: @product.city_gas %>
-  <%= f.hidden_field :propane_gas, value: @product.propane_gas %>
-  <%= f.hidden_field :description, value: @product.description %>
-  <%= f.hidden_field :allow_edit, value: @product.allow_edit %>
-  <div class="row">
-    <div class="col-md-3 offset-md-3">
-      <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-danger" %>
-    </div>
-    <div class="col-md-3 offset-md-1">
-      <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
