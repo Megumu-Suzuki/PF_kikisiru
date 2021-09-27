@@ -7,43 +7,27 @@
       </div>
       <% @contact_messages.each do |contact| %>
         <div class="row">
-          <div class="col-10 offset-md-1">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>氏名</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= contact.name %></td>
-                </tr>
-              </tbody>
-
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>メールアドレス</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= contact.email %></td>
-                </tr>
-              </tbody>
-
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>件名</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= contact.subject %></td>
-                </tr>
-              </tbody>
-
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>本文</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= contact.body %></td>
-                </tr>
-              </tbody>
+          <div class="col-8 offset-md-2">
+            <table class="table" style="table-layout:fixed;">
+              <tr>
+                <th scope="col" class="col-4"><strong>氏名</strong></th>
+                <td scope="col" class="col-6"><%= contact.name %></td>
+              </tr>
+              
+              <tr>
+                <th scope="col" class="col-4"><strong>メールアドレス</strong></th>
+                <td scope="col" class="col-6"><%= contact.email %></td>
+              </tr>
+              
+              <tr>
+                <th scope="col" class="col-4"><strong>件名</strong></th>
+                <td scope="col" class="col-6"><%= contact.subject %></td>
+              </tr>
+              
+              <tr>
+                <th scope="col" class="col-4"><strong>本文</strong></th>
+                <td scope="col" class="col-6">%= contact.body %></td>
+              </tr>
             </table>
           </div>
         </div>
@@ -56,24 +40,17 @@
       </div>
       <% @admin_messages.each do |admin| %>
         <div class="row">
-          <div class="col-10 offset-md-1">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>件名</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= admin.subject %></td>
-                </tr>
-              </tbody>
-
-              <tbody>
-                <tr>
-                  <th class="col-1"></th>
-                  <th class="col-3"><strong>本文</strong></th>
-                  <td class="col-1"></td>
-                  <td class="col-6"><%= admin.body %></td>
-                </tr>
+          <div class="col-8 offset-md-2">
+            <table class="table" style="table-layout:fixed;">
+              <tr>
+                <th scope="col" class="col-4"><strong>件名</strong></th>
+                <td scope="col" class="col-6"><%= admin.subject %></td>
+              </tr>
+              
+              <tr>
+                <th scope="col" class="col-4"><strong>本文</strong></th>
+                <td scope="col" class="col-6"><%= admin.body %></td>
+              </tr>
               </tbody>
             </table>
           </div>

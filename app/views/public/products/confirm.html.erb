@@ -38,10 +38,10 @@
     <%= f.hidden_field :allow_edit, value: @product.allow_edit %>
     <div class="row">
       <div class="col-md-3 offset-md-3">
-        <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-danger" %>
+        <%= f.submit "投稿内容を修正する", name: :back, class: "btn btn-outline-danger" %>
       </div>
       <div class="col-md-3 offset-md-1">
-        <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-primary" %>
+        <%= f.submit "内容を確定しタグ、画像を設定する", class: "btn btn-outline-primary" %>
       </div>
     </div>
   <% end %>
