@@ -1,8 +1,9 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
 
   def show
     @user = User.find(params[:id])
-    @products = Product.where(user_id: params[:id]).sort {|a,b| b.id <=> a.id}
+    @products = Product.where(user_id: params[:id]).sort { |a, b| b.id <=> a.id }
     @products = Kaminari.paginate_array(@products).page(params[:page]).per(5)
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)
@@ -25,7 +26,10 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(@user), notice: "編集権限がありません"
+    end
   end
 
   def update
@@ -50,7 +54,7 @@ class Public::UsersController < ApplicationController
 
   def favorite
     @user = User.find(params[:id])
-    @favorites = @user.favorites.sort {|a,b| b.id <=> a.id}
+    @favorites = @user.favorites.sort { |a, b| b.id <=> a.id }
     @favorites = Kaminari.paginate_array(@favorites).page(params[:page]).per(5)
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)
@@ -74,7 +78,7 @@ class Public::UsersController < ApplicationController
 
   def review
     @user = User.find(params[:id])
-    @reviews = @user.reviews.sort {|a,b| b.id <=> a.id}
+    @reviews = @user.reviews.sort { |a, b| b.id <=> a.id }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)
@@ -100,13 +104,14 @@ class Public::UsersController < ApplicationController
     # ログインユーザーが持っているentryのroom_idを取得
     my_room_ids = current_user.entries.select(:room_id)
     # entryからroom_idがmy_rooms_idsと一致し、user_idがcurrent_user_idではないものを取得
-    @entries = Entry.includes(:user).where(room_id: my_room_ids).where.not(user_id: current_user.id).reverse_order
+    @entries = Entry.includes(:user).where(room_id: my_room_ids).
+      where.not(user_id: current_user.id).reverse_order
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image)
+    params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana,
+                                 :nickname, :phone_number, :email, :profile_image)
   end
-
 end

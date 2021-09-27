@@ -1,5 +1,4 @@
 class Public::HomesController < ApplicationController
-
   def top
     @genres = Genre.all.includes(:products)
     @tags = Tag.limit(20).order("id DESC")
@@ -18,5 +17,4 @@ class Public::HomesController < ApplicationController
 
   def about
   end
-
 end

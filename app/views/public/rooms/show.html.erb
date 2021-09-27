@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div class="row border py-2">
+  <div class="row border py-2 bg-light">
     <% if @direct_messages.present? %>
       <% @direct_messages.each do |message| %>
         <% if message.user == current_user %>

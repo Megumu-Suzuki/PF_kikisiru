@@ -1,4 +1,5 @@
 class Admin::ProductsController < ApplicationController
+  before_action :authenticate_admin!
 
   def new
     @product = Product.new
@@ -17,7 +18,7 @@ class Admin::ProductsController < ApplicationController
       @product = Product.new(product_params)
       @tags = Tag.all
       @genres = Genre.all
-      render :new and return
+      render :new && return
     end
   end
 
@@ -72,7 +73,10 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price, :manufacture, :width, :depth, :height, :weight, :phase, :power_consumption, :city_gas, :propane_gas, :allow_edit, :top_image, product_images_attributes: [:images, :description])
+    params.require(:product).permit(:user_id, :genre_id, :title, :description, :model, :price,
+                                    :manufacture, :width, :depth, :height, :weight,
+                                    :phase, :power_consumption, :city_gas,
+                                    :propane_gas, :allow_edit, :top_image,
+                                    product_images_attributes: [:images, :description])
   end
-
 end

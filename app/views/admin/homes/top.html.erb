@@ -8,7 +8,7 @@
   <% @contact_messages.each do |contact| %>
     <div class="row d-flex justify-content-center">
       <div class="col-md-5">
-        <%=link_to admin_contact_path(contact.id), class:"text-decoration-none" do %>
+        <%=link_to admin_contact_path(contact.contact.id), class:"text-decoration-none" do %>
           <div class="card my-1">
             <div class="card-body p-1">
               <div class="h6 card-text mb-0 text-dark">

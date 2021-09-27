@@ -4,19 +4,21 @@
   </div>
 </div>
 <div class="row mb-5 justify-content-center">
-  <% genres.each do |genre| %>
-    <div class="col-md-3 col-sm-3">
-      <div class="card my-2" style="max-width: 200px;">
-        <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
-          <div class="bg_image">
-            <%= image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img" %>
+  <% unless genres.blank? %>
+    <% genres.each do |genre| %>
+      <div class="col-md-3 col-sm-3">
+        <div class="card my-2" style="max-width: 200px;">
+          <%= link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do %>
+            <div class="bg_image">
+              <%= image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img" %>
+            </div>
+            <div class="card-img-overlay p-0 d-flex align-items-end justify-content-center">
+              <p class="h5 card-text text-white"><%= genre.name %></p>
+            </div>
           </div>
-          <div class="card-img-overlay p-0 d-flex align-items-end justify-content-center">
-            <p class="h5 card-text text-white"><%= genre.name %></p>
-          </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -28,13 +30,15 @@
   </div>
 </div>
 <div class="row">
-  <% tags.each do |tag| %>
-    <div class="p-1 flex-row">
-      <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
-        <button type="button" class="btn btn-outline-secondary text-nowrap">
-          <%= tag.name %>
-        </button>
-      <% end %>
-    </div>
+  <% unless tags.blank? %>
+    <% tags.each do |tag| %>
+      <div class="p-1 flex-row">
+        <%= link_to search_path('search[how]': "match", 'search[model]': "tag", 'search[value]': tag, tag_id: tag.id) do %>
+          <button type="button" class="btn btn-outline-secondary text-nowrap">
+            <%= tag.name %>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>

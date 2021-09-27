@@ -1,4 +1,5 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
 
   def index
     @product = Product.find(params[:product_id])
@@ -8,6 +9,9 @@ class Public::ReviewsController < ApplicationController
   def confirm
     @product = Product.find(params[:product_id])
     @review = Review.new(review_params)
+    unless @review.valid?
+      render :index
+    end
   end
 
   def create
@@ -23,15 +27,15 @@ class Public::ReviewsController < ApplicationController
       redirect_to product_reviews_path
       @review = Review.new(review_params)
     end
-
   end
-  #レビュータグ、画像登録ページ
+
+  # レビュータグ、画像登録ページ
   def image
     @review = Review.find(params[:id])
     @review_images = @review.review_images.build
   end
 
-  #レビュータグ、画像登録
+  # レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
     @product = @review.product.id
@@ -51,22 +55,24 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @user = @review.user
     @product = @review.product
-    @reviews = Review.where(product_id: @product.id).sort {|a,b| b.created_at <=> a.id}
+    @reviews = Review.where(product_id: @product.id).sort { |a, b| b.created_at <=> a.id }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     @review_images = @review.review_images.page(params[:page]).per(5)
   end
 
   def edit
-    @target = params["target"]
-    if @target == "image"
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
-      @review_image = ReviewImage.new
-      @tag_list = @review.tags.pluck(:name).join(",")
+    @product = Product.find(params[:product_id])
+    @review = Review.find(params[:id])
+    @user = @review.user
+    if @user.id == current_user.id
+      @target = params["target"]
+      if @target == "image"
+        @review_image = ReviewImage.new
+      else
+        @tag_list = @review.tags.pluck(:name).join(",")
+      end
     else
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
-      @tag_list = @review.tags.pluck(:name).join(",")
+      redirect_to product_review_path(@review.product.id, @review.id), notice: "編集権限がありません"
     end
   end
 
@@ -78,9 +84,7 @@ class Public::ReviewsController < ApplicationController
       @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
     else
-      flash.now[:alert] = "変更の保存に失敗しました"
-      @product = Product.find(params[:product_id])
-      @review = Review.find(params[:id])
+      @tag_list = @review.tags.pluck(:name).join(",")
       render :edit
     end
   end
@@ -98,7 +102,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-      params.require(:review).permit(:title, :comment, :evaluation, review_images_attributes: [:images, :description])
+    params.require(:review).permit(:user_id, :product_id, :title, :comment, :evaluation,
+                                   review_images_attributes: [:images, :description])
   end
-
 end

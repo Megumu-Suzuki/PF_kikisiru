@@ -1,4 +1,5 @@
 class Public::ProductImagesController < ApplicationController
+  before_action :authenticate_user!
 
   def update
     @product_image = ProductImage.find(params[:id])
@@ -18,5 +19,4 @@ class Public::ProductImagesController < ApplicationController
   def image_params
     params.require(:product_image).permit(:description)
   end
-
 end

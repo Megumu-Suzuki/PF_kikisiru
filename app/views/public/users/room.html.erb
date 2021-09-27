@@ -28,7 +28,7 @@
                 <% end %>
               </span>
               <% if room.direct_messages != [] %>
-                <div class="col-md-auto offset-md-1">
+                <div class="col-md-auto">
                   <span class="col-md-auto d-flex justify-content-end">
                     <%= truncate(room.direct_messages.last.message, length: 10) %>
                   </span>

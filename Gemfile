@@ -69,7 +69,7 @@ gem 'image_processing', '~> 1.2'
 gem 'bootstrap', '~> 4.5'
 gem 'jquery-rails'
 gem 'cocoon'
-gem 'kaminari','~> 1.2.1'
+gem 'kaminari', '~> 1.2.1'
 gem 'devise'
 gem 'dotenv-rails'
 group :production do

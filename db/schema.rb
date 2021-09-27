@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
 
   create_table "product_images", force: :cascade do |t|
     t.integer "product_id", null: false
-    t.text "description", null: false
+    t.text "description", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
     t.integer "user_id"
     t.integer "genre_id", null: false
     t.string "title", limit: 30, null: false
-    t.text "description", null:key => "value" false
+    t.text "description", null: false
     t.string "model", null: false
     t.integer "price"
     t.integer "manufacture"
