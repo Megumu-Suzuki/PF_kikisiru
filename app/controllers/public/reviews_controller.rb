@@ -1,5 +1,5 @@
 class Public::ReviewsController < ApplicationController
-  before_action :authenticate_user!,except: [:show]
+  before_action :authenticate_user!, except: [:show]
 
   def index
     @product = Product.find(params[:product_id])
@@ -10,9 +10,8 @@ class Public::ReviewsController < ApplicationController
     @product = Product.find(params[:product_id])
     @review = Review.new(review_params)
     unless @review.valid?
-      render :index and return
+      render :index
     end
-
   end
 
   def create
@@ -28,15 +27,15 @@ class Public::ReviewsController < ApplicationController
       redirect_to product_reviews_path
       @review = Review.new(review_params)
     end
-
   end
-  #レビュータグ、画像登録ページ
+
+  # レビュータグ、画像登録ページ
   def image
     @review = Review.find(params[:id])
     @review_images = @review.review_images.build
   end
 
-  #レビュータグ、画像登録
+  # レビュータグ、画像登録
   def addition
     @review = Review.find(params[:id])
     @product = @review.product.id
@@ -56,7 +55,7 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @user = @review.user
     @product = @review.product
-    @reviews = Review.where(product_id: @product.id).sort {|a,b| b.created_at <=> a.id}
+    @reviews = Review.where(product_id: @product.id).sort { |a, b| b.created_at <=> a.id }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     @review_images = @review.review_images.page(params[:page]).per(5)
   end
@@ -103,7 +102,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-      params.require(:review).permit(:user_id, :product_id, :title, :comment, :evaluation, review_images_attributes: [:images, :description])
+    params.require(:review).permit(:user_id, :product_id, :title, :comment, :evaluation,
+                                   review_images_attributes: [:images, :description])
   end
-
 end

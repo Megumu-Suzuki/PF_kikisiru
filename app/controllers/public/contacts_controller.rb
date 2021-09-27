@@ -1,5 +1,4 @@
 class Public::ContactsController < ApplicationController
-
   def index
     if current_user.nil?
       @contact = Contact.new
@@ -22,7 +21,7 @@ class Public::ContactsController < ApplicationController
     @contact = Contact.new
     @contact_message = ContactMessage.new(contact_message_params)
     unless @contact_message.valid?
-      render :index and return
+      render(:index) && return
     end
   end
 
@@ -34,14 +33,14 @@ class Public::ContactsController < ApplicationController
     else
       @user_contact = Contact.find_by(user_id: current_user.id, is_completed: "false")
     end
-    render :index and return if params[:back]
+    render(:index) && return if params[:back]
     if current_user.nil?
       @contact = Contact.create
       @contact_message = ContactMessage.create(contact_message_params)
       unless @contact_message.valid?
         @contact = Contact.new
         @contact_message = ContactMessage.new(contact_message_params)
-        render :index and return
+        render(:index) && return
       end
     else
       @contact = Contact.create(contact_params)
@@ -49,12 +48,11 @@ class Public::ContactsController < ApplicationController
       unless @contact_message.valid?
         @contact = Contact.new
         @contact_message = ContactMessage.new(contact_message_params)
-        render :index and return
+        render(:index) && return
       end
     end
     redirect_to thanx_contacts_path
   end
-
 
   def thanx
   end
@@ -66,7 +64,7 @@ class Public::ContactsController < ApplicationController
   end
 
   def contact_message_params
-    params.require(:contact_message).permit(:name, :email, :subject, :body, :user_id).merge(contact_id: @contact.id)
+    params.require(:contact_message).permit(:name, :email, :subject, :body,
+                                            :user_id).merge(contact_id: @contact.id)
   end
-
 end

@@ -3,10 +3,8 @@ class Public::ProductImagesController < ApplicationController
 
   def update
     @product_image = ProductImage.find(params[:id])
-    if @product_image.update(image_params)
-      redirect_back(fallback_location: root_path)
-    else
-      redirect_back(fallback_location: root_path)
+    @product_image.update(image_params)
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -21,5 +19,4 @@ class Public::ProductImagesController < ApplicationController
   def image_params
     params.require(:product_image).permit(:description)
   end
-
 end

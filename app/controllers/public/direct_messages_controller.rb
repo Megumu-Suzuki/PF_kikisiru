@@ -9,5 +9,4 @@ class Public::DirectMessagesController < ApplicationController
     end
     redirect_to room_path(@direct_message.room_id)
   end
-
 end

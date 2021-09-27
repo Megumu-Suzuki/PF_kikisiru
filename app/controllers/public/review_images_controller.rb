@@ -1,4 +1,5 @@
 class Public::ReviewImagesController < ApplicationController
+  before_action :authenticate_user!
 
   def update
     @review_image = ReviewImage.find(params[:id])
@@ -18,5 +19,4 @@ class Public::ReviewImagesController < ApplicationController
   def image_params
     params.require(:review_image).permit(:description)
   end
-
 end

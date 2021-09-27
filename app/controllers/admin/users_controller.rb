@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to  admin_user_path(@user), notice: "編集しました"
+      redirect_to admin_user_path(@user), notice: "編集しました"
     else
       flash.now[:alert] = '編集に失敗しました'
       render :edit
@@ -26,6 +26,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :phone_number, :email, :profile_image, :is_deleted)
+    params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana,
+                                 :nickname, :phone_number, :email, :profile_image, :is_deleted)
   end
 end

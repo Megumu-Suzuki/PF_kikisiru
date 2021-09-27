@@ -2,7 +2,7 @@ class ReviewImage < ApplicationRecord
   belongs_to :review
   has_many_attached :images
 
-  #validate :image_presence
+  # validate :image_presence
   validates :description, presence: true
 
   def image_presence
@@ -10,5 +10,4 @@ class ReviewImage < ApplicationRecord
       errors.add(:image, '画像を添付してください')
     end
   end
-
 end

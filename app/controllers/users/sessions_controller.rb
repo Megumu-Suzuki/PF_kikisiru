@@ -2,7 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-  before_action :reject_user , only: [:create]
+  before_action :reject_user, only: [:create]
 
   def reject_user
     @user = User.find_by(email: params[:user][:email])

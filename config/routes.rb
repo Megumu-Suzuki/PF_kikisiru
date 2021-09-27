@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
   }
@@ -26,20 +25,18 @@ Rails.application.routes.draw do
     resources :contact_messages, only: [:create]
   end
 
-
-
   get '/admin' => 'admin/homes#top'
 
-  #ユーザー新規登録、ログイン
+  # ユーザー新規登録、ログイン
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
   }
-  #会員側
+  # 会員側
   root to: 'public/homes#top'
   get "about" => "public/homes#about"
   scope module: :public do
-    #会員の記述
+    # 会員の記述
     resources :users, only: [:show, :edit, :update] do
       member do
         get 'unsubscribe'
@@ -50,7 +47,7 @@ Rails.application.routes.draw do
       end
     end
 
-    #商品の記述
+    # 商品の記述
     resources :products, except: [:destroy, :new] do
       member do
         get 'image'
@@ -59,9 +56,9 @@ Rails.application.routes.draw do
       collection do
         post 'confirm'
       end
-      #いいね機能の記述
+      # いいね機能の記述
       resource :favorites, only: [:create, :destroy]
-      #レビューの記述
+      # レビューの記述
       resources :reviews, except: [:new] do
         member do
           get 'image'
@@ -71,7 +68,6 @@ Rails.application.routes.draw do
           post 'confirm'
         end
       end
-
     end
     # 商品画像の記述
     resources :product_images, only: [:update, :destroy]
@@ -79,14 +75,13 @@ Rails.application.routes.draw do
     # レビュー画像の記述
     resources :review_images, only: [:update, :destroy]
 
+    # チャットルームの記述
+    resources :rooms, only: [:create, :show]
 
-    #チャットルームの記述
-    resources :rooms, only: [:create,:show]
-
-    #チャットの記述
+    # チャットの記述
     resources :direct_messages, only: [:create]
 
-    #問い合わせの記述
+    # 問い合わせの記述
     resources :contacts, only: [:index, :create] do
       collection do
         post 'confirm'
@@ -94,14 +89,10 @@ Rails.application.routes.draw do
       end
     end
 
-    #問い合わせメッセージの記述
+    # 問い合わせメッセージの記述
     resources :contact_messages, only: [:create]
 
-    #検索の記述
+    # 検索の記述
     get 'search' => 'searches#search'
-
   end
-
-
-
 end

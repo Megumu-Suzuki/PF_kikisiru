@@ -5,7 +5,7 @@ class Admin::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @user = @review.user
     @product = @review.product
-    @reviews = Review.where(product_id: @product.id).sort {|a,b| b.created_at <=> a.id}
+    @reviews = Review.where(product_id: @product.id).sort { |a, b| b.created_at <=> a.id }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     @review_images = @review.review_images.page(params[:page]).per(5)
   end

@@ -22,21 +22,23 @@ class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
   has_many :contact_messages, dependent: :destroy
   # 通知機能
-    # 自分からの通知
+  # 自分からの通知
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id'
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id'
 
-  validates :last_name, :first_name, :last_name_kana, :first_name_kana, presence: true, length: { maximum: 15 }
+  validates :last_name, :first_name, :last_name_kana,
+            :first_name_kana, presence: true, length: { maximum: 15 }
   validates :nickname, allow_blank: true, length: { in: 1..15 }
   validates :email, length: { maximum: 50 }
-  validates :phone_number, allow_blank: true, numericality: {only_integer: true}, length: { in: 10..11 }
-
+  validates :phone_number, allow_blank: true,
+                           numericality: { only_integer: true },
+                           length: { in: 10..11 }
 
   def full_name
-    self.last_name + " " + self.first_name
+    last_name + " " + first_name
   end
 
-   # 未読のメッセージが存在するか確認
+  # 未読のメッセージが存在するか確認
   def unchecked_message?
     # Entryで指定のユーザーidをを持つもののroom_idの情報
     my_room_ids = Entry.select(:room_id).where(user_id: id)
@@ -45,6 +47,4 @@ class User < ApplicationRecord
     # 指定の条件下でis_checkedがfalse(=未読)のものがあるか（.any? あったらtrue）
     DirectMessage.where(user_id: other_user_ids, room_id: my_room_ids, is_checked: false).any?
   end
-
-
 end

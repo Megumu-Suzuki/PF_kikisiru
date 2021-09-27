@@ -10,5 +10,4 @@ class ProductImage < ApplicationRecord
       errors.add(:image, '画像を添付してください')
     end
   end
-
 end

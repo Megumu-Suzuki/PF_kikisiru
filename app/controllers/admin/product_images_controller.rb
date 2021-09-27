@@ -19,5 +19,4 @@ class Admin::ProductImagesController < ApplicationController
   def image_params
     params.require(:product_image).permit(:description)
   end
-
 end

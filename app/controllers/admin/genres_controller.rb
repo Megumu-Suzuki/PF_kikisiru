@@ -43,12 +43,9 @@ class Admin::GenresController < ApplicationController
     end
   end
 
-
-
   private
 
   def genre_params
     params.require(:genre).permit(:name, :image)
   end
-
 end
