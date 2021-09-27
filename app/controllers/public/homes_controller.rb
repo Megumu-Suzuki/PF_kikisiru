@@ -12,7 +12,6 @@ class Public::HomesController < ApplicationController
         end
       end.reverse
     end
-    @product_image = @genre_rankings
   end
 
   def about
