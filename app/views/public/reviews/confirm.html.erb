@@ -13,7 +13,11 @@
 
         <tr>
           <th scope="col" class="col-4"><strong>レビュー内容</strong></th>
-          <td scope="col" class="col-6"><%= @review.comment %></td>
+          <td scope="col" class="col-6">
+            <p class="text-break mb-0">
+              <%= @review.comment %>
+            </p>
+          </td>
         </tr>
 
         <tr>

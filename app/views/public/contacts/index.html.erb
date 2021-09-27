@@ -26,7 +26,11 @@
               
               <tr>
                 <th scope="col" class="col-4"><strong>本文</strong></th>
-                <td scope="col" class="col-6">%= contact.body %></td>
+                <td scope="col" class="col-6">
+                  <p class="text-break mb-0">
+                    <%= @contact_message.body %>
+                  </p>
+                </td>
               </tr>
             </table>
           </div>
@@ -51,7 +55,6 @@
                 <th scope="col" class="col-4"><strong>本文</strong></th>
                 <td scope="col" class="col-6"><%= admin.body %></td>
               </tr>
-              </tbody>
             </table>
           </div>
         </div>
