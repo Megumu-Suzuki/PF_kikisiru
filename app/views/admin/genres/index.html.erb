@@ -24,6 +24,9 @@
       <% end %>
     </tbody>
   </table>
+  <div class="container d-flex justify-content-center">
+    <%= paginate @genres %>
+  </div>
 
   <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
     <div class="row">
