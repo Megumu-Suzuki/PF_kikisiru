@@ -53,3 +53,9 @@ footer{
     bottom: 0;
     text-align: center;
 }
+
+.scroll {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    height: 600px;
+}

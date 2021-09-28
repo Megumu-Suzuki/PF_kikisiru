@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div class="row border py-2 bg-light">
+  <div class="row border py-2 bg-light scroll">
     <% if @direct_messages.present? %>
       <% @direct_messages.each do |message| %>
         <% if message.user == current_user %>
@@ -76,3 +76,8 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  const $scrollAuto = $('.scroll');
+  $scrollAuto.animate({scrollTop: ($scrollAuto[0].scrollHeight + 400)}, 'fast')
+</script>

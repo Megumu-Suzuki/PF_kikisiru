@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   }
   # 会員側
   root to: 'public/homes#top'
-  get "about" => "public/homes#about"
+  
   scope module: :public do
     # 会員の記述
     resources :users, only: [:show, :edit, :update] do
