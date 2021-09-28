@@ -7,6 +7,9 @@
     <!--商品編集をクリックした時------------------------------------------------------------------------------------>
   <% else %>
     <%= form_with model: @product, url: admin_product_path, local:true do |f| %>
+      <div class="row">
+        <%= render 'layouts/error_messages', model: f.object %>
+      </div>
       <div class="row d-flex justify-content-center">
         <div class="col-md-3">
           <div class="card">

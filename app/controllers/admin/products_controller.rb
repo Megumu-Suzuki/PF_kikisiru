@@ -14,11 +14,9 @@ class Admin::ProductsController < ApplicationController
       @product.save_tag(tag_list)
       redirect_to admin_product_path(@product.id)
     else
-      flash.now[:alert] = "内容に不備があります"
-      @product = Product.new(product_params)
       @tags = Tag.all
       @genres = Genre.all
-      render :new && return
+      render :new and return
     end
   end
 

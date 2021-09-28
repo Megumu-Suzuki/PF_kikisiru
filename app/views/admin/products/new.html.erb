@@ -1,5 +1,8 @@
 <div class="container">
   <%= form_with model: @product, url: admin_products_path, local:true do |s| %>
+    <div class="row">
+      <%= render 'layouts/error_messages', model: s.object %>
+    </div>
     <div class="row mt-3">
       <div class="col-md-12 mb-3 d-flex justify-content-center">
         <p class="h4">トップ画像</p>

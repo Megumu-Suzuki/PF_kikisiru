@@ -26,6 +26,10 @@
   </table>
 
   <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
+    <div class="row">
+      <%= render 'layouts/error_messages', model: f.object %>
+    </div>
+
     <div class="row mt-3">
       <div class="col-md-12 mb-3 d-flex justify-content-center">
         <p class="h4">ジャンル新規登録</p>

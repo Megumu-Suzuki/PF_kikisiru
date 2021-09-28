@@ -10,14 +10,14 @@ class Public::ProductsController < ApplicationController
     @product = Product.new(product_params)
     unless @product.valid?
       @genres = Genre.all
-      render(:index) and return
+      render :index and return
     end
   end
 
   def create
     @product = Product.new(product_params)
     @genres = Genre.all
-    render(:index) and return if params[:back]
+    render :index and return if params[:back]
     @product.user_id = current_user.id
     if @product.save
       redirect_to image_product_path(@product.id), notice: "機器を投稿しました"

@@ -12,96 +12,64 @@
   </div>
   <div class="row">
     <div class="col-8 offset-md-2">
-      <table class="table">
-        <tbody>
-          <tr>
-            <th class="col-md-2"></th>
-            <th class="col-md-3"><strong>姓</strong></th>
-            <td class="col-md-3"></td>
-            <td class="col-md-4"><%= @user.last_name %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-2"></th>
-            <th class="col-3"><strong>名</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4"><%= @user.first_name %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-2"></th>
-            <th class="col-3"><strong>セイ</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4"><%= @user.last_name_kana %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-2"></th>
-            <th class="col-3"><strong>メイ</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4"><%= @user.first_name_kana %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>ニックネーム</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4">
-              <% if @user.nickname.blank? %>
-                <p class="m-0 text-muted">未登録</p>
-              <% else %>
-                <%= @user.nickname %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>電話番号</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4">
-              <% if @user.phone_number.blank? %>
-                <p class="m-0 text-muted">未登録</p>
-              <% else %>
-                <%= @user.phone_number %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>メールアドレス</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4"><%= @user.email %></td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <th class="col-1"></th>
-            <th class="col-3"><strong>会員状態</strong></th>
-            <td class="col-3"></td>
-            <td class="col-4">
-              <% if @user.is_deleted == true %>
-                <p class="m-0 text-success">有効</p>
-              <% else %>
-                <p class="m-0 text-muted">退会</p>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
+      <table class="table" style="table-layout:fixed;">
+        <tr>
+          <th scope="col" class="col-4"><strong>姓</strong></th>
+          <td scope="col" class="col-6"><%= @user.last_name %></td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>名</strong></th>
+          <td scope="col" class="col-6"><%= @user.first_name %></td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>セイ</strong></th>
+          <td scope="col" class="col-6"><%= @user.last_name_kana %></td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>メイ</strong></th>
+          <td scope="col" class="col-6"><%= @user.first_name_kana %></td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>ニックネーム</strong></th>
+          <td scope="col" class="col-6">
+            <% if @user.nickname.blank? %>
+              <p class="m-0 text-muted">未登録</p>
+            <% else %>
+              <%= @user.nickname %>
+            <% end %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>電話番号</strong></th>
+          <td scope="col" class="col-6">
+            <% if @user.phone_number.blank? %>
+              <p class="m-0 text-muted">未登録</p>
+            <% else %>
+              <%= @user.phone_number %>
+            <% end %>
+          </td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>メールアドレス</strong></th>
+          <td scope="col" class="col-6"><%= @user.email %></td>
+        </tr>
+        
+        <tr>
+          <th scope="col" class="col-4"><strong>会員状態</strong></th>
+          <td scope="col" class="col-6">
+            <% if @user.is_deleted == true %>
+              <p class="m-0 text-success">有効</p>
+            <% else %>
+              <p class="m-0 text-muted">退会</p>
+            <% end %>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

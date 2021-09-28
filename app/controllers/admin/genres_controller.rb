@@ -12,8 +12,6 @@ class Admin::GenresController < ApplicationController
       redirect_to admin_genres_path, notice: "ジャンルを登録しました"
     else
       @genres = Genre.all
-      @genre = Genre.new
-      flash.now[:alert] = "ジャンルの登録に失敗しました"
       render :index
     end
   end
@@ -27,7 +25,6 @@ class Admin::GenresController < ApplicationController
     if @genre.update(genre_params)
       redirect_to admin_genres_path, notice: "変更を保存しました"
     else
-      flash.now[:alert] = "変更の保存に失敗しました"
       render :edit
     end
   end

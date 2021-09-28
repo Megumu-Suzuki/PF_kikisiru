@@ -1,5 +1,8 @@
 <div class="container">
   <%= form_with model: @genre, url: admin_genre_path, local: true do |f| %>
+    <div class="row">
+      <%= render 'layouts/error_messages', model: f.object %>
+    </div>
     <div class="row d-flex justify-content-center">
       <div class="col-md-3">
         <div class="card">
