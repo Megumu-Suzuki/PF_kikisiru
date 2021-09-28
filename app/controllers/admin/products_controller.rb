@@ -21,12 +21,12 @@ class Admin::ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all.page(params[:page]).per(20)
+    @products = Product.all.includes([:genre]).page(params[:page]).per(20)
   end
 
   def show
     @product = Product.find(params[:id])
-    @reviews = Review.where(product_id: @product.id)
+    @reviews = Review.where(product_id: @product.id).includes([:user])
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if @product.reviews.blank?
       @average_review = 0
