@@ -21,7 +21,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all
+    @products = Product.all.page(params[:page]).per(20)
   end
 
   def show
