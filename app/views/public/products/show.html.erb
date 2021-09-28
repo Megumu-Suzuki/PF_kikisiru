@@ -1,6 +1,6 @@
 <div class="container">
   <%= render 'public/searches/search_name' %>
-  <%#= render 'public/products/product_top', product: @product %>
+  <%= render 'public/products/product_top', product: @product %>
 
   <div class="container pt-3">
     <div class="row mb-4">
@@ -170,19 +170,19 @@
         </div>
       </div>
     <% else %>
-    <div class="row">
-      <% @reviews.each do |review| %>
-        <div class="col-10 offset-md-1">
-          <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-            <%= render 'public/reviews/review_top', review: review %>
-          <% end %>
-          <div class="container d-flex justify-content-center">
-            <%= paginate @reviews %>
+      <div class="row">
+        <% @reviews.each do |review| %>
+          <div class="col-10 offset-md-1">
+            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+              <%= render 'public/reviews/review_top', review: review %>
+            <% end %>
+            <div class="container d-flex justify-content-center">
+              <%= paginate @reviews %>
+            </div>
           </div>
-        </div>
-      <% end %>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 

@@ -68,19 +68,19 @@
         </div>
       </div>
     <% else %>
-    <div class="row">
-      <% @reviews.each do |review| %>
-        <div class="col-10 offset-md-1">
-          <%= link_to admin_product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-            <%= render 'public/reviews/review_top', review: review %>
-          <% end %>
-          <div class="container d-flex justify-content-center">
-            <%= paginate @reviews %>
+      <div class="row">
+        <% @reviews.each do |review| %>
+          <div class="col-10 offset-md-1">
+            <%= link_to admin_product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+              <%= render 'public/reviews/review_top', review: review %>
+            <% end %>
+            <div class="container d-flex justify-content-center">
+              <%= paginate @reviews %>
+            </div>
           </div>
-        </div>
-      <% end %>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
