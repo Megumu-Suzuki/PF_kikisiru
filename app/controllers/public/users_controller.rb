@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @products = Product.where(user_id: params[:id]).sort { |a, b| b.id <=> a.id }
+    @products = Product.where(user_id: params[:id]).includes([:reviews]).sort { |a, b| b.id <=> a.id }
     @products = Kaminari.paginate_array(@products).page(params[:page]).per(5)
     if user_signed_in?
       @current_user_entry = Entry.where(user_id: current_user.id)

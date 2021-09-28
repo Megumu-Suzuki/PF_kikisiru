@@ -1,6 +1,6 @@
 class Public::SearchesController < ApplicationController
   def search
-    @genres = Genre.all.includes(:products)
+    @genres = Genre.all
     @tags = Tag.limit(20).order("id DESC")
     @model = params["search"]["model"]
     @value = params["search"]["value"]
@@ -16,7 +16,7 @@ class Public::SearchesController < ApplicationController
 
   def genre(value)
     @genre = Genre.find(params[:genre_id])
-    @datas = @genre.products.all
+    @datas = @genre.products.all.includes([:reviews])
   end
 
   def tag(value)
