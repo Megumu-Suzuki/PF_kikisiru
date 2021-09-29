@@ -49,11 +49,15 @@
       <div class="col-10 offset-md-1">
         <div class="col mb-2">
           <span class="h4 font-weight-bold border-bottom">
-            <%= @review.title %>
+            <p class="card-text text-break">
+              <%= @review.title %>
+            </p>
           </span>
         </div>
         <div class="col">
-          <%= @review.comment %>
+          <p class="card-text text-break">
+            <%= @review.comment %>
+          </p>
         </div>
         <div class="row mt-3 ml-3">
           <% @review.tags.each do |tag| %>
