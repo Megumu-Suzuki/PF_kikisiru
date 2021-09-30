@@ -53,8 +53,8 @@ class Product < ApplicationRecord
 
   # 評価の平均点
   def review_average
-    if reviews.present?
-      reviews.map(&:evaluation).sum / reviews.size
+    if self.reviews.present?
+      self.reviews.map(&:evaluation).sum / self.reviews.size
     else
       0
     end
