@@ -156,7 +156,7 @@
         <% end %>
       </div>
     </div>
-    <% if @reviews.blank? %>
+    <% if @positive_reviews.blank? && @negative_reviews.blank? && @neutral_reviews.blank? %>
       <div class="container-fluid">
         <div class="row">
           <div class="col d-flex justify-content-center">
@@ -171,13 +171,40 @@
       </div>
     <% else %>
       <div class="row">
-        <% @reviews.each do |review| %>
+        <span class="h6">ポジティブな意見</span>
+        <% @positive_reviews.each do |review| %>
           <div class="col-10 offset-md-1">
             <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
               <%= render 'public/reviews/review_top', review: review %>
             <% end %>
             <div class="container d-flex justify-content-center">
-              <%= paginate @reviews %>
+              <%#= paginate @reviews %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <span class="h6">ニュートラルな意見</span>
+        <% @neutral_reviews.each do |review| %>
+          <div class="col-10 offset-md-1">
+            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+              <%= render 'public/reviews/review_top', review: review %>
+            <% end %>
+            <div class="container d-flex justify-content-center">
+              <%#= paginate @reviews %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <span class="h6">ネガティブな意見</span>
+        <% @negative_reviews.each do |review| %>
+          <div class="col-10 offset-md-1">
+            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+              <%= render 'public/reviews/review_top', review: review %>
+            <% end %>
+            <div class="container d-flex justify-content-center">
+              <%#= paginate @reviews %>
             </div>
           </div>
         <% end %>

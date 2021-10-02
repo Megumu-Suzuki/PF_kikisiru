@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_12_104034) do
+ActiveRecord::Schema.define(version: 2021_10_02_072828) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contact_notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "admin_user_id"
+    t.integer "message_id"
+    t.boolean "is_checked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.integer "user_id"
     t.boolean "is_completed", default: false, null: false
@@ -69,6 +78,15 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
     t.integer "room_id"
     t.text "message", null: false
     t.boolean "is_checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dm_notifications", force: :cascade do |t|
+    t.integer "visitor_id"
+    t.integer "visited_"
+    t.integer "message_id"
+    t.boolean "is_checked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -151,6 +169,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_104034) do
     t.float "evaluation", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "score", precision: 5, scale: 3
   end
 
   create_table "rooms", force: :cascade do |t|

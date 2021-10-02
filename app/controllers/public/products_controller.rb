@@ -50,8 +50,10 @@ class Public::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @reviews = Review.where(product_id: @product.id).sort { |a, b| b.created_at <=> a.id }
-    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
+    @positive_reviews = Review.where(product_id: @product.id, score: 0.4..1).sort { |a, b| b.created_at <=> a.id }
+    @neutral_reviews = Review.where(product_id: @product.id, score: -0.3..0.3).sort { |a, b| b.created_at <=> a.id }
+    @negative_reviews = Review.where(product_id: @product.id, score: -1..-0.4).sort { |a, b| b.created_at <=> a.id }
+    # @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if @product.reviews.blank?
       @average_review = 0
     else
