@@ -121,7 +121,7 @@
       <span class="h4 offset-md-1">この機器に関するほかのレビュー</span>
       <div class="col-3 offset-md-4">
         <% if user_signed_in? %>
-          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
               <span>
                 レビューを投稿する

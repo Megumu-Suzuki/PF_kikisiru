@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   }
   # 会員側
   root to: 'public/homes#top'
-  
+
   scope module: :public do
     # 会員の記述
     resources :users, only: [:show, :edit, :update] do
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
       # いいね機能の記述
       resource :favorites, only: [:create, :destroy]
       # レビューの記述
-      resources :reviews, except: [:new] do
+      resources :reviews do
         member do
           get 'image'
           patch 'addition'

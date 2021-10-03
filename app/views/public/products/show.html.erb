@@ -28,7 +28,7 @@
       </div>
       <div class="col-2 offset-md-2">
         <% if user_signed_in? %>
-          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
               <span>
                 レビューを投稿する
@@ -142,11 +142,16 @@
       </div>
     </div>
 
-    <div class="row mt-5 mb-2">
-      <span class="h4 offset-md-1">レビュー</span>
-      <div class="col-3 offset-md-6">
+    <div class="row mt-5 mb-4">
+      <span class="h4 offset-md-1">
+        レビュー一覧
+        <%= link_to  product_reviews_path(@product) do %>
+          (>><%= @product.reviews.count %>件)
+        <% end %>
+      </span>
+      <div class="col-3 offset-md-5">
         <% if user_signed_in? %>
-          <%= link_to product_reviews_path(@product.id), class: "text-decoration-none" do %>
+          <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
               <span>
                 レビューを投稿する
@@ -171,42 +176,65 @@
       </div>
     <% else %>
       <div class="row">
-        <span class="h6">ポジティブな意見</span>
-        <% @positive_reviews.each do |review| %>
-          <div class="col-10 offset-md-1">
-            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-              <%= render 'public/reviews/review_top', review: review %>
-            <% end %>
-            <div class="container d-flex justify-content-center">
-              <%#= paginate @reviews %>
-            </div>
+        <span class="h5 col-md-3 offset-md-1 mt-2">
+          ポジティブ
+          <%= link_to  product_reviews_path(@product, status: "positive") do %>
+            (>><%= @positive_reviews.count%>件)
+          <% end %>
+        </span>
+        <div class="col-md-8"></div>
+        <% if @positive_reviews.blank? %>
+          <div class="col-10 offset-md-1 my-3">
+            <span class="h6 d-flex justify-content-center">該当のレビューはありません</span>
           </div>
+        <% else %>
+          <% @positive_reviews.first(3).each do |review| %>
+            <div class="col-10 offset-md">
+              <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+                <%= render 'public/reviews/review_top', review: review %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
-      </div>
-      <div class="row">
-        <span class="h6">ニュートラルな意見</span>
-        <% @neutral_reviews.each do |review| %>
-          <div class="col-10 offset-md-1">
-            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-              <%= render 'public/reviews/review_top', review: review %>
-            <% end %>
-            <div class="container d-flex justify-content-center">
-              <%#= paginate @reviews %>
-            </div>
+        <span class="h5 col-md-3 offset-md-1 mt-2">
+          ニュートラル
+          <%= link_to  product_reviews_path(@product, status: "neutral") do %>
+            (>><%= @neutral_reviews.count%>件)
+          <% end %>
+        </span>
+        <div class="col-md-8"></div>
+        <% if @neutral_reviews.blank? %>
+          <div class="col-10 offset-md-1 my-3">
+            <span class="h6 d-flex justify-content-center">該当のレビューはありません</span>
           </div>
+        <% else %>
+          <% @neutral_reviews.first(3).each do |review| %>
+            <div class="col-10 offset-md-1">
+              <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+                <%= render 'public/reviews/review_top', review: review %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
-      </div>
-      <div class="row">
-        <span class="h6">ネガティブな意見</span>
-        <% @negative_reviews.each do |review| %>
-          <div class="col-10 offset-md-1">
-            <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-              <%= render 'public/reviews/review_top', review: review %>
-            <% end %>
-            <div class="container d-flex justify-content-center">
-              <%#= paginate @reviews %>
-            </div>
+        <span class="h5 col-md-3 offset-md-1 mt-2">
+          ネガティブ
+          <%= link_to  product_reviews_path(@product, status: "negative") do %>
+            (>><%= @negative_reviews.count%>件)
+          <% end %>
+        </span>
+        <div class="col-md-8"></div>
+        <% if @negative_reviews.blank? %>
+          <div class="col-10 offset-md-1 my-3">
+            <span class="h6 d-flex justify-content-center">該当のレビューはありません</span>
           </div>
+        <% else %>
+          <% @negative_reviews.first(3).each do |review| %>
+            <div class="col-10 offset-md-1">
+              <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+                <%= render 'public/reviews/review_top', review: review %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>

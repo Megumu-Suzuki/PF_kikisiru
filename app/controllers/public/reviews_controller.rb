@@ -1,9 +1,24 @@
 class Public::ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
-  def index
+  def new
     @product = Product.find(params[:product_id])
     @review = Review.new
+  end
+
+  def index
+    @product = Product.find(params[:product_id])
+    @status = params["status"]
+    if @status == "positive"
+      @reviews = Review.where(product_id: @product.id, score: 0.4..1).sort { |a, b| b.created_at <=> a.id }
+    elsif @status == "neutral"
+      @reviews = Review.where(product_id: @product.id, score: -0.3..0.3).sort { |a, b| b.created_at <=> a.id }
+    elsif @status == "negative"
+      @reviews = Review.where(product_id: @product.id, score: -1..-0.4).sort { |a, b| b.created_at <=> a.id }
+    else
+      @reviews = Review.where(product_id: @product.id).sort { |a, b| b.created_at <=> a.id }
+    end
+    @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(10)
   end
 
   def confirm

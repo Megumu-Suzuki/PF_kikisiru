@@ -1,61 +1,91 @@
 <div class="container">
-  <div class="col-md-12 d-flex justify-content-center">
-    <p class="h4">レビュー新規投稿</p>
+  <%= render 'public/searches/search_name' %>
+  <%= link_to  product_path(@product.id), class:"text-decoration-none" do %>
+    <%= render 'public/products/product_top', product: @product %>
+  <% end %>
+  <div class="row mt-5 mb-2">
+    <% if @status == "positive" %>
+      <span class="h4 offset-md-1">ポジティブなレビュー</span>
+    <% elsif @status == "neutral" %>
+      <span class="h4 offset-md-1">ニュートラルなレビュー</span>
+    <% elsif @status == "negative" %>
+      <span class="h4 offset-md-1">ネガティブなレビュー</span>
+    <% else %>
+      <span class="h4 offset-md-1">全てのレビュー</span>
+    <% end %>
+    <div class="col-3 offset-md-4">
+      <% if user_signed_in? %>
+        <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
+          <button type="button" class="btn btn-outline-secondary p-1">
+            <span>
+              レビューを投稿する
+            </span>
+          </button>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-
-  <%= form_with(model:[@product, @review], url: confirm_product_reviews_path(@product.id), local: true) do |f| %>
   <div class="row">
-    <%= render 'layouts/error_messages', model: f.object %>
-  </div>
-  <div class="row mt-3">
-    <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
-      <p class="m-0">
-        <%= f.label :"タイトル", class: "m-0" %>
-      </p>
-    </div>
-    <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
-      <%= f.text_field :title, class: "form-control" %>
-    </div>
-
-    <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
-      <p class="m-0">
-        内容
-      </p>
-    </div>
-    <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
-      <%= f.text_area :comment, size: "20x20", placeholder: "レビューの内容をお書きください", class: "form-control" %>
-    </div>
-
-    <div class="col-md-1 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
-      <p class="m-0">
-        評価
-      </p>
-    </div>
-    <div class="col-md-5 my-1 ml-3 p-2" style="background-color: #EEEEEE;">
-      <div class="row">
-        <div class="col-md-5" id="evaluate_stars"></div>
-        <div class="col-md-7 m-0">
-          ※0.5~5点で評価してください。
-        </div>
+    <% @reviews.each do |review| %>
+      <div class="col-10 offset-md-1">
+        <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+          <div class="card my-3 ml-0">
+            <div class="container-fluid py-2">
+              <div class="row pl-1">
+                <span class="h5 card-title offset-md-1 font-weight-bold border-bottom">
+                  <%= review.title %>
+                </span>
+              </div>
+              <div class="row mb-3 px-2">
+                <span class="h6 card-text text-dark ml-2">
+                  <%= truncate(review.comment, length: 100) %>
+                </span>
+              </div>
+              <div class="row">
+                <div class="col-3 d-flex justify-content-end">
+                  <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+                </div>
+                <div class="col-1 pl-0">
+                  <span class="h5"><%= review.evaluation %></span>
+                </div>
+                <div class="col-3 offset-md-4">
+                  <span class="h6 text-dark">
+                    <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
+    <% end %>
+    <div class="container d-flex justify-content-center">
+      <%= paginate @reviews %>
     </div>
   </div>
-  <div class="row mt-5 d-flex justify-content-center">
-    <div class="col-md-3">
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.hidden_field :product_id, value: @product.id %>
-      <%= f.submit "レビュー内容を保存する", class: "btn btn-outline-secondary form-control" %>
-    </div>
-  </div>
-<% end %>
 </div>
 
 <script>
-  $('#evaluate_stars').raty({
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    starHalf: "<%= asset_path('star-half.png') %>",
-    scoreName: 'review[evaluation]',
-    half: true
-  });
+  $('.review-evaluation').empty();
+    $('.review-evaluation').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
+</script>
+<script>
+  $('.review-average').empty();
+    $('.review-average').raty({
+      readOnly: true,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      score: function() {
+        return $(this).attr('data-score');
+      },
+    });
 </script>
