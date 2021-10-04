@@ -118,8 +118,17 @@
     </div>
 
     <div class="row mt-5 mb-2">
-      <span class="h4 offset-md-1">この機器に関するほかのレビュー</span>
-      <div class="col-3 offset-md-4">
+      <div class="col-md-4 px-0 offset-md-1">
+        <span class="h4">この機器に関するほかのレビュー</span>
+      </div>
+      <div class="col-md-2 px-0 d-flex align-items-center">
+        <span class="h5 mb-0">
+          <%= link_to  product_reviews_path(@product) do %>
+            >>全て見る
+          <% end %>
+        </span>
+      </div>
+      <div class="col-md-3 offset-md-2">
         <% if user_signed_in? %>
           <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
             <button type="button" class="btn btn-outline-secondary p-1">
@@ -132,7 +141,7 @@
       </div>
     </div>
     <div class="row">
-      <% @reviews.each do |review| %>
+      <% @reviews.first(5).each do |review| %>
         <div class="col-10 offset-md-1">
           <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
             <div class="card my-3 ml-0">
@@ -165,9 +174,6 @@
           <% end %>
         </div>
       <% end %>
-      <div class="container d-flex justify-content-center">
-        <%= paginate @reviews %>
-      </div>
     </div>
   </div>
 </div>
