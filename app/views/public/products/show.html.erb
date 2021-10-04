@@ -189,7 +189,7 @@
           </div>
         <% else %>
           <% @positive_reviews.first(3).each do |review| %>
-            <div class="col-10 offset-md">
+            <div class="col-md-10 offset-md-1">
               <%= link_to product_review_path(@product.id, review.id) do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>
@@ -204,12 +204,12 @@
         </span>
         <div class="col-md-8"></div>
         <% if @neutral_reviews.blank? %>
-          <div class="col-10 offset-md-1 my-3">
+          <div class="col-md-10 offset-md-1 my-3">
             <span class="h6 d-flex justify-content-center">該当のレビューはありません</span>
           </div>
         <% else %>
           <% @neutral_reviews.first(3).each do |review| %>
-            <div class="col-10 offset-md-1">
+            <div class="col-md-10 offset-md-1">
               <%= link_to product_review_path(@product.id, review.id) do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>
@@ -224,12 +224,12 @@
         </span>
         <div class="col-md-8"></div>
         <% if @negative_reviews.blank? %>
-          <div class="col-10 offset-md-1 my-3">
+          <div class="col-md-10 offset-md-1 my-3">
             <span class="h6 d-flex justify-content-center">該当のレビューはありません</span>
           </div>
         <% else %>
           <% @negative_reviews.first(3).each do |review| %>
-            <div class="col-10 offset-md-1">
+            <div class="col-md-10 offset-md-1">
               <%= link_to product_review_path(@product.id, review.id) do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>

@@ -8,13 +8,13 @@
     <tr>
       <th class="row justify-content-center">
         <% unless genre_rankings.blank? %>
-          <% genre_rankings.each do |genre| %>
+          <% genre_rankings.each.with_index(1) do |products, index| %>
             <div class="col-md-6">
               <div class="card my-3">
                 <div class="col-md-auto d-flex justify-content-center">
-                  <h4 class="py-0 my-0"><%= genre.name %></h4>
+                  <h4 class="py-0 my-0"><%= Genre.find(index).name %></h4>
                 </div>
-                <% genre.products.first(5).each.with_index(1) do |product, i| %>
+                <% products.each.with_index(1) do |product, i| %>
                   <div class="card my-2 mx-2">
                     <%= link_to product_path(product), class:"text-decoration-none" do %>
                       <div class="container-fluid py-2">
