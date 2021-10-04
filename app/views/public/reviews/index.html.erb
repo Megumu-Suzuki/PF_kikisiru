@@ -4,60 +4,63 @@
     <%= render 'public/products/product_top', product: @product %>
   <% end %>
   <div class="row mt-5 mb-2">
-    <% if @status == "positive" %>
-      <span class="h4 offset-md-1">ポジティブなレビュー</span>
-    <% elsif @status == "neutral" %>
-      <span class="h4 offset-md-1">ニュートラルなレビュー</span>
-    <% elsif @status == "negative" %>
-      <span class="h4 offset-md-1">ネガティブなレビュー</span>
-    <% else %>
-      <span class="h4 offset-md-1">全てのレビュー</span>
-    <% end %>
-    <div class="col-3 offset-md-4">
-      <% if user_signed_in? %>
-        <%= link_to new_product_review_path(@product.id), class: "text-decoration-none" do %>
-          <button type="button" class="btn btn-outline-secondary p-1">
-            <span>
-              レビューを投稿する
-            </span>
-          </button>
-        <% end %>
+    <div class="col-md-4">
+      <% if @status == "positive" %>
+        <span class="h4 offset-md-1">ポジティブなレビュー</span>
+      <% elsif @status == "neutral" %>
+        <span class="h4 offset-md-1">ニュートラルなレビュー</span>
+      <% elsif @status == "negative" %>
+        <span class="h4 offset-md-1">ネガティブなレビュー</span>
+      <% else %>
+        <span class="h4 offset-md-1">全てのレビュー</span>
       <% end %>
+    </div>
+    <div class="col-md-4 offset-md-3">
+      <%= link_to "ポジティブ", product_reviews_path(@product, status: "positive") %>、
+      <%= link_to "ニュートラル", product_reviews_path(@product, status: "neutral") %>、
+      <%= link_to "ネガティブ", product_reviews_path(@product, status: "negative") %>、
+      <%= link_to "全て", product_reviews_path(@product) %>
     </div>
   </div>
   <div class="row">
-    <% @reviews.each do |review| %>
-      <div class="col-10 offset-md-1">
-        <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
-          <div class="card my-3 ml-0">
-            <div class="container-fluid py-2">
-              <div class="row pl-1">
-                <span class="h5 card-title offset-md-1 font-weight-bold border-bottom">
-                  <%= review.title %>
-                </span>
-              </div>
-              <div class="row mb-3 px-2">
-                <span class="h6 card-text text-dark ml-2">
-                  <%= truncate(review.comment, length: 100) %>
-                </span>
-              </div>
-              <div class="row">
-                <div class="col-3 d-flex justify-content-end">
-                  <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
-                </div>
-                <div class="col-1 pl-0">
-                  <span class="h5"><%= review.evaluation %></span>
-                </div>
-                <div class="col-3 offset-md-4">
-                  <span class="h6 text-dark">
-                    <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+    <% if @reviews.blank? %>
+      <div class="col-10 offset-md-1 mt-5">
+        <span class="h5 d-flex justify-content-center">該当のレビューはありません</span>
+      </div>
+    <% else %>
+      <% @reviews.each do |review| %>
+        <div class="col-10 offset-md-1">
+          <%= link_to product_review_path(@product.id, review.id), class: "text-decoration-none" do %>
+            <div class="card my-3 ml-0">
+              <div class="container-fluid py-2">
+                <div class="row pl-1">
+                  <span class="h5 card-title offset-md-1 font-weight-bold border-bottom">
+                    <%= review.title %>
                   </span>
+                </div>
+                <div class="row mb-3 px-2">
+                  <span class="h6 card-text text-dark ml-2">
+                    <%= truncate(review.comment, length: 100) %>
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col-3 d-flex justify-content-end">
+                    <span class="review-evaluation" data-score="<%= review.evaluation %>"></span>
+                  </div>
+                  <div class="col-1 pl-0">
+                    <span class="h5"><%= review.evaluation %></span>
+                  </div>
+                  <div class="col-3 offset-md-4">
+                    <span class="h6 text-dark">
+                      <%= review.created_at.strftime('%Y/%m/%d %H:%M') %>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
     <div class="container d-flex justify-content-center">
       <%= paginate @reviews %>
