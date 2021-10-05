@@ -95,6 +95,7 @@ class Public::ReviewsController < ApplicationController
     @product = Product.find(params[:product_id])
     @review = Review.find(params[:id])
     tag_list = params[:review][:name].split(",")
+     @review.score = Language.get_data(review_params[:comment])
     if @review.update(review_params)
       @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
