@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update]
     # 商品の記述
     resources :products do
+      member do
+        get 'edit_image'
+        patch '/edit_image', to: 'products#update_image', as: 'update_image'
+      end
       # レビューの記述
       resources :reviews, only: [:show, :destroy]
     end

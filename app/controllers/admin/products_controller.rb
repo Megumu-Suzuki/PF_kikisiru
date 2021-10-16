@@ -38,15 +38,14 @@ class Admin::ProductsController < ApplicationController
   end
 
   def edit
-    @target = params["target"]
-    if @target == "image"
-      @product = Product.find(params[:id])
-      @product_image = ProductImage.new
-    else
-      @product = Product.find(params[:id])
-      @genres = Genre.all
-      @tag_list = @product.tags.pluck(:name).join(",")
-    end
+    @product = Product.find(params[:id])
+    @genres = Genre.all
+    @tag_list = @product.tags.pluck(:name).join(",")
+  end
+
+  def edit_image
+    @product = Product.find(params[:id])
+    @product_image = ProductImage.new
   end
 
   def update
@@ -59,6 +58,16 @@ class Admin::ProductsController < ApplicationController
       flash.now[:alert] = "変更の保存に失敗しました"
       @genres = Genre.all
       render :edit
+    end
+  end
+
+  def update_image
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      redirect_to admin_product_path(@product.id), notice: "変更を保存しました"
+    else
+      flash.now[:alert] = "変更の保存に失敗しました"
+      render :edit_image
     end
   end
 
