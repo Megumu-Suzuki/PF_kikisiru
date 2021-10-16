@@ -65,24 +65,19 @@ class Public::ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     if @product.allow_edit == true
-      @target = params["target"]
-      if @target == "image"
-        @product_image = ProductImage.new
-      else
-        @genres = Genre.all
-        @tag_list = @product.tags.pluck(:name).join(",")
-      end
+      @genres = Genre.all
+      @tag_list = @product.tags.pluck(:name).join(",")
     elsif @product.allow_edit == false && @product.user == current_user
-      @target = params["target"]
-      if @target == "image"
-        @product_image = ProductImage.new
-      else
-        @genres = Genre.all
-        @tag_list = @product.tags.pluck(:name).join(",")
-      end
+      @genres = Genre.all
+      @tag_list = @product.tags.pluck(:name).join(",")
     else
       redirect_to product_path(@product.id), notice: "編集権限がありません"
     end
+  end
+
+  def edit_image
+    @product = Product.find(params[:id])
+    @product_image = ProductImage.new
   end
 
   def update
@@ -95,6 +90,16 @@ class Public::ProductsController < ApplicationController
       @genres = Genre.all
       flash.now[:alert] = "変更の保存に失敗しました"
       render :edit
+    end
+  end
+
+  def update_image
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      redirect_to product_path(@product.id), notice: "変更を保存しました"
+    else
+      flash.now[:alert] = "変更の保存に失敗しました"
+      render :edit_image
     end
   end
 

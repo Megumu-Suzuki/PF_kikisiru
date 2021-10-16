@@ -1,11 +1,3 @@
 <div class="container">
-  <% if @target == "image" %>
-  <!--画像編集をクリックした時------------------------------------------------------------------------------------->
-
-    <%= render 'public/products/product_image_edit', product: @product %>
-
-  <!--商品編集をクリックした時------------------------------------------------------------------------------------>
-  <% else %>
-    <%= render 'public/products/form', product: @product %>
-  <% end %>
+  <%= render 'public/products/form', product: @product %>
 </div>
