@@ -80,12 +80,18 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @user = @review.user
     if @user.id == current_user.id
-      @target = params["target"]
-      if @target == "image"
-        @review_image = ReviewImage.new
-      else
-        @tag_list = @review.tags.pluck(:name).join(",")
-      end
+      @tag_list = @review.tags.pluck(:name).join(",")
+    else
+      redirect_to product_review_path(@review.product.id, @review.id), notice: "編集権限がありません"
+    end
+  end
+
+  def edit_image
+    @product = Product.find(params[:product_id])
+    @review = Review.find(params[:id])
+    @user = @review.user
+    if @user.id == current_user.id
+      @review_image = ReviewImage.new
     else
       redirect_to product_review_path(@review.product.id, @review.id), notice: "編集権限がありません"
     end
@@ -95,9 +101,7 @@ class Public::ReviewsController < ApplicationController
     @product = Product.find(params[:product_id])
     @review = Review.find(params[:id])
     tag_list = params[:review][:name].split(",")
-    unless review_params[:comment].nil?
-      @review.score = Language.get_data(review_params[:comment])
-    end
+     @review.score = Language.get_data(review_params[:comment])
     if @review.update(review_params)
       @review.save_tag(tag_list)
       redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
@@ -105,6 +109,17 @@ class Public::ReviewsController < ApplicationController
       @tag_list = @review.tags.pluck(:name).join(",")
       flash.now[:alert] = "変更の保存に失敗しました"
       render :edit
+    end
+  end
+
+  def update_image
+    @product = Product.find(params[:product_id])
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      redirect_to product_review_path(@review.product.id, @review.id), notice: "変更を保存しました"
+    else
+      flash.now[:alert] = "変更の保存に失敗しました"
+      render :edit_image
     end
   end
 

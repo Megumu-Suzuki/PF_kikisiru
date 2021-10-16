@@ -74,14 +74,14 @@
     </div>
 
     <div class="row my-4">
-      <span class="h4 offset-md-1">投稿写真</span>
+      <span class="h4 offset-md-1">投稿画像</span>
       <div class="col-3">
         <% if user_signed_in? %>
           <% if @user.id == current_user.id %>
-            <%= link_to edit_product_review_path(@product.id, @review.id, target: "image"), class: "text-decoration-none" do %>
+            <%= link_to edit_image_product_review_path(@product.id, @review.id), class: "text-decoration-none" do %>
               <button type="button" class="btn btn-outline-secondary p-1">
                 <span>
-                  投稿写真を編集する
+                  投稿画像を編集する
                 </span>
               </button>
              <% end %>

@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       member do
         get 'image'
         patch 'addition'
+        get 'edit_image'
+        post '/edit_image', to: 'products#update_image', as: 'update_image'
       end
       collection do
         post 'confirm'
@@ -63,6 +65,8 @@ Rails.application.routes.draw do
         member do
           get 'image'
           patch 'addition'
+          get 'edit_image'
+          patch '/edit_image', to: 'reviews#update_image', as: 'update_image'
         end
         collection do
           post 'confirm'

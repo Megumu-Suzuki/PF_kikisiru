@@ -1,29 +1,23 @@
 <div class="container">
-  <% if @target == "image" %>
-    <!--画像編集をクリックした時------------------------------------------------------------------------------------->
-    <%= render 'public/reviews/review_image_edit', review: @review, product: @product %>
-  <% else %>
-    <!--情報編集をクリックした時------------------------------------------------------------------------------------->
-    <div class="col-md-12 d-flex justify-content-center">
-      <p class="h4">レビュー内容編集</p>
+  <div class="col-md-12 d-flex justify-content-center">
+    <p class="h4">レビュー内容編集</p>
+  </div>
+  <%= render 'public/reviews/form', product: @product, review: @review %>
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="col-md-3">
+      <%= link_to "削除する", product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-outline-danger form-control" %>
     </div>
-    <%= render 'public/reviews/form', product: @product, review: @review %>
-    <div class="row mt-5 d-flex justify-content-center">
-      <div class="col-md-3">
-        <%= link_to "削除する", product_review_path(@product.id, @review.id), method: :delete, class: "btn btn-outline-danger form-control" %>
-      </div>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 
-  <script>
-    $('#evaluate_stars').raty({
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      score: <%= @review.evaluation %>,
-      scoreName: 'review[evaluation]',
-      half: true
-    });
-  </script>
+<script>
+  $('#evaluate_stars').raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: <%= @review.evaluation %>,
+    scoreName: 'review[evaluation]',
+    half: true
+  });
+</script>

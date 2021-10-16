@@ -91,7 +91,7 @@
       <div class="col-3">
         <% if user_signed_in? %>
           <% if @product.allow_edit == true %>
-            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+            <%= link_to edit_image_product_path, class: "text-decoration-none" do %>
               <button type="button" class="btn btn-outline-secondary p-1">
                 <span>
                   機器画像を編集する
@@ -99,7 +99,7 @@
               </button>
             <% end %>
           <% elsif @product.allow_edit == false && @product.user = current_user %>
-            <%= link_to edit_product_path(target: "image"), class: "text-decoration-none" do %>
+            <%= link_to edit_image_product_path, class: "text-decoration-none" do %>
               <button type="button" class="btn btn-outline-secondary p-1">
                 <span>
                   機器画像を編集する
