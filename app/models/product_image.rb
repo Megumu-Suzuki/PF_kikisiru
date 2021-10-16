@@ -7,7 +7,7 @@ class ProductImage < ApplicationRecord
 
   def image_presence
     unless images.attached?
-      errors.add(:image, '画像を添付してください')
+      errors.add(:image, 'を添付してください')
     end
   end
 end

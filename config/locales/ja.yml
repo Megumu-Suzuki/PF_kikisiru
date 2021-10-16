@@ -54,7 +54,7 @@ ja:
         is_deleted: 会員ステータス
         create_at: 会員登録日時
         update_at: 会員更新日時
-      product_image:
+      product_images:
         image: 画像
         description: 画像説明
         create_at: 機器画像登録日時
@@ -65,7 +65,8 @@ ja:
         evaluation: 評価
         create_at: レビュー登録日時
         update_at: レビュー更新日時
-      review_image:
+      review_images:
+        image: 画像
         description: 画像説明
         create_at: レビュー画像登録日時
         update_at: レビュー画像更新日時
