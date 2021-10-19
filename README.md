@@ -29,7 +29,7 @@ ER図は<a href="https://drive.google.com/file/d/1XdtZY2AfhK8dQf2kOkI274mtEFcFHk
 要素一覧は<a href="https://docs.google.com/spreadsheets/d/1VxBbIqKz7YlrnDTXHLmMoZVb5zkUS1-7skOwGrt25I8/edit?usp=sharing">こちら</a>
 
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Amazon Linux2
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
