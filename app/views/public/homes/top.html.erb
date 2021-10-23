@@ -23,6 +23,12 @@
   <%= render 'public/homes/ranking', genre_rankings: @genre_rankings %>
 </div>
 
+<span id="back">
+  <%= link_to  do %>
+    <%= image_tag 'arrow.png', style: "object-fit: cover; width: 40px; height: 40px;" %>
+  <% end %>
+</span>
+
 <script>
   $('.review-average').empty();
     $('.review-average').raty({
