@@ -1,0 +1,38 @@
+.row.mt-5.mb-3
+  .col-md-4.d-flex
+    %h4.font-weight-bold
+      カテゴリー別評価ランキング
+%table
+  %tbody
+    %tr
+      %th.row.justify-content-center
+        - unless genre_rankings.blank?
+          - genre_rankings.each.with_index(1) do |products, index|
+            .col-md-6
+              .card.my-3
+                .col-md-auto.d-flex.justify-content-center
+                  %h4.py-0.my-0
+                    = Genre.find(index).name
+                - products.each.with_index(1) do |product, i|
+                  .card.my-2.mx-2
+                    = link_to product_path(product), class:"text-decoration-none" do
+                      .container-fluid.py-2
+                        .row
+                          .col-md-1.pr-0.d-flex
+                            = i
+                            位
+                          .col-md-6
+                            .row
+                              .col-md-auto.mt-3.mb-4.d-flex
+                                = product.title
+                                %br
+                                (
+                                = product.model
+                                )
+                            .row
+                              .col-md-8
+                                .review-average{"data-score" => product.review_average}
+                              .col-md-1.d-flex
+                                = product.review_average.round(2)
+                          .col-md-4
+                            = image_tag product.top_image, style: "object-fit: cover; width: 150px; height: 150px;"
