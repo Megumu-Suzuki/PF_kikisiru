@@ -72,6 +72,7 @@ gem 'jquery-rails'
 gem 'cocoon'
 gem 'kaminari', '~> 1.2.1'
 gem 'devise'
+gem 'haml-rails'
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'

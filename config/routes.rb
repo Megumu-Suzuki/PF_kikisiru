@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin/homes#top'
 
+
   # ユーザー新規登録、ログイン
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   }
   # 会員側
   root to: 'public/homes#top'
+  get 'about' => 'public/homes#'
 
   scope module: :public do
     # 会員の記述

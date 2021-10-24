@@ -6,3 +6,4 @@ class Admin::HomesController < ApplicationController
     @contact_messages = Kaminari.paginate_array(@contact_messages).page(params[:page]).per(5)
   end
 end
+
