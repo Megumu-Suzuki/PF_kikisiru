@@ -21,6 +21,9 @@
   box-sizing: border-box;
 }
 
+.top-search-label {
+  font-size: calc(10px + .6vw);
+}
 
 .bg_image::before {
   content: "";
@@ -36,14 +39,18 @@
   background-position: center;
   background-size: cover;
   background-repeat:no-repeat;
-  height: 350px;
+  height: calc(150px + 15vw);
   position: relative;
 }
 
 .header-title{
   display: flex;
   position: absolute;
-  top: 125px; left: 100px;
+  top: 10vw; left: 100px;
+}
+
+.header-title > h1 {
+  font-size: calc(20px + .9vw);
 }
 
 .footerFixed{
@@ -65,10 +72,42 @@ footer{
     height: 600px;
 }
 
+.label-area{
+    background-color: #DDDDDD;
+}
+
+.text-area{
+    background-color: #EEEEEE;
+}
+
+.genre-image, .top-image, .product-image, .profile-image{
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.ranking-image{
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
+}
+
+.image-index{
+  object-fit: cover;
+  width: 125px;
+  height: 125px;
+}
+
+.profile-sm-image{
+  object-fit: cover;
+  width: 75px;
+  height: 75px;
+}
+
 /*トップに戻るボタン*/
 #back {
   position: fixed;
   right: 30px;
   bottom: 60px;
-  z-index: 9;
+  z-index: 9999;
 }

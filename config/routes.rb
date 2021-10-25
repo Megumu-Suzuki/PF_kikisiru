@@ -54,16 +54,17 @@ Rails.application.routes.draw do
     end
 
     # 商品の記述
-    resources :products, except: [:destroy, :new] do
+    get '/products/confirm', to: 'products#confirm'
+    post '/products/confirm', to: 'products#confirm', as: 'confirm_products'
+
+    resources :products, except: [:destroy] do
       member do
         get 'image'
         patch 'addition'
         get 'edit_image'
         post '/edit_image', to: 'products#update_image', as: 'update_image'
       end
-      collection do
-        post 'confirm'
-      end
+
       # いいね機能の記述
       resource :favorites, only: [:create, :destroy]
       # レビューの記述

@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/8f0be0a856.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   </head>
 
   <body>
@@ -110,7 +111,7 @@
         <% if current_page?(root_path) %>
           <div class="header-title">
             <h1 class="font-weight-bold">
-              厨房機器で悩んだら「キキシル」
+              厨房機器で悩んだら<br class="d-block d-md-none">「キキシル」
             </h1>
           </div>
         </div>
@@ -139,7 +140,6 @@
       <div class="mb-5">
         <%= yield %>
       </div>
-
 
       <footer class="container-fluid py-3 bg-light">
        <p class="mb-0">©︎kikisiru.com</p>

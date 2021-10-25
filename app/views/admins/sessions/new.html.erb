@@ -7,21 +7,21 @@
 
   <%= form_with model: @admin, url: admin_session_path, local: true do |f| %>
     <div class="row mt-3">
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"メールアドレス", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"パスワード", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
       </div>
 

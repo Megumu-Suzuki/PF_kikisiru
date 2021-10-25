@@ -1,12 +1,19 @@
 class Public::ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
-  def index
+  def new
     @product = Product.new
     @genres = Genre.all
   end
 
+  def index
+    # confirm画面から戻るボタンを押し遷移した先でリロードした時のエラー
+    redirect_to new_product_path, notice: "機器を投稿しました"
+  end
+
   def confirm
+    # getでリクエストされた時にnewページに遷移するように設定
+    redirect_to new_product_path, notice: "機器を投稿しました" and return if request.get?
     @product = Product.new(product_params)
     unless @product.valid?
       @genres = Genre.all
@@ -17,7 +24,7 @@ class Public::ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @genres = Genre.all
-    render :index and return if params[:back]
+    render :new and return if params[:back]
     @product.user_id = current_user.id
     if @product.save
       redirect_to image_product_path(@product.id), notice: "機器を投稿しました"

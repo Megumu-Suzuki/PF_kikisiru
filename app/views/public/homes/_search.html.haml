@@ -1,20 +1,19 @@
-.row.mt-5.mb-3
-  .col-md-4.d-flex
-    %h4.font-weight-bold
-      カテゴリーから検索する
+.mt-5.mb-3
+  %h4.font-weight-bold.text-center
+    カテゴリーから検索する
 .row.mb-5.justify-content-center
   - unless genres.blank?
     - genres.each do |genre|
-      .col-md-3.col-sm-3
-        .card.my-2(style="max-width: 200px;")
+      .col-md-3.col-sm-6.col-12
+        .card.mx-auto.my-2(style="max-width: 200px;")
           = link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do
             .bg_image
               - if genre.image.attached?
-                = image_tag genre.image, style: "object-fit: cover; width: 200px; height: 200px;" ,class: "card-img"
+                = image_tag genre.image, class: "card-img genre-image img-fluid"
               - else
-                = image_tag 'no_image.png', style: "object-fit: cover; width: 200px; height: 200px;"
+                = image_tag 'no_image.png', class: "genre-image img-fluid"
             .card-img-overlay.p-0.d-flex.align-items-end.justify-content-center
-              %p.h5.card-text.text-white
+              %p.h5.card-text.text-white.top-search-label
                 = genre.name
 
 .row.mt-5.mb-3

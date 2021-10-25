@@ -5,9 +5,9 @@
 
   <div class="row mb-3 d-flex justify-content-center">
     <% if @user.profile_image.attached? %>
-      <%= image_tag @user.profile_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
+      <%= image_tag @user.profile_image, class: "profile-image" %>
     <% else %>
-      <%= image_tag 'no_image.png', style: "object-fit: cover; width: 150px; height: 150px;" %>
+      <%= image_tag 'no_image.png', class: "profile-image" %>
     <% end %>
   </div>
   <div class="row">

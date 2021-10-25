@@ -17,106 +17,105 @@
           </div>
           <div class="card-img-bottom my-3 d-flex justify-content-center">
             <% if @user.profile_image.attached? %>
-              <%= image_tag @user.profile_image, style: "object-fit: cover; width: 150px; height: 150px;" %>
+              <%= image_tag @user.profile_image, class: "profile-image" %>
             <% else %>
-              <%= image_tag 'no_image.jpg', style: "object-fit: cover; width: 150px; height: 150px;" %>
-              <% end %>
+              <%= image_tag 'no_image.jpg', class: "profile-image" %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
     <div class="row mt-3 d-flex justify-content-center">
-      <div class="col-md-auto" style="background-color: #DDDDDD;">
+      <div class="col-md-auto label-area">
         <%= f.label :"プロフィール画像を変更する場合は画像ファイルを選択してください" %>
       </div>
       <div class="w-100"></div>
-      <div class="col-md-auto" style="background-color: #EEEEEE;">
+      <div class="col-md-auto text-area">
         <%= f.file_field :profile_image %>
       </div>
     </div>
 
     <div class="row mt-3">
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"姓", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :last_name, placeholder: "機器", autofocus: true, class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"名", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :first_name, placeholder: "太郎", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"セイ", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :last_name_kana, placeholder: "キキ", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"メイ", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :first_name_kana, placeholder: "タロウ", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"ニックネーム", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :nickname, placeholder: "タロウ", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"電話番号(ハイフンなし)", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.text_field :phone_number, placeholder: "01234567890", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= f.label :"メールアドレス", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= f.email_field :email, placeholder: "youremail@example.com", autocomplete: "email", class: "form-control" %>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           会員状態
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <div class="row ml-3">
-          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center text-area">
             <%= f.label :"有効", class: "mb-0" %>
           </div>
-          <div class="col-md-1 mt-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+          <div class="col-md-1 mt-1 p-0 d-flex align-items-center text-area">
             <%= f.radio_button :is_deleted, :true, checked: true %>
           </div>
-          <!--<div class="col-md-1 mt-1 pl-4" style="background-color: #EEEEEE;" ></div>-->
-          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center" style="background-color: #EEEEEE;" >
+          <div class="col-md-4 mt-1 pr-0 d-flex align-items-center justify-content-center text-area">
             <%= f.label :"退会", class: "mb-0" %>
           </div>
-          <div class="col-md-1 mt-1 p-0 d-flex align-items-center" style="background-color: #EEEEEE;" >
+          <div class="col-md-1 mt-1 p-0 d-flex align-items-center text-area">
             <%= f.radio_button :is_deleted, :false %>
           </div>
         </div>

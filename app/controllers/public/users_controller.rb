@@ -6,11 +6,11 @@ class Public::UsersController < ApplicationController
     @products = Product.where(user_id: params[:id]).includes([:reviews]).sort { |a, b| b.id <=> a.id }
     @products = Kaminari.paginate_array(@products).page(params[:page]).per(5)
     if user_signed_in?
-      @current_user_entry = Entry.where(user_id: current_user.id)
-      @user_entry = Entry.where(user_id: @user.id)
+      current_user_entry = Entry.where(user_id: current_user.id)
+      user_entry = Entry.where(user_id: @user.id)
       unless @user.id == current_user.id
-        @current_user_entry.each do |cu|
-          @user_entry.each do |u|
+        current_user_entry.each do |cu|
+          user_entry.each do |u|
             if cu.room_id == u.room_id
               @have_room = true
               @room_id = cu.room_id
@@ -56,11 +56,11 @@ class Public::UsersController < ApplicationController
     @favorites = @user.favorites.sort { |a, b| b.id <=> a.id }
     @favorites = Kaminari.paginate_array(@favorites).page(params[:page]).per(5)
     if user_signed_in?
-      @current_user_entry = Entry.where(user_id: current_user.id)
-      @user_entry = Entry.where(user_id: @user.id)
+      current_user_entry = Entry.where(user_id: current_user.id)
+      user_entry = Entry.where(user_id: @user.id)
       unless @user.id == current_user.id
-        @current_user_entry.each do |cu|
-          @user_entry.each do |u|
+        current_user_entry.each do |cu|
+          user_entry.each do |u|
             if cu.room_id == u.room_id
               @have_room = true
               @room_id = cu.room_id
@@ -80,11 +80,11 @@ class Public::UsersController < ApplicationController
     @reviews = @user.reviews.sort { |a, b| b.id <=> a.id }
     @reviews = Kaminari.paginate_array(@reviews).page(params[:page]).per(5)
     if user_signed_in?
-      @current_user_entry = Entry.where(user_id: current_user.id)
-      @user_entry = Entry.where(user_id: @user.id)
+      current_user_entry = Entry.where(user_id: current_user.id)
+      user_entry = Entry.where(user_id: @user.id)
       unless @user.id == current_user.id
-        @current_user_entry.each do |cu|
-          @user_entry.each do |u|
+        current_user_entry.each do |cu|
+          user_entry.each do |u|
             if cu.room_id == u.room_id
               @have_room = true
               @room_id = cu.room_id

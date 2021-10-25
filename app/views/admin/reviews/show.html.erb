@@ -9,9 +9,9 @@
     <div class="row">
       <div class="col-1 offset-md-1">
         <% if @user.profile_image.attached? %>
-          <%= image_tag @user.profile_image, style: "object-fit: cover; width: 75px; height: 75px;" %>
+          <%= image_tag @user.profile_image, class: "profile-sm-image" %>
         <% else %>
-          <%= image_tag 'no_image.png', size: '75x75' %>
+          <%= image_tag 'no_image.png', class: 'profile-sm-image' %>
         <% end %>
       </div>
       <span class="h5 col-3 d-flex align-items-center">
@@ -84,7 +84,7 @@
                 <div class="col-2 p-1">
                   <div class="card">
                     <div class="card-img-top p-1 d-flex justify-content-center">
-                      <%= image_tag image, style: "object-fit: cover; width: 125px; height: 125px;" %>
+                      <%= image_tag image, class: "image-index" %>
                     </div>
                     <div class="card-body p-1">
                       <p class="card-text text-break">
