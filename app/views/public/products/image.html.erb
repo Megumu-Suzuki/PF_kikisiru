@@ -10,12 +10,12 @@
   </div>
   <%= form_with model: @product, url: addition_product_path, local:true do |s| %>
     <div class="row mt-3">
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= s.label "タグ", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= s.text_field :name, class: "form-control" %>
       </div>
       <div class="col-md-12 d-flex justify-content-center">
@@ -29,12 +29,12 @@
         <p class="h4">トップ画像登録</p>
       </div>
 
-      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 my-1 p-0 offset-md-3 d-flex align-items-center justify-content-center label-area">
         <p class="m-0">
           <%= s.label :"*トップ画像", class: "m-0" %>
         </p>
       </div>
-      <div class="col-md-4 my-1 ml-3 p-2" style="background-color: #EEEEEE;" >
+      <div class="col-md-4 my-1 ml-3 p-2 text-area">
         <%= s.file_field :top_image %>
       </div>
       <div class="col-md-12 d-flex justify-content-center">

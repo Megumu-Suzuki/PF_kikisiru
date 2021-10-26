@@ -1,9 +1,9 @@
 <div class="row d-flex justify-content-center">
   <div class="col-md-2 offset-md-4">
     <% if user.profile_image.attached? %>
-      <%= image_tag user.profile_image, style: "object-fit: cover; width: 125px; height: 125px;"%>
+      <%= image_tag user.profile_image, class: "profile-image" %>
     <% else %>
-      <%= image_tag 'no_image.png', style: "object-fit: cover; width: 125px; height: 125px;" %>
+      <%= image_tag 'no_image.png', class: "profile-image" %>
     <% end %>
   </div>
   <div class="col-md-2 d-flex align-items-center">

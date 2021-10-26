@@ -54,22 +54,22 @@
 }
 
 .footerFixed{
-    min-height: 100vh;
-    position: relative;
-    padding-bottom: 60px;
-    box-sizing: border-box;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 60px;
+  box-sizing: border-box;
 }
 
 footer{
-    position: absolute;
-    bottom: 0;
-    text-align: center;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
 }
 
 .scroll {
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    height: 600px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 600px;
 }
 
 .label-area{
@@ -80,13 +80,13 @@ footer{
     background-color: #EEEEEE;
 }
 
-.genre-image, .top-image, .product-image, .profile-image{
+.genre-image, .top-image, .product-image, .review-image{
   object-fit: cover;
   width: 200px;
   height: 200px;
 }
 
-.ranking-image{
+.ranking-image, .profile-image{
   object-fit: cover;
   width: 150px;
   height: 150px;
@@ -104,10 +104,23 @@ footer{
   height: 75px;
 }
 
+.profile-chat-image{
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 /*トップに戻るボタン*/
 #back {
   position: fixed;
   right: 30px;
   bottom: 60px;
   z-index: 9999;
+}
+
+.back{
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
 }

@@ -10,8 +10,8 @@
             <%= form_with model: review_image, url: review_image_path(review_image), method: :patch, local:true do |f| %>
               <div class="card mb-3">
                 <div class="card-body p-1">
-                  <div class="card-img-top mt-2 d-flex justify-content-center">
-                    <%= image_tag image, style: "object-fit: cover; width: 175px; height: 175px;" %>
+                  <div class="card-img-top my-2 d-flex justify-content-center">
+                    <%= image_tag image, class: "review-image" %>
                   </div>
                   <p class="card-text mb-0">
                     <%= f.label :"画像説明", class: "m-0" %>

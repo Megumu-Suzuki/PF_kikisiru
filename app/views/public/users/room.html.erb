@@ -15,9 +15,9 @@
             <div class="row d-flex align-items-center">
               <div class="col-md-3 d-flex justify-content-center">
                 <% if room.user.profile_image.attached? %>
-                  <%= image_tag room.user.profile_image, style: "object-fit: cover; width: 100px; height: 100px;", class: "rounded-circle" %>
+                  <%= image_tag room.user.profile_image, class: "rounded-circle profile-sm-image" %>
                 <% else %>
-                  <%= image_tag 'no_image.png', style: "object-fit: cover; width: 100px; height: 100px;", class: "rounded-circle" %>
+                  <%= image_tag 'no_image.png', class: "rounded-circle profile-sm-image" %>
                 <% end %>
               </div>
               <span class="h4 col-md-auto m-0">

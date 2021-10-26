@@ -9,9 +9,9 @@
       <div class="col-md-auto">
         <strong>
           <% if @user.profile_image.attached? %>
-            <%= image_tag @user.profile_image, style: "object-fit: cover; width: 75px; height: 75px;", class: "rounded-circle" %>
+            <%= image_tag @user.profile_image, class: "rounded-circle profile-sm-image" %>
           <% else %>
-            <%= image_tag 'no_image.png', style: "object-fit: cover; width: 75px; height: 75px;", class: "rounded-circle" %>
+            <%= image_tag 'no_image.png', class: "rounded-circle profile-sm-image" %>
           <% end %>
             <%= link_to user_path(@user.id) do %>
               <% if @user.nickname.present? %>
@@ -38,17 +38,17 @@
             </div>
             <div class="col-md-1 my-2 d-flex justify-content-end">
               <% if current_user.profile_image.attached? %>
-                <%= image_tag current_user.profile_image, style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+                <%= image_tag current_user.profile_image, class: "profile-chat-image" %>
               <% else %>
-                <%= image_tag 'no_image.png', style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+                <%= image_tag 'no_image.png', class: "profile-chat-image" %>
               <% end %>
             </div>
         <% else %>
           <div class="col-md-1 my-2 offset-md-1">
             <% if @user.profile_image.attached? %>
-              <%= image_tag @user.profile_image, style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+              <%= image_tag @user.profile_image, class: "profile-chat-image" %>
             <% else %>
-              <%= image_tag 'no_image.png', style: "object-fit: cover; width: 50px; height: 50px;", class: "rounded-circle" %>
+              <%= image_tag 'no_image.png', class: "profile-chat-image" %>
             <% end %>
           </div>
           <div class="col-md-7 my-2">

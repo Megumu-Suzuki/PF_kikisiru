@@ -1,19 +1,19 @@
 <div class="nested-fields">
   <div class="card mb-3">
     <div class="row my-3">
-      <div class="col-md-2 offset-md-2 mb-2 d-flex align-items-center justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 offset-md-2 mb-2 d-flex align-items-center justify-content-center label-area">
         <%= f.label :"画像ファイル", class: "m-0" %>
       </div>
-      <div class="col-md-6 ml-3 mb-2 p-2" style="background-color: #EEEEEE;">
+      <div class="col-md-6 ml-3 mb-2 p-2 text-area">
         <%= f.file_field :images, class: "push", onchange: "loadImage(this);" %>
       </div>
-      <div class="col-md-2 offset-md-2 align-items-center d-flex justify-content-center" style="background-color: #DDDDDD;">
+      <div class="col-md-2 offset-md-2 align-items-center d-flex justify-content-center label-area">
         <%= f.label :"画像説明", class: "m-0" %>
       </div>
-      <div class="col-md-4 ml-3 p-2" style="background-color: #EEEEEE;">
+      <div class="col-md-4 ml-3 p-2 text-area">
         <%= f.text_field :description, class: "form-control" %>
       </div>
-      <div class="col-md-2 p-2" style="background-color: #EEEEEE;">
+      <div class="col-md-2 p-2 text-area">
         <%= link_to_remove_association "削除", f, class: 'btn btn-outline-danger' %>
       </div>
     </div>
