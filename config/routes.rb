@@ -68,15 +68,16 @@ Rails.application.routes.draw do
       # いいね機能の記述
       resource :favorites, only: [:create, :destroy]
       # レビューの記述
+
+      get '/reviews/confirm', to: 'reviews#confirm'
+      post '/reviews/confirm', to: 'reviews#confirm'
+
       resources :reviews do
         member do
           get 'image'
           patch 'addition'
           get 'edit_image'
           patch '/edit_image', to: 'reviews#update_image', as: 'update_image'
-        end
-        collection do
-          post 'confirm'
         end
       end
     end

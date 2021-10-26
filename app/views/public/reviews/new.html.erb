@@ -3,7 +3,7 @@
     <p class="h4">レビュー新規投稿</p>
   </div>
 
-  <%= form_with(model:[@product, @review], url: confirm_product_reviews_path(@product.id), local: true) do |f| %>
+  <%= form_with(model:[@product, @review], url: product_reviews_confirm_path(@product.id), local: true) do |f| %>
   <div class="row">
     <%= render 'layouts/error_messages', model: f.object %>
   </div>

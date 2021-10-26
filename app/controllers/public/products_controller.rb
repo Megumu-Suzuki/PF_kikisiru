@@ -8,16 +8,16 @@ class Public::ProductsController < ApplicationController
 
   def index
     # confirm画面から戻るボタンを押し遷移した先でリロードした時のエラー
-    redirect_to new_product_path, notice: "機器を投稿しました"
+    redirect_to new_product_path, notice: "正常な処理がされなかったので終了しました"
   end
 
   def confirm
     # getでリクエストされた時にnewページに遷移するように設定
-    redirect_to new_product_path, notice: "機器を投稿しました" and return if request.get?
+    redirect_to new_product_path, notice: "正常な処理がされなかったので終了しました" and return if request.get?
     @product = Product.new(product_params)
     unless @product.valid?
       @genres = Genre.all
-      render :index and return
+      render :new and return
     end
   end
 
