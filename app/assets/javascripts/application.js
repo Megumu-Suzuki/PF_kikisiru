@@ -30,3 +30,13 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
+// ハンバーガーメニュー
+$(document).on('turbolinks:load', function() {
+  $('.navbar-toggler').on('click', function(event) {
+    // クリックされた時していののクラスに'active'を追加する
+    // これによりCSSが反映される
+    // toggleClass class属性の追加と削除を交互に行う
+    $('.navbar-toggler-icon').toggleClass('active');
+  });
+});
+

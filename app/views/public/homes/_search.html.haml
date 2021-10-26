@@ -4,10 +4,10 @@
 .row.mb-5.justify-content-center
   - unless genres.blank?
     - genres.each do |genre|
-      .col-md-3.col-sm-6.col-12
+      .col-md-3.col-sm-6.col-6
         .card.mx-auto.my-2(style="max-width: 200px;")
           = link_to search_path('search[how]': "match", 'search[model]': "genre", 'search[value]': genre, genre_id: genre.id) do
-            .bg_image
+            .bg_image.top-page
               - if genre.image.attached?
                 = image_tag genre.image, class: "card-img genre-image img-fluid"
               - else
@@ -16,12 +16,11 @@
               %p.h5.card-text.text-white.top-search-label
                 = genre.name
 
-.row.mt-5.mb-3
-  .col-md-6.d-flex
-    %h4.font-weight-bold
-      タグから検索する
-    %p.text-muted
-      (※最近登録された20件を表示しています。)
+.mt-5.mb-3
+  %h4.font-weight-bold.text-center
+    タグから検索する
+  %p.text-muted.text-center
+    (※最近登録された20件を表示しています。)
 .row
   - unless tags.blank?
     - tags.each do |tag|

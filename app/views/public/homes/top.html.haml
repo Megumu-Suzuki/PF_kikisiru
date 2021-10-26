@@ -1,23 +1,24 @@
 .container
   .sticky-top
     .row.mb-5.p-2.border.border-dark.rounded.bg-white
-      .col-md-4.d-flex.align-items-center
-        .h4.m-0.font-weight-bold
+      .col-md-3.offset-md-1.col-4.p-0.d-flex.align-items-center
+        .h4.m-0.font-weight-bold.search-heading
           商品名で検索する
-      .col-md-8
+      .col-md-8.col-8
         = form_with url: search_path, method: :get, local:true do |f|
           .row.d-flex.align-items-center
-            .col-md-8
+            .col-md-8.col-9.pl-0
               = f.text_field 'search[value]', :class =>'form-control', :placeholder => "商品名を入力"
               = f.hidden_field 'search[model]', value: "product"
-            .col-md-2
+            .col-md-2.col-3.p-0
               = f.submit "検索", { :class => "btn btn-outline-success form-control d-flex justify-content-center"}
-    = render 'public/homes/search', genres: @genres, tags: @tags
-    = render 'public/homes/ranking', genre_rankings: @genre_rankings
+  = render 'public/homes/search', genres: @genres, tags: @tags
+  = render 'public/homes/ranking', genre_rankings: @genre_rankings
 
-%span#back
-  = link_to do
-    = image_tag 'arrow.png', {class: "back"}
+  .none
+    %span#back
+      = link_to do
+        = image_tag 'arrow.png', {class: "back"}
 
 :javascript
   $('.review-average').empty();

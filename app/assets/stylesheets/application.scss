@@ -14,6 +14,10 @@
  *= require_self
  */
 @import "bootstrap";
+@media screen and (max-width: 460px){
+.none {display:none}
+.hoge {padding: 1px}
+}
 
  * {
   margin: 0;
@@ -21,8 +25,83 @@
   box-sizing: border-box;
 }
 
+//　ハンバーガーメニュー
+.navbar-light .navbar-toggler {
+  border-color: rgba(0, 0, 255, 0);
+  outline: none;
+}
+
+// 元々の三本線の画像を削除
+.navbar-light .navbar-toggler-icon {
+  background-image: none;
+}
+
+// 新しく三本線を設定
+.navbar-toggler-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+
+  &,
+  span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+  }
+
+  span {
+    position: absolute;
+    left: 5px;
+    width: 80%;
+    height: 2px;
+    background-color: #343a40;
+    border-radius: 0.5px;
+
+    &:nth-of-type(1) {
+      top: 8px;
+    }
+    &:nth-of-type(2) {
+      top: 18px;
+    }
+    &:nth-of-type(3) {
+      top: 28px;
+    }
+  }
+}
+
+.navbar-toggler-icon.active span:nth-child(1){
+  transform: translateY(10px) rotate(-405deg);
+}
+
+.navbar-toggler-icon.active span:nth-child(2){
+  /*不透明度*/
+  opacity: 0;
+}
+
+.navbar-toggler-icon.active span:nth-child(3){
+  transform: translateY(-10px) rotate(405deg);
+}
+
+
+.site-img{
+  height: calc(22px + 1vw);
+}
+
+.site-heading{
+  font-size: calc(10px + .6vw);
+}
+
 .top-search-label {
   font-size: calc(10px + .6vw);
+}
+
+.top-page > .card-img{
+  object-fit: cover;
+  width: calc(150px + 6vw);
+  height: calc(120px + 4.5vw);
 }
 
 .bg_image::before {
@@ -34,23 +113,36 @@
   opacity: 0.3;
 }
 
+.header-title{
+  display: flex;
+  position: absolute;
+  top: calc(50px + 4.8vw);
+  left: 8vw;
+}
+
+.header-title > h1{
+  font-size: calc(10px + 2.5vw);
+}
+
 .header-img{
   background-image :image-url("iron.jpg");
   background-position: center;
   background-size: cover;
   background-repeat:no-repeat;
-  height: calc(150px + 15vw);
+  height: calc(150px + 13vw);
   position: relative;
 }
 
-.header-title{
-  display: flex;
-  position: absolute;
-  top: 10vw; left: 100px;
+.ranking{
+  font-size: calc(9px + 0.6vw);
 }
 
-.header-title > h1 {
-  font-size: calc(20px + .9vw);
+.review-average > img{
+  width: calc(14px + 0.5vw);
+}
+
+.search-heading, .genre-name{
+  font-size: calc(9px + 1vw);
 }
 
 .footerFixed{
@@ -80,7 +172,7 @@ footer{
     background-color: #EEEEEE;
 }
 
-.genre-image, .top-image, .product-image, .review-image{
+.top-image, .product-image, .review-image{
   object-fit: cover;
   width: 200px;
   height: 200px;
@@ -88,8 +180,8 @@ footer{
 
 .ranking-image, .profile-image{
   object-fit: cover;
-  width: 150px;
-  height: 150px;
+  width: calc(110px + 2vw);
+  height: calc(110px + 2vw);
 }
 
 .image-index{
@@ -121,6 +213,6 @@ footer{
 
 .back{
   object-fit: cover;
-  width: 40px;
-  height: 40px;
+  width: calc(30px + .3vw);
+  height: calc(30px + .3vw);
 }

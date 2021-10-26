@@ -1,38 +1,39 @@
-.row.mt-5.mb-3
-  .col-md-4.d-flex
-    %h4.font-weight-bold
-      カテゴリー別評価ランキング
+.mt-5.mb-3
+  %h4.font-weight-bold.text-center
+    カテゴリー別評価ランキング
 %table
   %tbody
     %tr
       %th.row.justify-content-center
         - unless genre_rankings.blank?
           - genre_rankings.each.with_index(1) do |products, index|
-            .col-md-6
+            .col-md-6.col-6
               .card.my-3
                 .col-md-auto.d-flex.justify-content-center
-                  %h4.py-0.my-0
+                  %h4.py-0.my-0.genre-name
                     = Genre.find(index).name
                 - products.each.with_index(1) do |product, i|
                   .card.my-2.mx-2
                     = link_to product_path(product), class:"text-decoration-none" do
                       .container-fluid.py-2
                         .row
-                          .col-md-1.pr-0.d-flex
-                            = i
-                            位
-                          .col-md-6
+                          .col-md-7.col-12.pr-0.d-flex
                             .row
-                              .col-md-auto.mt-3.mb-4.d-flex
-                                = product.title
-                                %br
-                                (
-                                = product.model
-                                )
-                            .row
-                              .col-md-8
+                              .col-md-12.col-12
+                                %p.ranking.m-0
+                                  = i
+                                  位
+                              .col-md-12.col-12
+                                %p.ranking.m-0
+                                  = product.title
+                                  %br
+                                  (
+                                  = product.model
+                                  )
+                              .col-md-6.col-8.pr-0.d-flex.align-items-center
                                 .review-average{"data-score" => product.review_average}
-                              .col-md-1.d-flex
-                                = product.review_average.round(2)
+                              .col-md-4.col-2.p-0.d-flex.align-items-center
+                                %p.ranking.m-0
+                                  = product.review_average.round(2)
                           .col-md-4
                             = image_tag product.top_image, class: "ranking-image"

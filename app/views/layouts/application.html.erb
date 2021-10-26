@@ -22,18 +22,22 @@
         <% end %>
           <div class="container-fluid position-relative">
             <a class="navbar-brand" href="/">
-              <%= image_tag 'logo_transparent.png', style: "height: 50px;" %>
+              <%= image_tag 'logo_transparent.png', class: "site-img" %>
             </a>
-            <p class="m-0">業務用厨房機器レビューサイト</p>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerList" aria-controls="navbarTogglerList" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+            <p class="m-0 site-heading">業務用厨房機器レビューサイト</p>
+            <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#navbarTogglerList" aria-controls="navbarTogglerList" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerList">
               <ul class="navbar-nav">
                 <% if user_signed_in? %>
                 <!--会員ログイン後のヘッダー-------------------------------------------------------------------------->
                   <li class="nav-item d-flex justify-content-end">
-                    <a class="nav-link text-dark">
+                    <a class="nav-link text-dark hoge">
                       <% if current_user.nickname.present? %>
                         <%= current_user.nickname %>さん
                       <% else %>
@@ -43,11 +47,11 @@
                   </li>
 
                   <li class="nav-item d-flex justify-content-end">
-                    <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
+                    <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark hoge" %>
                   </li>
 
                   <li class="nav-item d-flex justify-content-end">
-                    <%= link_to room_user_path(current_user), class:"nav-link text-dark" do %>
+                    <%= link_to room_user_path(current_user), class:"nav-link text-dark hoge" do %>
                       <i class="far fa-envelope fa-lg.fa-stack-2x" style="font-size: 1.5em;"></i>
                       <% if current_user.unchecked_message? %>
                         <i class="fa fa-circle fa-xs n-circle-chat" style="color: blue;"></i>
@@ -56,11 +60,11 @@
                   </li>
 
                   <li class="nav-item d-flex justify-content-end">
-                    <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark" %>
+                    <%= link_to "お問い合わせ", contacts_path, class:"nav-link text-dark hoge" %>
                   </li>
 
                   <li class="nav-item d-flex justify-content-end">
-                    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
+                    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark hoge" %>
                   </li>
 
 

@@ -190,7 +190,7 @@
         <% else %>
           <% @positive_reviews.first(3).each do |review| %>
             <div class="col-md-10 offset-md-1">
-              <%= link_to product_review_path(@product.id, review.id) do %>
+              <%= link_to product_review_path(@product.id, review.id), class:"text-decoration-none" do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>
             </div>
@@ -210,7 +210,7 @@
         <% else %>
           <% @neutral_reviews.first(3).each do |review| %>
             <div class="col-md-10 offset-md-1">
-              <%= link_to product_review_path(@product.id, review.id) do %>
+              <%= link_to product_review_path(@product.id, review.id), class:"text-decoration-none" do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>
             </div>
@@ -230,7 +230,7 @@
         <% else %>
           <% @negative_reviews.first(3).each do |review| %>
             <div class="col-md-10 offset-md-1">
-              <%= link_to product_review_path(@product.id, review.id) do %>
+              <%= link_to product_review_path(@product.id, review.id), class:"text-decoration-none" do %>
                 <%= render 'public/reviews/review_top', review: review %>
               <% end %>
             </div>
