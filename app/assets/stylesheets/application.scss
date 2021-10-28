@@ -15,8 +15,16 @@
  */
 @import "bootstrap";
 @media screen and (max-width: 460px){
-.none {display:none}
-.nav-link {padding: 0px}
+  .none {display:none}
+  .nav-link {
+    padding: 2.5px 0px;
+    margin-right: 10px;
+    color: #fff !important;
+  }
+  .navbar-collapse {
+    background: black;
+    opacity: 0.7;
+  }
 }
 
  * {
@@ -30,6 +38,10 @@
   border-color: rgba(0, 0, 255, 0);
   outline: none;
 }
+
+.nav-link {
+    color: #343a40;
+  }
 
 // 元々の三本線の画像を削除
 .navbar-light .navbar-toggler-icon {
